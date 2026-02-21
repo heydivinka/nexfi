@@ -77,7 +77,6 @@
 
     <div class="welcome">
         <p>Selamat datang, <strong>{{ auth()->user()->name ?? 'Pengguna' }}</strong> 👋</p>
-        <span>{{ now()->translatedFormat('l, d F Y') }}</span>
     </div>
 
     <div class="stat-grid">

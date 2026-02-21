@@ -11,8 +11,8 @@
 
         .bg-grid {
             background-image:
-                linear-gradient(rgba(108,99,255,0.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(108,99,255,0.07) 1px, transparent 1px);
+                linear-gradient(rgba(108,99,255,0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108,99,255,0.18) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
@@ -23,9 +23,9 @@
 </head>
 <body style="background:#080a18; min-height:100vh;">
 
-    <div class="bg-grid" style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.55;"></div>
-    <div style="position:fixed;top:-140px;left:-140px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.17) 0%,transparent 70%);pointer-events:none;z-index:0;"></div>
-    <div style="position:fixed;bottom:-120px;right:-100px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(155,89,245,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;"></div>
+    <div class="bg-grid" style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:1;"></div>
+    <div style="position:fixed;top:-140px;left:-140px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.35) 0%,transparent 70%);pointer-events:none;z-index:0;"></div>
+    <div style="position:fixed;bottom:-120px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(155,89,245,0.28) 0%,transparent 70%);pointer-events:none;z-index:0;"></div>
 
     <div style="position:relative;z-index:1;display:flex;min-height:100vh;">
 

@@ -73,18 +73,6 @@
                         </svg>
                         Profil Saya
                     </a>
-                    <div style="height:1px;background:rgba(108,99,255,0.1);margin:4px 0;"></div>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" style="width:100%;display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:rgba(252,129,129,0.8);font-size:12px;font-weight:500;background:transparent;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-align:left;"
-                                onmouseover="this.style.background='rgba(239,68,68,0.1)';" onmouseout="this.style.background='transparent';">
-                            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                            </svg>
-                            Logout
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

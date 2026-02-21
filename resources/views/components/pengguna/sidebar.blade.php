@@ -73,15 +73,6 @@
     </nav>
 
     <div style="padding:8px;border-top:1px solid rgba(255,255,255,0.05);flex-shrink:0;">
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 8px 10px;">
-            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;flex-shrink:0;">
-                {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 2)) }}
-            </div>
-            <div style="flex:1;min-width:0;">
-                <div style="font-size:11.5px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ Auth::user()->name ?? 'Pengguna' }}</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ Auth::user()->email ?? '' }}</div>
-            </div>
-        </div>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="sb-logout">
