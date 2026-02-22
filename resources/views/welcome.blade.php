@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="overflow-x:hidden;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,831 +7,448 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { inter: ['Inter', 'sans-serif'] },
-        }
-      }
-    }
-  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; }
+    html, body { margin:0; padding:0; overflow-x:hidden !important; max-width:100%; font-family:'Inter',sans-serif; }
+    body { background:#07080f !important; color:rgba(255,255,255,0.9) !important; }
 
     :root {
-      --bg:       #07080f;
-      --bg2:      #0c0d1d;
-      --bg3:      #10132a;
-      --accent:   #6c63ff;
-      --accent2:  #9b59f5;
-      --border:   rgba(108,99,255,0.2);
-      --glow:     rgba(108,99,255,0.3);
-      --text:     rgba(255,255,255,0.9);
-      --muted:    rgba(255,255,255,0.38);
-      --muted2:   rgba(255,255,255,0.55);
+      --bg:      #07080f;
+      --bg2:     #0c0d1d;
+      --bg3:     #10132a;
+      --accent:  #6c63ff;
+      --accent2: #9b59f5;
+      --border:  rgba(108,99,255,0.2);
+      --glow:    rgba(108,99,255,0.3);
+      --muted:   rgba(255,255,255,0.38);
+      --muted2:  rgba(255,255,255,0.55);
     }
 
-    /* ── GLOBAL GRADIENT TEXT ── */
-    .gradient-text        { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gradient-text-green  { background: linear-gradient(135deg, #10B981, #34D399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gradient-text-purple { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .btn-login-nav { -webkit-text-fill-color: #fff !important; }
+    .gradient-text { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .btn-login-nav { -webkit-text-fill-color:#fff !important; }
 
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-    @keyframes pulse2 { 0%,100%{ transform:scale(1); opacity:.7 } 50%{ transform:scale(1.1); opacity:1 } }
+    @keyframes pulse2  { 0%,100%{ transform:scale(1);opacity:.7 } 50%{ transform:scale(1.1);opacity:1 } }
     @keyframes floatY  { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
-    .anim-pulse  { animation: pulse2 3s ease-in-out infinite; }
-    .anim-floatY { animation: floatY 4s ease-in-out infinite; }
+    .anim-pulse  { animation:pulse2 3s ease-in-out infinite; }
+    .anim-floatY { animation:floatY 4s ease-in-out infinite; }
 
-    /* Grid bg pattern — same as login */
     .bg-grid-overlay {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      position:fixed; inset:0; pointer-events:none; z-index:0;
       background-image:
-        linear-gradient(rgba(108,99,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(108,99,255,0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(108,99,255,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,99,255,0.12) 1px, transparent 1px);
+      background-size:40px 40px;
     }
 
-    /* ── FEATURE GRID ── */
-    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .testi-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card-dark { background:#0c0d1d; border:1px solid var(--border); border-radius:18px; }
+    .card-dark:hover { box-shadow:0 8px 32px rgba(108,99,255,0.15); }
 
-    @media (min-width: 768px) {
-      .feature-grid { grid-template-columns: 1fr; gap: 16px; }
-      .testi-grid   { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    }
-    @media (max-width: 360px) {
-      .feature-card-title { font-size: 0.78rem; }
-      .feature-card-desc  { font-size: 0.72rem; }
-      .testi-text         { font-size: 0.75rem; }
-      .testi-name         { font-size: 0.78rem; }
-    }
-    @media (max-width: 640px) {
-      .kontak-header-info { flex-direction: column; align-items: flex-start; }
-    }
-
-    /* Input dark theme */
     .inp-dark {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1.5px solid rgba(255,255,255,0.09);
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      color: #fff;
-      outline: none;
-      transition: all 0.2s;
+      width:100%; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.09);
+      border-radius:12px; padding:12px 16px; font-size:14px; font-family:'Inter',sans-serif;
+      font-weight:500; color:#fff; outline:none; transition:all 0.2s;
     }
-    .inp-dark::placeholder { color: rgba(255,255,255,0.2); }
-    .inp-dark:focus {
-      background: rgba(108,99,255,0.08);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(108,99,255,0.12);
+    .inp-dark::placeholder { color:rgba(255,255,255,0.2); }
+    .inp-dark:focus { background:rgba(108,99,255,0.08); border-color:var(--accent); box-shadow:0 0 0 4px rgba(108,99,255,0.12); }
+    .form-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.35); display:block; margin-bottom:6px; }
+
+    .feature-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(min-width:768px){ .feature-grid { grid-template-columns:1fr; gap:16px; } }
+
+    #mobileMenu {
+      display:none; position:fixed; top:66px; left:0; right:0;
+      padding:24px 6% 32px; z-index:40; flex-direction:column; gap:20px;
+      background:rgba(7,8,15,0.97); backdrop-filter:blur(20px);
+      border-top:1px solid rgba(108,99,255,0.15); box-shadow:0 20px 60px rgba(0,0,0,0.6);
     }
 
-    /* Card style */
-    .card-dark {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-    }
-    .card-dark:hover { box-shadow: 0 8px 32px rgba(108,99,255,0.15); }
-
-    /* Top accent line on sections */
-    .section-line::before {
-      content: '';
-      display: block;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 5%, var(--accent) 35%, var(--accent2) 65%, transparent 95%);
-      margin-bottom: 0;
-    }
+    .testi-track { display:flex; gap:24px; transition:transform 0.42s cubic-bezier(0.4,0,0.2,1); align-items:stretch; }
+    .testi-slide { flex:0 0 calc((100% - 48px) / 3); min-width:0; }
+    @media(max-width:767px){ .testi-track { gap:16px; } .testi-slide { flex:0 0 100%; } }
+    .testi-dots { display:flex; justify-content:center; gap:8px; margin-top:28px; }
+    .testi-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.15); cursor:pointer; border:none; padding:0; transition:all 0.25s; }
+    .testi-dot.active { width:24px; border-radius:4px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+    .section-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(108,99,255,0.3),transparent); }
   </style>
 </head>
 
-<!-- BG same as login -->
-<body class="overflow-x-hidden" style="background: var(--bg); color: var(--text);">
+<body style="background:#07080f !important; color:rgba(255,255,255,0.9) !important;">
 
 <div class="bg-grid-overlay"></div>
-<!-- Orb top-left -->
-<div style="position:fixed;width:600px;height:600px;background:radial-gradient(circle,rgba(108,99,255,0.18) 0%,transparent 70%);top:-180px;left:-140px;border-radius:50%;pointer-events:none;z-index:0"></div>
-<!-- Orb bottom-right -->
-<div style="position:fixed;width:500px;height:500px;background:radial-gradient(circle,rgba(155,89,245,0.14) 0%,transparent 70%);bottom:-120px;right:-100px;border-radius:50%;pointer-events:none;z-index:0"></div>
+<div style="position:fixed;width:600px;height:600px;background:radial-gradient(circle,rgba(108,99,255,0.22) 0%,transparent 70%);top:-180px;left:-140px;border-radius:50%;pointer-events:none;z-index:0;"></div>
+<div style="position:fixed;width:500px;height:500px;background:radial-gradient(circle,rgba(155,89,245,0.16) 0%,transparent 70%);bottom:-120px;right:-100px;border-radius:50%;pointer-events:none;z-index:0;"></div>
 
-<!-- ══════════════════ NAVBAR ══════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-[5%] h-[66px] flex items-center justify-between transition-shadow duration-300"
-     style="background:rgba(7,8,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(108,99,255,0.15);">
-
-  <a href="#home" class="flex items-center gap-2 text-[1.3rem] font-extrabold gradient-text no-underline">
+<!-- NAVBAR -->
+<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;height:66px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(7,8,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(108,99,255,0.15);">
+  <a href="#home" style="display:flex;align-items:center;gap:8px;font-size:1.3rem;font-weight:800;text-decoration:none;" class="gradient-text">
     <i class="fa-solid fa-circle-nodes"></i> NexFi
   </a>
-
-  <ul class="hidden md:flex gap-8 list-none items-center m-0 p-0">
-    <li><a href="#home"   class="flex items-center gap-1.5 font-semibold text-sm no-underline transition-colors" style="color:var(--muted2)" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-house"></i> Home</a></li>
-    <li><a href="#about"  class="flex items-center gap-1.5 font-semibold text-sm no-underline transition-colors" style="color:var(--muted2)" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-circle-info"></i> About</a></li>
-    <li><a href="#testi"  class="flex items-center gap-1.5 font-semibold text-sm no-underline transition-colors" style="color:var(--muted2)" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-star"></i> Testi</a></li>
-    <li><a href="#kontak" class="flex items-center gap-1.5 font-semibold text-sm no-underline transition-colors" style="color:var(--muted2)" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
+  <ul style="display:none;gap:32px;list-style:none;margin:0;padding:0;align-items:center;" id="navLinks">
+    <li><a href="#home"   style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="#about"  style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-circle-info"></i> About</a></li>
+    <li><a href="#testi"  style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-star"></i> Testi</a></li>
+    <li><a href="#kontak" style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
   </ul>
-
-  <a href="{{ route('login') }}"
-     class="hidden md:flex btn-login-nav items-center gap-1.5 text-white font-bold text-sm px-5 py-2 rounded-full no-underline transition hover:opacity-85 hover:-translate-y-px"
-     style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 16px var(--glow)">
-    <i class="fa-solid fa-right-to-bracket"></i> Login
-  </a>
-
-  <button id="hamburger" class="flex md:hidden flex-col gap-[5px] cursor-pointer bg-transparent border-none p-1" aria-label="Menu">
-    <span class="block w-6 h-[2.5px] rounded-sm" style="background:var(--accent)"></span>
-    <span class="block w-6 h-[2.5px] rounded-sm" style="background:var(--accent)"></span>
-    <span class="block w-6 h-[2.5px] rounded-sm" style="background:var(--accent)"></span>
+  <div id="navAuthDesktop" style="display:none;">
+    @auth
+    <a href="{{ route('pengguna.dashboard') }}" class="btn-login-nav" style="display:flex;align-items:center;gap:6px;color:#fff;font-weight:700;font-size:0.875rem;padding:8px 20px;border-radius:9999px;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 16px var(--glow);">
+      <i class="fa-solid fa-gauge"></i> Dashboard
+    </a>
+    @else
+    <a href="{{ route('login') }}" class="btn-login-nav" style="display:flex;align-items:center;gap:6px;color:#fff;font-weight:700;font-size:0.875rem;padding:8px 20px;border-radius:9999px;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 16px var(--glow);">
+      <i class="fa-solid fa-right-to-bracket"></i> Login
+    </a>
+    @endauth
+  </div>
+  <button id="hamburger" onclick="toggleMenu()" style="display:flex;flex-direction:column;gap:5px;cursor:pointer;background:transparent;border:none;padding:4px;z-index:51;">
+    <span style="display:block;width:24px;height:2.5px;border-radius:2px;background:var(--accent);"></span>
+    <span style="display:block;width:24px;height:2.5px;border-radius:2px;background:var(--accent);"></span>
+    <span style="display:block;width:24px;height:2.5px;border-radius:2px;background:var(--accent);"></span>
   </button>
 </nav>
 
 <!-- Mobile menu -->
-<div id="mobileMenu" class="hidden fixed top-[66px] left-0 right-0 px-[6%] pt-6 pb-8 z-40 flex-col gap-5"
-     style="background:rgba(7,8,15,0.97);backdrop-filter:blur(20px);border-top:1px solid rgba(108,99,255,0.15);box-shadow:0 20px 60px rgba(0,0,0,0.6)">
-  <a href="#home"   class="flex items-center gap-2 font-semibold border-b pb-3.5 no-underline" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.07)"><i class="fa-solid fa-house"></i> Home</a>
-  <a href="#about"  class="flex items-center gap-2 font-semibold border-b pb-3.5 no-underline" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.07)"><i class="fa-solid fa-circle-info"></i> About</a>
-  <a href="#testi"  class="flex items-center gap-2 font-semibold border-b pb-3.5 no-underline" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.07)"><i class="fa-solid fa-star"></i> Testi</a>
-  <a href="#kontak" class="flex items-center gap-2 font-semibold border-b pb-3.5 no-underline" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.07)"><i class="fa-solid fa-envelope"></i> Kontak</a>
-  <a href="{{ route('login') }}" class="btn-login-nav flex justify-center items-center gap-2 text-white font-bold px-5 py-2.5 rounded-full no-underline mt-1"
-     style="background:linear-gradient(135deg,var(--accent),var(--accent2))">
+<div id="mobileMenu">
+  <a href="#home"   style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="#about"  style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-circle-info"></i> About</a>
+  <a href="#testi"  style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-star"></i> Testi</a>
+  <a href="#kontak" style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-envelope"></i> Kontak</a>
+  @auth
+  <a href="{{ route('pengguna.dashboard') }}" class="btn-login-nav" style="display:flex;justify-content:center;align-items:center;gap:8px;color:#fff;font-weight:700;padding:10px 20px;border-radius:9999px;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-top:4px;">
+    <i class="fa-solid fa-gauge"></i> Dashboard
+  </a>
+  @else
+  <a href="{{ route('login') }}" class="btn-login-nav" style="display:flex;justify-content:center;align-items:center;gap:8px;color:#fff;font-weight:700;padding:10px 20px;border-radius:9999px;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-top:4px;">
     <i class="fa-solid fa-right-to-bracket"></i> Login
   </a>
+  @endauth
 </div>
 
-<!-- ══════════════════ HERO ══════════════════ -->
-<section id="home" class="min-h-screen flex items-center pt-[100px] pb-16 px-[5%] relative overflow-hidden" style="z-index:1">
-  <!-- section orbs -->
-  <div class="absolute -top-[180px] -right-[180px] w-[700px] h-[700px] rounded-full pointer-events-none" style="background:radial-gradient(circle,rgba(108,99,255,0.1) 0%,transparent 70%)"></div>
-  <div class="absolute -bottom-[100px] -left-[100px] w-[500px] h-[500px] rounded-full pointer-events-none" style="background:radial-gradient(circle,rgba(155,89,245,0.08) 0%,transparent 70%)"></div>
-
-  <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-    <div class="fade-up text-center md:text-left">
-      <div class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[0.8rem] font-bold mb-5"
-           style="background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent)">
-        <i class="fa-solid fa-bolt"></i> Platform Keuangan #1 Indonesia
-      </div>
-      <h1 class="text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold leading-[1.15] tracking-tight" style="color:#fff">
-        Your <span class="gradient-text">Next Future</span><br>
-        in Finance<br>
-        Starts Here
-      </h1>
-      <p class="mt-4 text-base leading-relaxed" style="color:var(--muted2)">Kelola keuanganmu dengan fitur pintar,<br class="hidden sm:block"> cepat, dan aman bersama NexFi.</p>
-
-      <div class="flex flex-wrap gap-3 mt-8 justify-center md:justify-start">
-        <button class="flex items-center gap-2 text-white font-bold px-6 py-3 rounded-full border-none cursor-pointer transition hover:-translate-y-0.5 text-sm"
-                style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow)">
-          <i class="fa-solid fa-rocket"></i> Get Started
-        </button>
-        <button class="flex items-center gap-2 font-bold px-6 py-3 rounded-full border-2 cursor-pointer transition text-sm"
-                style="background:transparent;color:var(--accent);border-color:rgba(108,99,255,0.4)"
-                onmouseover="this.style.background='rgba(108,99,255,0.15)'" onmouseout="this.style.background='transparent'">
-          <i class="fa-solid fa-download"></i> Download App
-        </button>
-      </div>
-
-      <div class="flex flex-wrap gap-3 mt-5 justify-center md:justify-start">
-        <span class="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[0.82rem] font-bold"
-              style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);color:#34D399">
-          <i class="fa-solid fa-star text-amber-400"></i> 10K+ Users
-        </span>
-        <span class="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[0.82rem] font-bold"
-              style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);color:#34D399">
-          <i class="fa-solid fa-shield-halved"></i> Secure &amp; Trusted
-        </span>
-      </div>
+<!-- HERO -->
+<section id="home" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding:100px 5% 64px;position:relative;overflow:hidden;z-index:1;text-align:center;">
+  <div style="position:absolute;top:-180px;right:-180px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.1) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(155,89,245,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="max-width:700px;width:100%;position:relative;z-index:2;">
+    <div style="display:inline-flex;align-items:center;gap:6px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:24px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
+      <i class="fa-solid fa-bolt"></i> Platform Keuangan #1 Indonesia
     </div>
-
-    <!-- Logo -->
-    <div class="hidden md:flex justify-center items-center relative min-h-[420px] fade-up" style="transition-delay:.2s">
-      <div class="absolute w-[550px] h-[550px] rounded-full anim-pulse" style="background:radial-gradient(circle,rgba(108,99,255,0.22) 0%,transparent 65%)"></div>
-      <img src="{{ asset('assets_public/icon.png') }}" alt="NexFi Logo"
-           class="w-[min(460px,90%)] h-auto relative anim-floatY"
-           style="z-index:2;filter:drop-shadow(0 30px 70px rgba(108,99,255,0.35))" />
+    <h1 style="font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;color:#fff;margin:0 0 16px;">
+      Your <span class="gradient-text">Next Future</span><br>in Finance<br>Starts Here
+    </h1>
+    <p style="font-size:1rem;line-height:1.7;color:var(--muted2);margin:0 auto 32px;max-width:520px;">Kelola keuanganmu dengan fitur pintar, cepat, dan aman bersama NexFi.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+      <button style="display:flex;align-items:center;gap:8px;color:#fff;font-weight:700;padding:12px 24px;border-radius:9999px;border:none;cursor:pointer;font-size:0.875rem;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow);">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </button>
+      <button style="display:flex;align-items:center;gap:8px;font-weight:700;padding:12px 24px;border-radius:9999px;border:2px solid rgba(108,99,255,0.4);cursor:pointer;font-size:0.875rem;background:transparent;color:var(--accent);"
+              onmouseover="this.style.background='rgba(108,99,255,0.15)'" onmouseout="this.style.background='transparent'">
+        <i class="fa-solid fa-download"></i> Download App
+      </button>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════ ABOUT ══════════════════ -->
-<section id="about" class="py-[80px] px-[5%] relative" style="background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);z-index:1">
-  <!-- Section top line -->
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.3),transparent)"></div>
-
-  <div class="max-w-[1200px] mx-auto w-full">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-
-      <!-- Fitur -->
-      <div class="fade-up">
-        <div class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[0.8rem] font-bold mb-4"
-             style="background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent)">
-          <i class="fa-solid fa-circle-question"></i> Tentang Kami
-        </div>
-        <h2 class="text-[clamp(1.7rem,3.5vw,2.6rem)] font-extrabold tracking-tight leading-tight" style="color:#fff">
-          Apa Itu <span class="gradient-text-purple">NexFi?</span>
-        </h2>
-        <p class="mt-3 leading-relaxed text-sm md:text-base" style="color:var(--muted2)">Kelola finansialmu tanpa ribet dengan fitur pintar dari NexFi — solusi keuangan modern untuk kehidupan yang lebih terencana.</p>
-
-        <!-- FEATURE CARDS -->
-        <div class="feature-grid mt-6">
-
-          <div class="card-dark flex flex-col gap-2 p-4 transition hover:-translate-y-0.5" style="cursor:default">
-            <div class="w-[38px] h-[38px] rounded-xl flex items-center justify-center text-white shrink-0"
-                 style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow)">
-              <i class="fa-solid fa-chart-line text-sm"></i>
-            </div>
-            <div>
-              <div class="font-bold feature-card-title" style="font-size:clamp(0.78rem,2.5vw,0.97rem);color:#fff">Pantau cashflow real-time</div>
-              <div class="feature-card-desc mt-1 leading-relaxed" style="font-size:clamp(0.72rem,2vw,0.85rem);color:var(--muted2)">Monitor penghasilan dan pengeluaran dalam satu dashboard.</div>
-            </div>
-          </div>
-
-          <div class="card-dark flex flex-col gap-2 p-4 transition hover:-translate-y-0.5" style="cursor:default">
-            <div class="w-[38px] h-[38px] rounded-xl flex items-center justify-center text-white shrink-0"
-                 style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow)">
-              <i class="fa-solid fa-magnifying-glass-chart text-sm"></i>
-            </div>
-            <div>
-              <div class="font-bold feature-card-title" style="font-size:clamp(0.78rem,2.5vw,0.97rem);color:#fff">Analisa finansial mudah</div>
-              <div class="feature-card-desc mt-1 leading-relaxed" style="font-size:clamp(0.72rem,2vw,0.85rem);color:var(--muted2)">Insight mendalam dan laporan otomatis setiap saat.</div>
-            </div>
-          </div>
-
-          <div class="card-dark flex flex-col gap-2 p-4 transition hover:-translate-y-0.5" style="cursor:default">
-            <div class="w-[38px] h-[38px] rounded-xl flex items-center justify-center text-white shrink-0"
-                 style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow)">
-              <i class="fa-solid fa-shield-halved text-sm"></i>
-            </div>
-            <div>
-              <div class="font-bold feature-card-title" style="font-size:clamp(0.78rem,2.5vw,0.97rem);color:#fff">Keamanan terjamin</div>
-              <div class="feature-card-desc mt-1 leading-relaxed" style="font-size:clamp(0.72rem,2vw,0.85rem);color:var(--muted2)">Enkripsi data & proteksi berlapis untuk akun kamu.</div>
-            </div>
-          </div>
-
-        </div>
-
-        <button class="inline-flex items-center gap-2 mt-6 text-white font-bold px-6 py-3 rounded-full border-none cursor-pointer transition hover:-translate-y-0.5 text-sm"
-                style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow)">
-          Pelajari Lebih Lanjut <i class="fa-solid fa-arrow-right"></i>
-        </button>
+<!-- ABOUT -->
+<section id="about" style="padding:80px 5%;position:relative;overflow:hidden;background:linear-gradient(180deg,#07080f 0%,#0c0d1d 100%);z-index:1;">
+  <div class="section-divider" style="position:absolute;top:0;left:0;right:0;"></div>
+  <div style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:48px;align-items:start;" id="aboutGrid">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:6px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:16px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
+        <i class="fa-solid fa-circle-question"></i> Tentang Kami
       </div>
-
-      <!-- YouTube Card -->
-      <div class="fade-up rounded-[22px] overflow-hidden" style="border:1px solid var(--border);box-shadow:0 16px 60px rgba(108,99,255,0.15);transition-delay:.2s;background:var(--bg2)">
-        <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener" class="block relative w-full overflow-hidden group" style="aspect-ratio:16/9">
-          <img
-            src="https://img.youtube.com/vi/fbBMjWc8Usk/maxresdefault.jpg"
-            onerror="this.src='https://img.youtube.com/vi/fbBMjWc8Usk/hqdefault.jpg'"
-            alt="Demo Video NexFi"
-            class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
-          />
-          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-[64px] h-[64px] md:w-[72px] md:h-[72px] rounded-full bg-red-600 flex items-center justify-center text-white text-xl md:text-2xl shadow-2xl transition duration-300 group-hover:scale-110 group-hover:bg-red-700">
-              <i class="fa-solid fa-play ml-1"></i>
-            </div>
+      <h2 style="font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.02em;line-height:1.2;color:#fff;margin:0 0 12px;">
+        Apa Itu <span class="gradient-text">NexFi?</span>
+      </h2>
+      <p style="line-height:1.7;font-size:0.95rem;color:var(--muted2);margin:0 0 24px;">Kelola finansialmu tanpa ribet dengan fitur pintar dari NexFi — solusi keuangan modern untuk kehidupan yang lebih terencana.</p>
+      <div class="feature-grid">
+        <div class="card-dark" style="display:flex;flex-direction:column;gap:8px;padding:16px;cursor:default;">
+          <div style="width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow);">
+            <i class="fa-solid fa-chart-line" style="font-size:0.875rem;"></i>
           </div>
-          <div class="absolute bottom-3 right-3 bg-black/75 text-white text-[0.72rem] font-bold px-2 py-0.5 rounded">5:32</div>
+          <div><div style="font-weight:700;font-size:0.92rem;color:#fff;">Pantau cashflow real-time</div>
+          <div style="font-size:0.83rem;color:var(--muted2);margin-top:4px;line-height:1.5;">Monitor penghasilan dan pengeluaran dalam satu dashboard.</div></div>
+        </div>
+        <div class="card-dark" style="display:flex;flex-direction:column;gap:8px;padding:16px;cursor:default;">
+          <div style="width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow);">
+            <i class="fa-solid fa-magnifying-glass-chart" style="font-size:0.875rem;"></i>
+          </div>
+          <div><div style="font-weight:700;font-size:0.92rem;color:#fff;">Analisa finansial mudah</div>
+          <div style="font-size:0.83rem;color:var(--muted2);margin-top:4px;line-height:1.5;">Insight mendalam dan laporan otomatis setiap saat.</div></div>
+        </div>
+        <div class="card-dark" style="display:flex;flex-direction:column;gap:8px;padding:16px;cursor:default;">
+          <div style="width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px var(--glow);">
+            <i class="fa-solid fa-shield-halved" style="font-size:0.875rem;"></i>
+          </div>
+          <div><div style="font-weight:700;font-size:0.92rem;color:#fff;">Keamanan terjamin</div>
+          <div style="font-size:0.83rem;color:var(--muted2);margin-top:4px;line-height:1.5;">Enkripsi data & proteksi berlapis untuk akun kamu.</div></div>
+        </div>
+      </div>
+      <button style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:#fff;font-weight:700;padding:12px 24px;border-radius:9999px;border:none;cursor:pointer;font-size:0.875rem;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow);">
+        Pelajari Lebih Lanjut <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+    <div style="border-radius:22px;overflow:hidden;border:1px solid var(--border);box-shadow:0 16px 60px rgba(108,99,255,0.15);background:#0c0d1d;">
+      <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener" style="display:block;position:relative;width:100%;overflow:hidden;aspect-ratio:16/9;">
+        <img src="https://img.youtube.com/vi/fbBMjWc8Usk/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/fbBMjWc8Usk/hqdefault.jpg'" alt="Demo NexFi" style="width:100%;height:100%;object-fit:cover;" />
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <div style="width:68px;height:68px;border-radius:50%;background:#dc2626;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+            <i class="fa-solid fa-play" style="margin-left:4px;"></i>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.75);color:#fff;font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:4px;">5:32</div>
+      </a>
+      <div style="padding:20px 24px 24px;">
+        <p style="font-size:0.88rem;line-height:1.6;color:var(--muted2);margin:0 0 16px;">Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
+        <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;text-decoration:none;padding:12px;border-radius:9999px;font-weight:700;font-size:0.9rem;background:#dc2626;">
+          <i class="fa-brands fa-youtube"></i> Tonton Video Demo
         </a>
-        <div class="p-5 md:p-6 pb-6 md:pb-7">
-          <p class="text-[0.88rem] leading-relaxed mb-4" style="color:var(--muted2)">Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
-          <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener"
-             class="flex items-center justify-center gap-2 text-white no-underline px-6 py-3 rounded-full font-bold text-[0.9rem] w-full transition hover:bg-red-700 hover:-translate-y-px"
-             style="background:#dc2626">
-            <i class="fa-brands fa-youtube"></i> Tonton Video Demo
-          </a>
-        </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ TESTI ══════════════════ -->
-<section id="testi" class="py-[80px] px-[5%] relative" style="background:var(--bg3);z-index:1">
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.3),transparent)"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.3),transparent)"></div>
-
-  <style>
-    .testi-carousel-wrap { position: relative; overflow: hidden; }
-    /* Both mobile & desktop: flex carousel, show 3 at once on desktop, 1 on mobile */
-    .testi-track {
-      display: flex;
-      gap: 24px;
-      transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
-      will-change: transform;
-      align-items: stretch;
-    }
-    /* Desktop: each slide = (100% - 2*24px) / 3 */
-    .testi-slide { flex: 0 0 calc((100% - 48px) / 3); min-width: 0; }
-    /* Mobile: full width, smaller gap */
-    @media (max-width: 767px) {
-      .testi-track { gap: 16px; }
-      .testi-slide { flex: 0 0 100%; }
-    }
-    /* Dots - always visible */
-    .testi-dots { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
-    .testi-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.15); cursor:pointer; border:none; padding:0; transition: all 0.25s; }
-    .testi-dot.active { width:24px; border-radius:4px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
-  </style>
-
-  <div class="max-w-[1200px] mx-auto w-full">
-
-    <div class="text-center mb-10 fade-up">
-      <div class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[0.8rem] font-bold mb-4"
-           style="background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent)">
+<!-- TESTI -->
+<section id="testi" style="padding:80px 5%;position:relative;overflow:hidden;background:#10132a;z-index:1;">
+  <div class="section-divider" style="position:absolute;top:0;left:0;right:0;"></div>
+  <div class="section-divider" style="position:absolute;bottom:0;left:0;right:0;"></div>
+  <div style="max-width:1200px;margin:0 auto;width:100%;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div style="display:inline-flex;align-items:center;gap:6px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:16px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
         <i class="fa-solid fa-comments"></i> Testimoni
       </div>
-      <h2 class="text-[clamp(1.7rem,3.5vw,2.6rem)] font-extrabold tracking-tight" style="color:#fff">
-        Apa Kata <span class="gradient-text-purple">Mereka?</span>
-      </h2>
-      <p class="mt-2 max-w-[480px] mx-auto leading-relaxed text-sm md:text-base" style="color:var(--muted2)">Ribuan pengguna sudah merasakan manfaat NexFi. Ini cerita mereka.</p>
+      <h2 style="font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.02em;color:#fff;margin:0 0 8px;">Apa Kata <span class="gradient-text">Mereka?</span></h2>
+      <p style="color:var(--muted2);font-size:0.95rem;max-width:480px;margin:0 auto;line-height:1.6;">Ribuan pengguna sudah merasakan manfaat NexFi.</p>
     </div>
-
-    <div class="testi-carousel-wrap fade-up">
+    <div style="overflow:hidden;">
       <div class="testi-track" id="testiTrack">
-
-        <div class="testi-slide"><div class="card-dark p-5 md:p-6 flex flex-col" style="height:100%;min-height:210px">
-          <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="leading-relaxed italic mb-5 flex-1" style="font-size:0.88rem;color:var(--muted2)">"NexFi sangat membantu saya mengatur keuangan dengan mudah dan cepat. Fitur analitik-nya luar biasa!"</p>
-          <div class="flex items-center gap-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,var(--accent),var(--accent2))"><i class="fa-solid fa-user text-sm"></i></div>
-            <div><div class="font-bold" style="font-size:0.9rem;color:#fff">Andi Setiawan</div><div style="font-size:0.75rem;color:var(--muted)">Pengusaha, Jakarta</div></div>
-          </div>
-        </div></div>
-
-        <div class="testi-slide"><div class="card-dark p-5 md:p-6 flex flex-col" style="height:100%;min-height:210px">
-          <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="leading-relaxed italic mb-5 flex-1" style="font-size:0.88rem;color:var(--muted2)">"Aplikasi yang sangat user-friendly! Sekarang nabung dan investasi jadi lebih terencana. Recommend banget!"</p>
-          <div class="flex items-center gap-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i class="fa-solid fa-user text-sm"></i></div>
-            <div><div class="font-bold" style="font-size:0.9rem;color:#fff">Maria Tan</div><div style="font-size:0.75rem;color:var(--muted)">Mahasiswi, Surabaya</div></div>
-          </div>
-        </div></div>
-
-        <div class="testi-slide"><div class="card-dark p-5 md:p-6 flex flex-col" style="height:100%;min-height:210px">
-          <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:rgba(255,255,255,0.18)"></i></div>
-          <p class="leading-relaxed italic mb-5 flex-1" style="font-size:0.88rem;color:var(--muted2)">"Keamanan tinggi dan proses cepat. NexFi bikin hidup saya jauh lebih teratur dalam mengelola keuangan. Highly recommended!"</p>
-          <div class="flex items-center gap-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,#10B981,#34D399)"><i class="fa-solid fa-user text-sm"></i></div>
-            <div><div class="font-bold" style="font-size:0.9rem;color:#fff">Rahmat H.</div><div style="font-size:0.75rem;color:var(--muted)">Karyawan, Bandung</div></div>
-          </div>
-        </div></div>
-
-        <div class="testi-slide"><div class="card-dark p-5 md:p-6 flex flex-col" style="height:100%;min-height:210px">
-          <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="leading-relaxed italic mb-5 flex-1" style="font-size:0.88rem;color:var(--muted2)">"Dashboard-nya bersih dan mudah dipahami. Semua laporan keuangan kelihatan jelas. Top banget!"</p>
-          <div class="flex items-center gap-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fa-solid fa-user text-sm"></i></div>
-            <div><div class="font-bold" style="font-size:0.9rem;color:#fff">Dian Pratiwi</div><div style="font-size:0.75rem;color:var(--muted)">Ibu Rumah Tangga, Yogyakarta</div></div>
-          </div>
-        </div></div>
-
-        <div class="testi-slide"><div class="card-dark p-5 md:p-6 flex flex-col" style="height:100%;min-height:210px">
-          <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="leading-relaxed italic mb-5 flex-1" style="font-size:0.88rem;color:var(--muted2)">"Notifikasi real-time-nya keren! Setiap ada transaksi langsung muncul. Nggak ada yang kelewat sama sekali."</p>
-          <div class="flex items-center gap-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
-            <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><i class="fa-solid fa-user text-sm"></i></div>
-            <div><div class="font-bold" style="font-size:0.9rem;color:#fff">Budi Santoso</div><div style="font-size:0.75rem;color:var(--muted)">Freelancer, Bali</div></div>
-          </div>
-        </div></div>
-
-      </div><!-- /track -->
+        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"NexFi sangat membantu saya mengatur keuangan dengan mudah dan cepat. Fitur analitik-nya luar biasa!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Andi Setiawan</div><div style="font-size:0.75rem;color:var(--muted);">Pengusaha, Jakarta</div></div></div></div></div>
+        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Aplikasi yang sangat user-friendly! Sekarang nabung dan investasi jadi lebih terencana. Recommend banget!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#EC4899,#F472B6);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Maria Tan</div><div style="font-size:0.75rem;color:var(--muted);">Mahasiswi, Surabaya</div></div></div></div></div>
+        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:rgba(255,255,255,0.18);"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Keamanan tinggi dan proses cepat. NexFi bikin hidup saya jauh lebih teratur. Highly recommended!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#10B981,#34D399);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Rahmat H.</div><div style="font-size:0.75rem;color:var(--muted);">Karyawan, Bandung</div></div></div></div></div>
+        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Dashboard-nya bersih dan mudah dipahami. Semua laporan keuangan kelihatan jelas. Top banget!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Dian Pratiwi</div><div style="font-size:0.75rem;color:var(--muted);">Ibu Rumah Tangga, Yogyakarta</div></div></div></div></div>
+        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Notifikasi real-time-nya keren! Setiap ada transaksi langsung muncul. Nggak ada yang kelewat."</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#6366f1,#818cf8);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Budi Santoso</div><div style="font-size:0.75rem;color:var(--muted);">Freelancer, Bali</div></div></div></div></div>
+      </div>
       <div class="testi-dots" id="testiDots"></div>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════ KONTAK ══════════════════ -->
-<section id="kontak" class="py-[80px] px-[5%] relative overflow-hidden" style="background:var(--bg);z-index:1">
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.3),transparent)"></div>
-
-  <div class="absolute -top-24 -left-20 w-[420px] h-[420px] rounded-full pointer-events-none"
-       style="background:radial-gradient(circle,rgba(108,99,255,0.1),transparent 70%)"></div>
-  <div class="absolute -bottom-24 -right-20 w-[380px] h-[380px] rounded-full pointer-events-none"
-       style="background:radial-gradient(circle,rgba(155,89,245,0.1),transparent 70%)"></div>
-
-  <div class="max-w-6xl mx-auto w-full relative fade-up" style="z-index:10">
-
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.8rem] font-bold mb-5"
-           style="background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent)">
+<!-- KONTAK -->
+<section id="kontak" style="padding:80px 5%;position:relative;overflow:hidden;background:#07080f;z-index:1;">
+  <div class="section-divider" style="position:absolute;top:0;left:0;right:0;"></div>
+  <div style="position:absolute;top:-96px;left:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.1),transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-96px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(155,89,245,0.1),transparent 70%);pointer-events:none;"></div>
+  <div style="max-width:960px;margin:0 auto;width:100%;position:relative;z-index:10;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:20px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
         <i class="fa-solid fa-headset"></i> Hubungi Kami
       </div>
-
-      <h2 class="text-[clamp(1.6rem,4vw,2.5rem)] font-extrabold" style="color:#fff">
-        Ada Pertanyaan atau Saran?<br>
-        <span class="gradient-text">Kami Siap Membantu</span>
-      </h2>
-
-      <p class="mt-4 text-[0.9rem] max-w-xl mx-auto" style="color:var(--muted2)">
-        Pilih menu di bawah untuk mengirim pesan atau testimoni tentang pengalamanmu.
-      </p>
-
-      <div class="flex justify-center mt-8">
-        <div class="flex p-1 rounded-full" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08)">
-          <button id="btnTesti"
-            class="px-6 py-2.5 rounded-full text-sm font-bold text-white transition-all"
-            style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px var(--glow)">
-            <i class="fa-solid fa-star mr-1.5"></i> Testimoni
+      <h2 style="font-size:clamp(1.6rem,4vw,2.5rem);font-weight:800;color:#fff;margin:0 0 16px;">Ada Pertanyaan atau Saran?<br><span class="gradient-text">Kami Siap Membantu</span></h2>
+      <p style="color:var(--muted2);font-size:0.9rem;max-width:480px;margin:0 auto;">Pilih menu di bawah untuk mengirim pesan atau testimoni.</p>
+      <div style="display:flex;justify-content:center;margin-top:32px;">
+        <div style="display:flex;padding:4px;border-radius:9999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+          <button id="btnTesti" onclick="activateTesti()" style="padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:#fff;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px var(--glow);font-family:'Inter',sans-serif;">
+            <i class="fa-solid fa-star" style="margin-right:6px;"></i>Testimoni
           </button>
-          <button id="btnKoran"
-            class="px-6 py-2.5 rounded-full text-sm font-bold transition-all"
-            style="background:transparent;color:var(--muted2)">
-            <i class="fa-solid fa-envelope mr-1.5"></i> Kontak
+          <button id="btnKoran" onclick="activateKoran()" style="padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:var(--muted2);border:none;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;">
+            <i class="fa-solid fa-envelope" style="margin-right:6px;"></i>Kontak
           </button>
         </div>
       </div>
     </div>
-
-    <!-- Form wrapper -->
-    <div class="rounded-3xl p-6 sm:p-8 lg:p-12"
-         style="background:var(--bg2);border:1px solid var(--border);box-shadow:0 10px 45px rgba(108,99,255,0.12)">
-
-      <!-- Label helper -->
-      <style>
-        .form-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.35); display: block; margin-bottom: 6px; }
-      </style>
-
-      <!-- TESTIMONI FORM -->
-      <form id="formTesti" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-        <div>
-          <label class="form-label">Nama Lengkap</label>
-          <input type="text" placeholder="Nama kamu" class="inp-dark">
-        </div>
-        <div>
-          <label class="form-label">Email</label>
-          <input type="email" placeholder="nama@email.com" class="inp-dark">
-        </div>
-
-        <div class="sm:col-span-2">
+    <div style="border-radius:24px;padding:32px;background:#0c0d1d;border:1px solid var(--border);box-shadow:0 10px 45px rgba(108,99,255,0.12);">
+      <form id="formTesti" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div><label class="form-label">Nama Lengkap</label><input type="text" placeholder="Nama kamu" class="inp-dark"></div>
+        <div><label class="form-label">Email</label><input type="email" placeholder="nama@email.com" class="inp-dark"></div>
+        <div style="grid-column:1/-1;">
           <label class="form-label">Foto Profil</label>
-          <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shrink-0"
-                 style="border:1px solid rgba(108,99,255,0.3);background:rgba(108,99,255,0.1)">
-              <img id="avatarPreview" src="" alt="" class="hidden w-full h-full object-cover">
-              <i id="avatarIcon" class="fa-solid fa-user" style="color:rgba(108,99,255,0.5);font-size:1.1rem"></i>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="width:56px;height:56px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid rgba(108,99,255,0.3);background:rgba(108,99,255,0.1);flex-shrink:0;">
+              <img id="avatarPreview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
+              <i id="avatarIcon" class="fa-solid fa-user" style="color:rgba(108,99,255,0.5);font-size:1.1rem;"></i>
             </div>
-            <label class="flex-1 flex items-center gap-3 cursor-pointer rounded-xl px-4 py-4 transition"
-                   style="background:rgba(255,255,255,0.04);border:1.5px dashed rgba(108,99,255,0.3)"
-                   onmouseover="this.style.borderColor='rgba(108,99,255,0.6)'" onmouseout="this.style.borderColor='rgba(108,99,255,0.3)'">
-              <i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent)"></i>
-              <div>
-                <div class="font-semibold text-sm" style="color:rgba(255,255,255,0.7)">Klik untuk upload foto</div>
-                <div class="text-xs" style="color:var(--muted)">PNG / JPG (max 2MB)</div>
-              </div>
-              <input type="file" id="fotoInput" accept="image/*" hidden>
+            <label style="flex:1;display:flex;align-items:center;gap:12px;cursor:pointer;border-radius:12px;padding:16px;background:rgba(255,255,255,0.04);border:1.5px dashed rgba(108,99,255,0.3);">
+              <i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);"></i>
+              <div><div style="font-weight:600;font-size:0.875rem;color:rgba(255,255,255,0.7);">Klik untuk upload foto</div><div style="font-size:0.75rem;color:var(--muted);">PNG / JPG (max 2MB)</div></div>
+              <input type="file" id="fotoInput" accept="image/*" style="display:none;">
             </label>
           </div>
-          <div id="fileName" class="text-xs font-semibold mt-2 hidden" style="color:var(--accent)"></div>
         </div>
-
-        <div class="sm:col-span-2">
-          <label class="form-label">Rating Kamu</label>
-          <div class="flex gap-2 text-[1.7rem] cursor-pointer" id="ratingStars" style="color:rgba(255,255,255,0.15)">
-            <i class="fa-solid fa-star" data-value="1"></i>
-            <i class="fa-solid fa-star" data-value="2"></i>
-            <i class="fa-solid fa-star" data-value="3"></i>
-            <i class="fa-solid fa-star" data-value="4"></i>
-            <i class="fa-solid fa-star" data-value="5"></i>
+        <div style="grid-column:1/-1;">
+          <label class="form-label">Rating</label>
+          <div id="ratingStars" style="display:flex;gap:8px;font-size:1.7rem;cursor:pointer;color:rgba(255,255,255,0.15);">
+            <i class="fa-solid fa-star" data-value="1"></i><i class="fa-solid fa-star" data-value="2"></i><i class="fa-solid fa-star" data-value="3"></i><i class="fa-solid fa-star" data-value="4"></i><i class="fa-solid fa-star" data-value="5"></i>
           </div>
         </div>
-
-        <div class="sm:col-span-2">
-          <label class="form-label">Testimoni</label>
-          <textarea rows="4" placeholder="Ceritakan pengalamanmu..." class="inp-dark" style="resize:none"></textarea>
-        </div>
-
-        <button type="button" onclick="handleFakeSubmit(this)"
-          class="sm:col-span-2 mt-2 w-full flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-2xl transition hover:-translate-y-0.5"
-          style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow)">
+        <div style="grid-column:1/-1;"><label class="form-label">Testimoni</label><textarea rows="4" placeholder="Ceritakan pengalamanmu..." class="inp-dark" style="resize:none;"></textarea></div>
+        <button type="button" onclick="handleFakeSubmit(this)" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:14px;border-radius:16px;border:none;cursor:pointer;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow);">
           <i class="fa-solid fa-paper-plane"></i> Kirim Testimoni
         </button>
       </form>
-
-      <!-- KONTAK FORM -->
-      <form id="formKoran" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-        <div>
-          <label class="form-label">Nama Lengkap</label>
-          <input type="text" placeholder="Nama kamu" class="inp-dark">
-        </div>
-        <div>
-          <label class="form-label">Email</label>
-          <input type="email" placeholder="nama@email.com" class="inp-dark">
-        </div>
-
-        <div class="sm:col-span-2">
-          <label class="form-label">Subjek</label>
-          <input type="text" placeholder="Topik pesan" class="inp-dark">
-        </div>
-
-        <div class="sm:col-span-2">
-          <label class="form-label">Pesan</label>
-          <textarea rows="5" placeholder="Tulis pesan kamu..." class="inp-dark" style="resize:none"></textarea>
-        </div>
-
-        <button type="button" onclick="handleFakeSubmit(this)"
-          class="sm:col-span-2 w-full flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-2xl transition hover:-translate-y-0.5"
-          style="background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow)">
+      <form id="formKoran" style="display:none;grid-template-columns:1fr 1fr;gap:20px;">
+        <div><label class="form-label">Nama Lengkap</label><input type="text" placeholder="Nama kamu" class="inp-dark"></div>
+        <div><label class="form-label">Email</label><input type="email" placeholder="nama@email.com" class="inp-dark"></div>
+        <div style="grid-column:1/-1;"><label class="form-label">Subjek</label><input type="text" placeholder="Topik pesan" class="inp-dark"></div>
+        <div style="grid-column:1/-1;"><label class="form-label">Pesan</label><textarea rows="5" placeholder="Tulis pesan kamu..." class="inp-dark" style="resize:none;"></textarea></div>
+        <button type="button" onclick="handleFakeSubmit(this)" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:14px;border-radius:16px;border:none;cursor:pointer;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow);">
           <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
         </button>
       </form>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ FOOTER ══════════════════ -->
-<footer class="px-[6%] pt-12 pb-6 relative" style="background:#04050c;border-top:1px solid rgba(108,99,255,0.2);z-index:1">
-  <div class="max-w-[1200px] mx-auto">
-
-    <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-8 pb-8"
-         style="border-bottom:1px solid rgba(255,255,255,0.07)">
-
-      <!-- Brand -->
-      <div class="text-center sm:text-left">
-        <div class="flex items-center justify-center sm:justify-start mb-2 h-12 overflow-visible">
-          <img
-            src="{{ asset('assets_public/logo.png') }}"
-            alt="NexFi"
-            class="h-12 w-auto scale-[2.2] sm:scale-[2.6] origin-center sm:origin-left"
-            style="filter: drop-shadow(0 8px 24px rgba(108,99,255,0.4));"
-          />
+<!-- FOOTER -->
+<footer style="padding:48px 6% 24px;background:#04050c;border-top:1px solid rgba(108,99,255,0.2);position:relative;z-index:1;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:1.3rem;font-weight:800;margin-bottom:8px;" class="gradient-text">
+          <i class="fa-solid fa-circle-nodes"></i> NexFi
         </div>
-        <p class="text-[0.83rem] max-w-[220px]" style="color:var(--muted)">
-          Your Next Future in Finance. Kelola keuanganmu lebih cerdas.
-        </p>
+        <p style="font-size:0.83rem;color:var(--muted);max-width:220px;margin:0;">Your Next Future in Finance. Kelola keuanganmu lebih cerdas.</p>
       </div>
-
-      <!-- Sosial Media -->
-      <div class="text-center sm:text-left">
-        <div class="text-[0.78rem] font-bold uppercase tracking-widest mb-3" style="color:rgba(255,255,255,0.3)">Ikuti Kami</div>
-        <div class="flex items-center gap-3 justify-center sm:justify-start">
-          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition"
-             style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)"
-             onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-brands fa-instagram text-sm"></i>
-          </a>
-          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition"
-             style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)"
-             onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-brands fa-tiktok text-sm"></i>
-          </a>
-          <a href="https://www.youtube.com/@NexFi" target="_blank"
-             class="w-9 h-9 rounded-full flex items-center justify-center transition"
-             style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)"
-             onmouseover="this.style.background='#dc2626';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-brands fa-youtube text-sm"></i>
-          </a>
-          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition"
-             style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)"
-             onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-brands fa-twitter text-sm"></i>
-          </a>
+      <div>
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">Ikuti Kami</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-instagram" style="font-size:0.875rem;"></i></a>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-tiktok" style="font-size:0.875rem;"></i></a>
+          <a href="#" target="_blank" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='#dc2626';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-youtube" style="font-size:0.875rem;"></i></a>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-twitter" style="font-size:0.875rem;"></i></a>
         </div>
       </div>
-
-      <!-- Kontak -->
-      <div class="text-center sm:text-left">
-        <div class="text-[0.78rem] font-bold uppercase tracking-widest mb-3" style="color:rgba(255,255,255,0.3)">Kontak</div>
-        <div class="flex flex-col gap-2">
-          <a href="/cdn-cgi/l/email-protection#157d7079797a557b706d737c3b7c71" class="flex items-center gap-2 text-[0.85rem] no-underline transition" style="color:rgba(255,255,255,0.4)" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-solid fa-envelope text-xs"></i> <span class="__cf_email__" data-cfemail="a8c0cdc4c4c7e8c6cdd0cec186c1cc">[email&#160;protected]</span>
-          </a>
-          <a href="https://wa.me/6281234567890" target="_blank"
-             class="flex items-center gap-2 text-[0.85rem] no-underline transition"
-             style="color:rgba(255,255,255,0.4)"
-             onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
-            <i class="fa-brands fa-whatsapp text-xs"></i> +62 812-3456-7890
-          </a>
-          <span class="flex items-center gap-2 text-[0.85rem]" style="color:rgba(255,255,255,0.4)">
-            <i class="fa-solid fa-location-dot text-xs"></i> Jakarta, Indonesia
-          </span>
+      <div>
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">Kontak</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="mailto:support@nexfi.id" style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'"><i class="fa-solid fa-envelope" style="font-size:0.75rem;"></i> support@nexfi.id</a>
+          <a href="https://wa.me/6281234567890" target="_blank" style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-whatsapp" style="font-size:0.75rem;"></i> +62 812-3456-7890</a>
+          <span style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);"><i class="fa-solid fa-location-dot" style="font-size:0.75rem;"></i> Jakarta, Indonesia</span>
         </div>
       </div>
-
     </div>
-
-    <div class="pt-5 text-center text-[0.82rem]" style="color:rgba(255,255,255,0.2)">
-      © 2025 <strong style="color:rgba(255,255,255,0.35)">NexFi</strong>. All rights reserved.
+    <div style="padding-top:20px;text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.2);">
+      © 2025 <strong style="color:rgba(255,255,255,0.35);">NexFi</strong>. All rights reserved.
     </div>
-
   </div>
 </footer>
 
 <script>
-  // ================= TAB SWITCH =================
-  const btnTesti = document.getElementById('btnTesti');
-  const btnKoran = document.getElementById('btnKoran');
-  const formTesti = document.getElementById('formTesti');
-  const formKoran = document.getElementById('formKoran');
+function applyLayout() {
+  const d = window.innerWidth >= 768;
+  document.getElementById('navLinks').style.display = d ? 'flex' : 'none';
+  document.getElementById('navAuthDesktop').style.display = d ? 'block' : 'none';
+  document.getElementById('hamburger').style.display = d ? 'none' : 'flex';
+  document.getElementById('aboutGrid').style.gridTemplateColumns = d ? '1fr 1fr' : '1fr';
+  document.querySelectorAll('#formTesti, #formKoran').forEach(f => {
+    f.style.gridTemplateColumns = d ? '1fr 1fr' : '1fr';
+  });
+}
+applyLayout();
+window.addEventListener('resize', applyLayout);
 
-  function activateTesti() {
-    formTesti.classList.remove('hidden');
-    formKoran.classList.add('hidden');
-    btnTesti.style.background = "linear-gradient(135deg,#6c63ff,#9b59f5)";
-    btnTesti.style.boxShadow = "0 4px 14px rgba(108,99,255,0.4)";
-    btnTesti.style.color = "#fff";
-    btnKoran.style.background = "transparent";
-    btnKoran.style.boxShadow = "none";
-    btnKoran.style.color = "rgba(255,255,255,0.45)";
-  }
-  function activateKoran() {
-    formKoran.classList.remove('hidden');
-    formTesti.classList.add('hidden');
-    btnKoran.style.background = "linear-gradient(135deg,#6c63ff,#9b59f5)";
-    btnKoran.style.boxShadow = "0 4px 14px rgba(108,99,255,0.4)";
-    btnKoran.style.color = "#fff";
-    btnTesti.style.background = "transparent";
-    btnTesti.style.boxShadow = "none";
-    btnTesti.style.color = "rgba(255,255,255,0.45)";
-  }
-  btnTesti.addEventListener('click', activateTesti);
-  btnKoran.addEventListener('click', activateKoran);
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('mobileMenu').style.display = menuOpen ? 'flex' : 'none';
+}
+document.querySelectorAll('#mobileMenu a').forEach(a => {
+  a.addEventListener('click', () => { menuOpen = false; document.getElementById('mobileMenu').style.display = 'none'; });
+});
 
-  // ================= RATING STARS =================
-  const stars = document.querySelectorAll("#ratingStars i");
-  stars.forEach(star => {
-    star.addEventListener("click", function () {
-      const value = this.getAttribute("data-value");
-      stars.forEach(s => {
-        s.style.color = s.getAttribute("data-value") <= value ? "#F59E0B" : "rgba(255,255,255,0.15)";
-      });
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,0.5)' : 'none';
+});
+
+function activateTesti() {
+  document.getElementById('formTesti').style.display = 'grid';
+  document.getElementById('formKoran').style.display = 'none';
+  document.getElementById('btnTesti').style.cssText = 'padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:#fff;border:none;cursor:pointer;font-family:Inter,sans-serif;background:linear-gradient(135deg,#6c63ff,#9b59f5);box-shadow:0 4px 14px rgba(108,99,255,0.4);';
+  document.getElementById('btnKoran').style.cssText = 'padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:rgba(255,255,255,0.45);border:none;cursor:pointer;font-family:Inter,sans-serif;background:transparent;';
+}
+function activateKoran() {
+  document.getElementById('formKoran').style.display = window.innerWidth >= 768 ? 'grid' : 'block';
+  document.getElementById('formTesti').style.display = 'none';
+  document.getElementById('btnKoran').style.cssText = 'padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:#fff;border:none;cursor:pointer;font-family:Inter,sans-serif;background:linear-gradient(135deg,#6c63ff,#9b59f5);box-shadow:0 4px 14px rgba(108,99,255,0.4);';
+  document.getElementById('btnTesti').style.cssText = 'padding:10px 24px;border-radius:9999px;font-size:0.875rem;font-weight:700;color:rgba(255,255,255,0.45);border:none;cursor:pointer;font-family:Inter,sans-serif;background:transparent;';
+}
+
+document.querySelectorAll('#ratingStars i').forEach(star => {
+  star.addEventListener('click', function() {
+    const val = this.getAttribute('data-value');
+    document.querySelectorAll('#ratingStars i').forEach(s => {
+      s.style.color = s.getAttribute('data-value') <= val ? '#F59E0B' : 'rgba(255,255,255,0.15)';
     });
   });
+});
 
-  // ================= FILE UPLOAD =================
-  const fotoInput = document.getElementById('fotoInput');
-  const fileName = document.getElementById('fileName');
-  const avatarPreview = document.getElementById('avatarPreview');
-  const avatarIcon = document.getElementById('avatarIcon');
+const fotoInput = document.getElementById('fotoInput');
+if (fotoInput) {
+  fotoInput.addEventListener('change', () => {
+    if (fotoInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('avatarPreview').src = e.target.result;
+        document.getElementById('avatarPreview').style.display = 'block';
+        document.getElementById('avatarIcon').style.display = 'none';
+      };
+      reader.readAsDataURL(fotoInput.files[0]);
+    }
+  });
+}
 
-  if (fotoInput) {
-    fotoInput.addEventListener('change', () => {
-      if (fotoInput.files.length > 0) {
-        const file = fotoInput.files[0];
-        if (fileName) { fileName.textContent = "\uD83D\uDCCE " + file.name; fileName.classList.remove('hidden'); }
-        if (avatarPreview && avatarIcon) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            avatarPreview.src = e.target.result;
-            avatarPreview.classList.remove('hidden');
-            avatarIcon.classList.add('hidden');
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-    });
+function handleFakeSubmit(btn) {
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim!';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = orig; btn.disabled = false;
+    document.querySelectorAll('#ratingStars i').forEach(s => s.style.color = 'rgba(255,255,255,0.15)');
+    const ap = document.getElementById('avatarPreview');
+    const ai = document.getElementById('avatarIcon');
+    if (ap) { ap.src = ''; ap.style.display = 'none'; }
+    if (ai) ai.style.display = '';
+  }, 2500);
+}
+
+(function() {
+  const track = document.getElementById('testiTrack');
+  const dotsWrap = document.getElementById('testiDots');
+  if (!track || !dotsWrap) return;
+  const slides = track.querySelectorAll('.testi-slide');
+  const total = slides.length;
+  let current = 0, startX = 0, isDragging = false, dragDelta = 0;
+
+  function isMobile()  { return window.innerWidth < 768; }
+  function perPage()   { return isMobile() ? 1 : 3; }
+  function pageCount() { return Math.ceil(total / perPage()); }
+  function slideW()    { return slides[0].offsetWidth + (isMobile() ? 16 : 24); }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < pageCount(); i++) {
+      const d = document.createElement('button');
+      d.className = 'testi-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+  function updateDots() { dotsWrap.querySelectorAll('.testi-dot').forEach((d,i) => d.classList.toggle('active', i===current)); }
+  function goTo(idx) {
+    current = Math.max(0, Math.min(pageCount()-1, idx));
+    track.style.transform = 'translateX(-' + (current * perPage() * slideW()) + 'px)';
+    updateDots();
   }
 
-  // ================= NAVBAR SHADOW =================
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.style.boxShadow = window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,0.5)' : 'none';
-  });
+  track.addEventListener('touchstart', e => { startX=e.touches[0].clientX; isDragging=true; dragDelta=0; }, {passive:true});
+  track.addEventListener('touchmove',  e => { if(isDragging) dragDelta=e.touches[0].clientX-startX; }, {passive:true});
+  track.addEventListener('touchend',   () => { if(!isDragging)return; isDragging=false; if(dragDelta<-60) goTo(current+1); else if(dragDelta>60) goTo(current-1); });
+  track.addEventListener('mousedown',  e => { startX=e.clientX; isDragging=true; dragDelta=0; track.style.cursor='grabbing'; });
+  window.addEventListener('mousemove', e => { if(isDragging) dragDelta=e.clientX-startX; });
+  window.addEventListener('mouseup',   () => { if(!isDragging)return; isDragging=false; track.style.cursor='grab'; if(dragDelta<-60) goTo(current+1); else if(dragDelta>60) goTo(current-1); dragDelta=0; });
+  window.addEventListener('resize',    () => { current=0; track.style.transform='translateX(0)'; buildDots(); });
 
-  // ================= HAMBURGER =================
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.contains('flex');
-    mobileMenu.classList.toggle('hidden', isOpen);
-    mobileMenu.classList.toggle('flex', !isOpen);
-  });
-  document.querySelectorAll('#mobileMenu a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      mobileMenu.classList.remove('flex');
-    });
-  });
-
-  // ================= FADE UP =================
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // ================= FAKE SUBMIT =================
-  function handleFakeSubmit(btn) {
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim!';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.innerHTML = originalHTML;
-      btn.disabled = false;
-      stars.forEach(s => s.style.color = "rgba(255,255,255,0.15)");
-      if (avatarPreview) { avatarPreview.src = ""; avatarPreview.classList.add('hidden'); }
-      if (avatarIcon) avatarIcon.classList.remove('hidden');
-      if (fileName) { fileName.textContent = ""; fileName.classList.add('hidden'); }
-    }, 2500);
-  }
-
-  // ================= TESTI CAROUSEL =================
-  (function() {
-    const track = document.getElementById('testiTrack');
-    const dotsWrap = document.getElementById('testiDots');
-    if (!track || !dotsWrap) return;
-
-    const slides = track.querySelectorAll('.testi-slide');
-    const total = slides.length;
-    let current = 0; // current "page" index
-    let startX = 0, isDragging = false, dragDelta = 0;
-
-    function isMobile() { return window.innerWidth < 768; }
-    function perPage()  { return isMobile() ? 1 : 3; }
-    function pageCount(){ return Math.ceil(total / perPage()); }
-
-    function getSlideWidth() {
-      // width of one slide + gap
-      const gap = isMobile() ? 16 : 24;
-      return slides[0].offsetWidth + gap;
-    }
-
-    function buildDots() {
-      dotsWrap.innerHTML = '';
-      const pages = pageCount();
-      for (let i = 0; i < pages; i++) {
-        const d = document.createElement('button');
-        d.className = 'testi-dot' + (i === current ? ' active' : '');
-        d.setAttribute('aria-label', 'Halaman ' + (i + 1));
-        d.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(d);
-      }
-    }
-
-    function updateDots() {
-      dotsWrap.querySelectorAll('.testi-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
-    }
-
-    function goTo(pageIdx) {
-      const pages = pageCount();
-      current = Math.max(0, Math.min(pages - 1, pageIdx));
-      const slideIdx = current * perPage();
-      const offset = slideIdx * getSlideWidth();
-      track.style.transform = 'translateX(-' + offset + 'px)';
-      updateDots();
-    }
-
-    // Touch swipe
-    track.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-      dragDelta = 0;
-    }, { passive: true });
-
-    track.addEventListener('touchmove', e => {
-      if (!isDragging) return;
-      dragDelta = e.touches[0].clientX - startX;
-    }, { passive: true });
-
-    track.addEventListener('touchend', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      if (dragDelta < -60) goTo(current + 1);
-      else if (dragDelta > 60) goTo(current - 1);
-      dragDelta = 0;
-    });
-
-    // Mouse drag
-    track.addEventListener('mousedown', e => {
-      startX = e.clientX; isDragging = true; dragDelta = 0;
-      track.style.cursor = 'grabbing';
-    });
-    window.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      dragDelta = e.clientX - startX;
-    });
-    window.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      track.style.cursor = 'grab';
-      if (dragDelta < -60) goTo(current + 1);
-      else if (dragDelta > 60) goTo(current - 1);
-      dragDelta = 0;
-    });
-
-    // Resize: reset to page 0 and rebuild
-    window.addEventListener('resize', () => {
-      current = 0;
-      track.style.transform = 'translateX(0)';
-      buildDots();
-    });
-
-    // Init
-    track.style.cursor = 'grab';
-    buildDots();
-  })();
+  track.style.cursor = 'grab';
+  buildDots();
+})();
 </script>
 </body>
 </html>
