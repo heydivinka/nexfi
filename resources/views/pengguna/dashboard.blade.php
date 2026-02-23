@@ -90,7 +90,9 @@
                 </div>
                 <span class="stat-lbl">Saldo</span>
             </div>
-            <div class="stat-val">Rp 4.250.000</div>
+            <div class="stat-val">
+                Rp {{ number_format(auth()->user()->saldo ?? 0, 0, ',', '.') }}
+            </div>
             <div class="stat-foot"><span class="stat-sub">Total saldo aktif</span></div>
         </div>
 
@@ -104,10 +106,13 @@
                 </div>
                 <span class="stat-lbl">Pemasukan</span>
             </div>
-            <div class="stat-val">Rp 6.800.000</div>
+
+            <div class="stat-val">
+                Rp {{ number_format($totalPemasukan, 0, ',', '.') }}
+            </div>
+
             <div class="stat-foot">
                 <span class="stat-sub">Bulan ini</span>
-                <span class="stat-pct" style="color:#22c55e;">↑ 12.5%</span>
             </div>
         </div>
 
@@ -121,10 +126,13 @@
                 </div>
                 <span class="stat-lbl">Pengeluaran</span>
             </div>
-            <div class="stat-val">Rp 2.550.000</div>
+
+            <div class="stat-val">
+                Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}
+            </div>
+
             <div class="stat-foot">
                 <span class="stat-sub">Bulan ini</span>
-                <span class="stat-pct" style="color:#ef4444;">↓ 3.2%</span>
             </div>
         </div>
     </div>

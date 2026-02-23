@@ -1,56 +1,103 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Pengguna\DashboardController as PenggunaDashboard;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pengguna\KeuanganController;
+use App\Http\Controllers\Pengguna\CategoryController;
+use App\Http\Controllers\Pengguna\RiwayatController;
 
+
+
+/*
+|--------------------------------------------------------------------------
+| HALAMAN AWAL
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth','role:pengguna'])->group(function () {
 
-    Route::get('/pengguna/kelola-data', [KeuanganController::class, 'index'])
-        ->name('pengguna.keuangan.index');
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->prefix('pengguna')->name('pengguna.')->group(function () {
 
-    Route::post('/pengguna/kelola-data', [KeuanganController::class, 'store'])
-        ->name('pengguna.keuangan.store');
+    /*
+    ================= DASHBOARD
+    */
+    Route::get('/dashboard', [PenggunaDashboard::class, 'index'])
+        ->name('dashboard');
+
+
+    /*
+    ================= KEUANGAN
+    */
+    Route::get('/keuangan', [KeuanganController::class, 'index'])
+        ->name('keuangan.index');
+
+    Route::post('/keuangan', [KeuanganController::class, 'store'])
+        ->name('keuangan.store');
+
+    Route::post('/keuangan/saldo', [KeuanganController::class, 'updateSaldo'])
+        ->name('keuangan.saldo');
+
+    Route::get('/keuangan/{id}/edit', [KeuanganController::class, 'edit'])
+        ->name('keuangan.edit');
+
+    Route::put('/keuangan/{id}', [KeuanganController::class, 'update'])
+        ->name('keuangan.update');
+
+
+    /*
+    ================= RIWAYAT
+    */
+    Route::get('/riwayat', [RiwayatController::class, 'index'])
+        ->name('riwayat.index');
+
+    Route::delete('/riwayat/{id}', [RiwayatController::class, 'destroy'])
+        ->name('riwayat.destroy');
+
+
+    /*
+    ================= KATEGORI
+    */
+    Route::get('/kategori', [CategoryController::class, 'index'])
+        ->name('kategori.index');
+
+    Route::post('/kategori', [CategoryController::class, 'store'])
+        ->name('kategori.store');
+
+    Route::put('/kategori/{id}', [CategoryController::class, 'update'])
+        ->name('kategori.update');
+
+    Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])
+        ->name('kategori.destroy');
 
 });
 
-// ================= ADMIN =================
-Route::middleware(['auth', 'role:admin'])->group(function () {
+/*
+|--------------------------------------------------------------------------
+| PROFILE NEXFI
+|--------------------------------------------------------------------------
+*/
 
-    Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])
-        ->name('admin.dashboard');
+Route::middleware(['auth'])->group(function () {
 
-});
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
 
-
-// ================= PENGGUNA =================
-Route::middleware(['auth', 'role:pengguna'])->group(function () {
-
-    Route::get('/pengguna/dashboard', [PenggunaDashboard::class, 'index'])
-        ->name('pengguna.dashboard');
-
-});
-
-
-// ================= PROFILE =================
-Route::middleware('auth')->group(function () {
-
-    Route::get('/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
-
-    Route::patch('/profile', [ProfileController::class, 'update'])
+    Route::post('/profile/update', [ProfileController::class, 'update'])
         ->name('profile.update');
 
-    Route::delete('/profile', [ProfileController::class, 'destroy'])
-        ->name('profile.destroy');
-
 });
 
+Route::get('/u/{username}', [ProfileController::class, 'show'])
+    ->name('profile.public');
 
 require __DIR__.'/auth.php';

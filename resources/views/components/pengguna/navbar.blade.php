@@ -38,18 +38,45 @@
 
         {{-- User chip --}}
         <div style="position:relative;">
-            <button id="user-trigger" onclick="toggleDropdown()"
-                    style="display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(108,99,255,0.15);cursor:pointer;">
-                <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">
-                    {{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 2)) }}
+    <button id="user-trigger" onclick="toggleDropdown()"
+            style="display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(108,99,255,0.15);cursor:pointer;">
+
+        @auth
+
+            @if(auth()->user()->photo)
+                <img src="{{ asset('storage/' . auth()->user()->photo) }}"
+                     style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
+            @else
+                <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                 </div>
-                <span id="nav-uname" style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);white-space:nowrap;">
-                    {{ auth()->user()->name ?? 'Pengguna' }}
-                </span>
-                <svg id="dd-chevron" width="10" height="10" fill="none" stroke="rgba(255,255,255,0.3)" viewBox="0 0 24 24" stroke-width="2.5" style="transition:transform 0.15s;flex-shrink:0;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-            </button>
+            @endif
+
+            <span id="nav-uname" style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);white-space:nowrap;">
+                {{ auth()->user()->name }}
+            </span>
+
+        @endauth
+
+
+        @guest
+
+            <div style="width:24px;height:24px;border-radius:50%;background:#444;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;">
+                ?
+            </div>
+
+            <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);">
+                Guest
+            </span>
+
+        @endguest
+
+
+        <svg id="dd-chevron" width="10" height="10" fill="none" stroke="rgba(255,255,255,0.3)" viewBox="0 0 24 24" stroke-width="2.5" style="transition:transform 0.15s;flex-shrink:0;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+
+    </button>
 
             <div id="user-dropdown"
                  style="display:none;position:absolute;top:calc(100% + 8px);right:0;width:205px;background:#10132a;border:1px solid rgba(108,99,255,0.15);border-radius:13px;overflow:hidden;z-index:100;">
@@ -65,11 +92,11 @@
                     </div>
                 </div>
                 <div style="padding:5px;">
-                    <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:rgba(255,255,255,0.55);font-size:12px;font-weight:500;text-decoration:none;"
-                       onmouseover="this.style.background='rgba(108,99,255,0.12)';this.style.color='white';"
-                       onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.55)';">
+                    <a href="{{ route('profile') }}" style="display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:rgba(255,255,255,0.55);font-size:12px;font-weight:500;text-decoration:none;"
+                    onmouseover="this.style.background='rgba(108,99,255,0.12)';this.style.color='white';"
+                    onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.55)';">
                         <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                         Profil Saya
                     </a>
