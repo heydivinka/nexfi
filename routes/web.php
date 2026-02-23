@@ -4,11 +4,21 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Pengguna\DashboardController as PenggunaDashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Pengguna\KeuanganController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth','role:pengguna'])->group(function () {
+
+    Route::get('/pengguna/kelola-data', [KeuanganController::class, 'index'])
+        ->name('pengguna.keuangan.index');
+
+    Route::post('/pengguna/kelola-data', [KeuanganController::class, 'store'])
+        ->name('pengguna.keuangan.store');
+
+});
 
 // ================= ADMIN =================
 Route::middleware(['auth', 'role:admin'])->group(function () {

@@ -33,7 +33,7 @@
             <span class="slabel">Dashboard</span>
             @if(request()->routeIs('pengguna.dashboard'))<span class="spip"></span>@endif
         </a>
-        <a href="#" class="snav {{ request()->routeIs('pengguna.kelola*') ? 'snav-on' : '' }}">
+        <a href="{{ route('pengguna.keuangan.index')}}" class="snav {{ request()->routeIs('pengguna.kelola*') ? 'snav-on' : '' }}">
             <span class="sicon {{ request()->routeIs('pengguna.kelola*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h10"/>
