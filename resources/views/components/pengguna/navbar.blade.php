@@ -1,8 +1,7 @@
 {{-- NexFi Navbar --}}
 
 <header id="nexfi-navbar"
-        style="position:sticky;top:0;z-index:30;background:#10132a;border-bottom:1px solid rgba(108,99,255,0.15);padding:0 14px;height:54px;display:flex;align-items:center;justify-content:space-between;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0;">
-
+        style="position:sticky;top:0;z-index:30;flex-shrink:0;background:#10132a;border-bottom:1px solid rgba(108,99,255,0.15);padding:0 14px;height:54px;display:flex;align-items:center;justify-content:space-between;font-family:'Plus Jakarta Sans',sans-serif;">
     <div style="display:flex;align-items:center;gap:10px;min-width:0;">
 
         {{-- Hamburger: hanya mobile, built-in di navbar --}}
@@ -43,9 +42,9 @@
 
         @auth
 
-            @if(auth()->user()->photo)
-                <img src="{{ asset('storage/' . auth()->user()->photo) }}"
-                     style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
+           @if(auth()->user()->photo)
+                <img src="{{ asset('profile/' . auth()->user()->photo) }}"
+                    style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
             @else
                 <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">
                     {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
@@ -92,15 +91,19 @@
                     </div>
                 </div>
                 <div style="padding:5px;">
-                    <a href="{{ route('profile') }}" style="display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:rgba(255,255,255,0.55);font-size:12px;font-weight:500;text-decoration:none;"
+                    <a href="{{ route('pengguna.profile') }}"
+                    style="display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:rgba(255,255,255,0.55);font-size:12px;font-weight:500;text-decoration:none;"
                     onmouseover="this.style.background='rgba(108,99,255,0.12)';this.style.color='white';"
                     onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.55)';">
+
                         <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
+
                         Profil Saya
                     </a>
-            </div>
+                </div>
         </div>
     </div>
 </header>

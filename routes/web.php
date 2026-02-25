@@ -1,15 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Pengguna\ProfileController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Pengguna\DashboardController as PenggunaDashboard;
 use App\Http\Controllers\Pengguna\KeuanganController;
 use App\Http\Controllers\Pengguna\CategoryController;
 use App\Http\Controllers\Pengguna\RiwayatController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -89,11 +87,14 @@ Route::middleware(['auth'])->prefix('pengguna')->name('pengguna.')->group(functi
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
+   Route::get('/pengguna/profile', [ProfileController::class, 'index'])
+    ->name('pengguna.profile');
 
-    Route::post('/profile/update', [ProfileController::class, 'update'])
-        ->name('profile.update');
+Route::get('/pengguna/profile/edit', [ProfileController::class, 'edit'])
+    ->name('pengguna.profile.edit');
+
+Route::put('/pengguna/profile/update', [ProfileController::class, 'update'])
+    ->name('pengguna.profile.update');
 
 });
 

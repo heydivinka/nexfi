@@ -23,6 +23,57 @@
       --muted2:  rgba(255,255,255,0.55);
     }
 
+    .yt-thumb {
+  position: relative;
+  cursor: pointer;
+}
+
+.yt-thumb img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.yt-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 5% auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 12px;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* end yt */
+
     .gradient-text {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
@@ -269,20 +320,39 @@
         </button>
       </div>
       <!-- Kanan: YouTube card -->
-      <div id="youtubeCard">
-        <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener" class="yt-thumb">
-          <img src="https://img.youtube.com/vi/fbBMjWc8Usk/maxresdefault.jpg"
-               onerror="this.src='https://img.youtube.com/vi/fbBMjWc8Usk/hqdefault.jpg'" alt="Demo NexFi" />
-          <div class="yt-play"><div><i class="fa-solid fa-play" style="margin-left:4px;"></i></div></div>
-          <div class="yt-badge">5:32</div>
-        </a>
-        <div class="yt-body">
-          <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
-          <a href="https://youtu.be/fbBMjWc8Usk" target="_blank" rel="noopener" class="yt-btn">
-            <i class="fa-brands fa-youtube"></i> Tonton Video Demo
-          </a>
-        </div>
-      </div>
+      <!-- YouTube Card -->
+<div id="youtubeCard">
+
+  <!-- Thumbnail -->
+  <div class="yt-thumb" id="openVideo">
+    <img src="https://img.youtube.com/vi/TDzgeOKmURs/hqdefault.jpg" alt="Demo NexFi">
+    <div class="yt-play">▶</div>
+  </div>
+
+  <div class="yt-body">
+    <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
+    <button class="yt-btn" id="openVideoBtn">Tonton Video Demo</button>
+  </div>
+
+</div>
+
+
+<!-- POPUP MODAL -->
+<div id="videoModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe 
+      id="youtubeFrame"
+      width="100%" 
+      height="400"
+      src=""
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
     </div>
   </div>
 </section>
@@ -566,6 +636,32 @@ function handleFakeSubmit(btn) {
     track.style.transform = 'translateX(0)';
     buildDots();
   });
+
+  // yt
+  const modal = document.getElementById("videoModal");
+const frame = document.getElementById("youtubeFrame");
+
+document.getElementById("openVideo").onclick = openVideo;
+document.getElementById("openVideoBtn").onclick = openVideo;
+
+function openVideo() {
+  modal.style.display = "block";
+  frame.src = "https://www.youtube.com/embed/TDzgeOKmURs?autoplay=1";
+}
+
+document.querySelector(".close").onclick = function() {
+  modal.style.display = "none";
+  frame.src = "";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    frame.src = "";
+  }
+}
+
+// end
 
   track.style.cursor = 'grab';
   buildDots();

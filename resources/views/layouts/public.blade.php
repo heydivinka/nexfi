@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Nexfi' }}</title>
-
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    <title>Profile Nexfi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         body{
-            background:#0f0f14;
+            font-family:Arial, sans-serif;
+            background:#0f172a;
             color:white;
-            font-family: Inter, sans-serif;
+            margin:0;
+            padding:0;
+        }
+
+        .container{
+            max-width:500px;
+            margin:auto;
+            padding:30px 20px;
+            text-align:center;
+        }
+
+        .card{
+            background:#111827;
+            border-radius:16px;
+            padding:25px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:10px 15px;
+            border-radius:8px;
+            background:#6366f1;
+            color:white;
+            text-decoration:none;
+            margin-top:15px;
         }
     </style>
+
 </head>
 <body>
 
-    <div class="min-h-screen flex items-center justify-center p-6">
-
-        @yield('content')
-
-    </div>
+<div class="container">
+    @yield('content')
+</div>
 
 </body>
 </html>

@@ -9,8 +9,8 @@ return new class extends Migration
    public function up(): void
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->string('photo')->nullable()->after('password');
-    });
+    $table->string('photo')->nullable();
+});
 }
 
 public function down(): void
