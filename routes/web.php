@@ -8,6 +8,18 @@ use App\Http\Controllers\Pengguna\DashboardController as PenggunaDashboard;
 use App\Http\Controllers\Pengguna\KeuanganController;
 use App\Http\Controllers\Pengguna\CategoryController;
 use App\Http\Controllers\Pengguna\RiwayatController;
+use App\Http\Controllers\Pengguna\LaporanController;
+
+// laporan
+Route::middleware(['auth'])->prefix('pengguna')->group(function () {
+
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('pengguna.laporan');
+    Route::post('/laporan/filter', [LaporanController::class, 'filter'])->name('pengguna.laporan.filter');
+
+    Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])->name('pengguna.laporan.pdf');
+    Route::get('/laporan/excel', [LaporanController::class, 'exportExcel'])->name('pengguna.laporan.excel');
+
+});
 
 /*
 |--------------------------------------------------------------------------
