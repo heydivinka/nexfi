@@ -15,39 +15,71 @@
         background:#10132a;
         border:1px solid rgba(108,99,255,0.14);
         border-radius:16px;
-        overflow:hidden;
+        overflow:visible;
+        position:relative;
     }
 
     /* KIRI */
     .id-banner {
-        height:80px;
+        height:100px;
         background:linear-gradient(135deg,#3b2fa0,#6c63ff,#9b59f5);
         position:relative;
+        z-index:1;
+        border-radius:16px 16px 0 0;
     }
     .id-banner::after {
         content:''; position:absolute; inset:0;
         background:repeating-linear-gradient(45deg,rgba(255,255,255,0.04) 0,rgba(255,255,255,0.04) 1px,transparent 1px,transparent 10px);
+        border-radius:16px 16px 0 0;
     }
-    .id-body { padding:0 18px 18px; }
-    .id-avatar-row { margin-top:-38px; margin-bottom:12px; }
+
+    /* PERBAIKAN: body pakai flex column align center */
+    .id-body {
+        padding:0 18px 18px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    /* PERBAIKAN: avatar tengah dan lebih besar */
+    .id-avatar-row {
+        margin-top:-52px;
+        margin-bottom:14px;
+        position:relative;
+        z-index:10;
+    }
     .id-avatar {
-        width:76px; height:76px; border-radius:50%; object-fit:cover;
-        border:3px solid #10132a; box-shadow:0 0 0 3px rgba(108,99,255,0.5);
+        width:100px; height:100px; border-radius:50%; object-fit:cover;
+        border:4px solid #10132a; box-shadow:0 0 0 3px rgba(108,99,255,0.5), 0 8px 24px rgba(108,99,255,0.3);
+        position:relative;
+        z-index:10;
+        display:block;
     }
     .id-avatar-ph {
-        width:76px; height:76px; border-radius:50%;
+        width:100px; height:100px; border-radius:50%;
         background:linear-gradient(135deg,#6c63ff,#9b59f5);
         display:flex; align-items:center; justify-content:center;
-        font-size:1.8rem; font-weight:800; color:#fff;
-        border:3px solid #10132a; box-shadow:0 0 0 3px rgba(108,99,255,0.5);
+        font-size:2.4rem; font-weight:800; color:#fff;
+        border:4px solid #10132a; box-shadow:0 0 0 3px rgba(108,99,255,0.5), 0 8px 24px rgba(108,99,255,0.3);
+        position:relative;
+        z-index:10;
     }
-    .id-name  { font-size:17px; font-weight:800; color:#fff; margin:0 0 3px; }
-    .id-uname { font-size:12px; color:rgba(255,255,255,0.32); margin:0 0 14px; }
-    .id-divider { height:1px; background:rgba(108,99,255,0.1); margin-bottom:14px; }
+    .id-name  { font-size:18px; font-weight:800; color:#fff; margin:0 0 4px; position:relative; z-index:2; }
+    .id-uname { font-size:12px; color:rgba(255,255,255,0.32); margin:0 0 16px; position:relative; z-index:2; }
+    .id-divider {
+        height:1px; background:rgba(108,99,255,0.1); margin-bottom:14px;
+        position:relative; z-index:1;
+        width:100%;
+    }
 
+    /* info row rata kiri dalam card yang tengah */
+    .id-info-rows { width:100%; }
     .id-info-row {
         display:flex; align-items:center; gap:11px;
         padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+        text-align:left;
+        position:relative; z-index:2;
     }
     .id-info-row:last-of-type { border-bottom:none; margin-bottom:14px; }
     .id-info-ico {
@@ -64,6 +96,8 @@
         font-size:13px; font-weight:700; color:#fff;
         background:linear-gradient(135deg,#6c63ff,#9b59f5);
         box-shadow:0 4px 16px rgba(108,99,255,0.3);
+        position:relative; z-index:2;
+        width:100%;
     }
     .btn-edit-prof:hover { opacity:0.85; }
 
@@ -74,6 +108,7 @@
         display:flex; align-items:center; gap:9px;
         padding:13px 16px 11px;
         border-bottom:1px solid rgba(108,99,255,0.08);
+        border-radius:16px 16px 0 0;
     }
     .sec-ico {
         width:30px; height:30px; border-radius:8px;
@@ -152,21 +187,23 @@
             <p class="id-name">{{ auth()->user()->name }}</p>
             <p class="id-uname">{{ auth()->user()->username }}</p>
             <div class="id-divider"></div>
-            <div class="id-info-row">
-                <div class="id-info-ico"><i class="fa-solid fa-user"></i></div>
-                <div><div class="id-info-label">Nama Lengkap</div><div class="id-info-val">{{ auth()->user()->name }}</div></div>
-            </div>
-            <div class="id-info-row">
-                <div class="id-info-ico"><i class="fa-solid fa-at"></i></div>
-                <div><div class="id-info-label">Username</div><div class="id-info-val">{{ auth()->user()->username }}</div></div>
-            </div>
-            <div class="id-info-row">
-                <div class="id-info-ico"><i class="fa-solid fa-envelope"></i></div>
-                <div><div class="id-info-label">Email</div><div class="id-info-val">{{ auth()->user()->email }}</div></div>
-            </div>
-            <div class="id-info-row">
-                <div class="id-info-ico"><i class="fa-solid fa-phone"></i></div>
-                <div><div class="id-info-label">No Telepon</div><div class="id-info-val">{{ auth()->user()->no_telp ?? '-' }}</div></div>
+            <div class="id-info-rows">
+                <div class="id-info-row">
+                    <div class="id-info-ico"><i class="fa-solid fa-user"></i></div>
+                    <div><div class="id-info-label">Nama Lengkap</div><div class="id-info-val">{{ auth()->user()->name }}</div></div>
+                </div>
+                <div class="id-info-row">
+                    <div class="id-info-ico"><i class="fa-solid fa-at"></i></div>
+                    <div><div class="id-info-label">Username</div><div class="id-info-val">{{ auth()->user()->username }}</div></div>
+                </div>
+                <div class="id-info-row">
+                    <div class="id-info-ico"><i class="fa-solid fa-envelope"></i></div>
+                    <div><div class="id-info-label">Email</div><div class="id-info-val">{{ auth()->user()->email }}</div></div>
+                </div>
+                <div class="id-info-row">
+                    <div class="id-info-ico"><i class="fa-solid fa-phone"></i></div>
+                    <div><div class="id-info-label">No Telepon</div><div class="id-info-val">{{ auth()->user()->no_telp ?? '-' }}</div></div>
+                </div>
             </div>
             <a href="{{ route('pengguna.profile.edit') }}" class="btn-edit-prof">
                 <i class="fa-solid fa-pen-to-square"></i> Edit Profile
