@@ -17,7 +17,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'saldo'
+        'saldo',
+        'photo' // wajib biar foto bisa disimpan
     ];
 
     protected $hidden = [
@@ -34,7 +35,7 @@ class User extends Authenticatable
     }
 
     public function transactions()
-{
-    return $this->hasMany(Transaction::class);
-}
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

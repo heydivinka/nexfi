@@ -99,14 +99,14 @@ Route::middleware(['auth'])->prefix('pengguna')->name('pengguna.')->group(functi
 
 Route::middleware(['auth'])->group(function () {
 
-   Route::get('/pengguna/profile', [ProfileController::class, 'index'])
-    ->name('pengguna.profile');
+    Route::get('/pengguna/profile', [ProfileController::class, 'index'])
+        ->name('pengguna.profile'); // ganti jadi index
 
-Route::get('/pengguna/profile/edit', [ProfileController::class, 'edit'])
-    ->name('pengguna.profile.edit');
+    Route::get('/pengguna/profile/edit', [ProfileController::class, 'edit'])
+        ->name('pengguna.profile.edit');
 
-Route::put('/pengguna/profile/update', [ProfileController::class, 'update'])
-    ->name('pengguna.profile.update');
+    Route::put('/pengguna/profile/update', [ProfileController::class, 'update'])
+        ->name('pengguna.profile.update');
 
 });
 

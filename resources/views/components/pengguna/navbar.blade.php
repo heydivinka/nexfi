@@ -42,14 +42,14 @@
 
         @auth
 
-           @if(auth()->user()->photo)
-                <img src="{{ asset('profile/' . auth()->user()->photo) }}"
-                    style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
-            @else
-                <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-                </div>
-            @endif
+        @if(auth()->user()->photo)
+            <img src="{{ asset('assets_public/' . auth()->user()->photo) }}"
+                style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
+        @else
+            <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">
+                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+            </div>
+        @endif
 
             <span id="nav-uname" style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);white-space:nowrap;">
                 {{ auth()->user()->name }}

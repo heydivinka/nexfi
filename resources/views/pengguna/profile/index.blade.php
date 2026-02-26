@@ -177,9 +177,9 @@
     <div class="p-card">
         <div class="id-banner"></div>
         <div class="id-body">
-            <div class="id-avatar-row">
+           <div class="id-avatar-row">
                 @if($user->photo)
-                    <img src="{{ asset('profile/'.$user->photo) }}" class="id-avatar" alt="Foto">
+                    <img src="{{ asset('assets_public/' . $user->photo) }}" class="id-avatar" alt="Foto">
                 @else
                     <div class="id-avatar-ph">{{ strtoupper(substr(auth()->user()->name,0,1)) }}</div>
                 @endif
