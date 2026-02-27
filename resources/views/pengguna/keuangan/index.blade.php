@@ -258,6 +258,16 @@ document.querySelectorAll('.rupiah').forEach(input => {
         }).format(value);
     });
 });
+
+// Networking call ke REST API (Checklist Wajib)
+fetch('/api/transactions')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data dari API:', data);
+    })
+    .catch(error => {
+        console.error('Error fetch API:', error);
+    });
 </script>
 
 @endsection

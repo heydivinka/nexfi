@@ -179,6 +179,17 @@ document.getElementById('editModal').addEventListener('click', function(e) {
     if(e.target === this) closeEdit();
 });
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeEdit(); });
+
+// API
+// Networking call ke API categories
+fetch('/api/categories')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data kategori dari API:', data);
+    })
+    .catch(error => {
+        console.error('Error fetch categories:', error);
+    });
 </script>
 
 @endsection
