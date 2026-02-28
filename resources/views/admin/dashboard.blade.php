@@ -4,7 +4,6 @@
 
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Ringkasan data & aktivitas terkini')
 
 @section('content')
 
@@ -49,8 +48,6 @@
     </div>
 </div>
 
-
-
 {{-- Stats Cards --}}
 <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
@@ -60,10 +57,14 @@
             <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                 <i class="fa-solid fa-newspaper text-blue-600 text-sm"></i>
             </div>
-            <span class="text-green-500 text-[10px] font-bold bg-green-50 px-2 py-0.5 rounded-full">+4 hari ini</span>
+            <span class="text-green-500 text-[10px] font-bold bg-green-50 px-2 py-0.5 rounded-full">
+                +{{ $todayMessages }} hari ini
+            </span>
         </div>
-        <p class="text-2xl font-extrabold text-slate-800 leading-none">143</p>
-        <p class="text-slate-400 text-xs mt-1 font-medium">Total Artikel Koran</p>
+        <p class="text-2xl font-extrabold text-slate-800 leading-none">
+            {{ $totalMessages }}
+        </p>
+        <p class="text-slate-400 text-xs mt-1 font-medium">Total data Koran</p>
     </div>
 
     {{-- Testimoni --}}
@@ -76,19 +77,6 @@
         </div>
         <p class="text-2xl font-extrabold text-slate-800 leading-none">391</p>
         <p class="text-slate-400 text-xs mt-1 font-medium">Total Testimoni</p>
-    </div>
-
-    {{-- Users (optional card, bisa dihapus) --}}
-    <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-200 col-span-2 lg:col-span-1">
-        <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                <i class="fa-solid fa-users text-indigo-600 text-sm"></i>
-            </div>
-            <span class="text-green-500 text-[10px] font-bold bg-green-50 px-2 py-0.5 rounded-full">+12%</span>
-        </div>
-        <p class="text-2xl font-extrabold text-slate-800 leading-none">2.847</p>
-        <p class="text-slate-400 text-xs mt-1 font-medium">Total Pengguna</p>
-    </div>
 
 </div>
 

@@ -2,13 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pengguna\ProfileController;
-
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Pengguna\DashboardController as PenggunaDashboard;
 use App\Http\Controllers\Pengguna\KeuanganController;
 use App\Http\Controllers\Pengguna\CategoryController;
 use App\Http\Controllers\Pengguna\RiwayatController;
 use App\Http\Controllers\Pengguna\LaporanController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\ContactController;
+
+// Submit form frontend user
+Route::post('/kontak', [ContactController::class,'store'])->name('kontak.store');
+
+// Admin messages
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('messages', [MessageController::class,'index'])->name('messages.index');
+    Route::get('messages/{message}/reply', [MessageController::class,'replyForm'])->name('messages.replyForm');
+    Route::post('messages/{message}/send', [MessageController::class,'sendReply'])->name('messages.sendReply');
+    Route::get('messages/{message}', [MessageController::class,'show'])->name('messages.show');
+    Route::delete('messages/{message}', [MessageController::class, 'destroy'])
+    ->name('messages.destroy');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +30,11 @@ use App\Http\Controllers\Pengguna\LaporanController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
+    if (auth()->check()) {
+        return auth()->user()->role === 'admin'
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('pengguna.dashboard');
+    }
     return view('welcome');
 });
 
@@ -40,7 +59,7 @@ Route::middleware('auth')->get('/dashboard', function () {
 | ADMIN ROUTES
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth','role:admin'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
@@ -48,7 +67,9 @@ Route::middleware(['auth','role:admin'])
         Route::get('/dashboard', [AdminDashboard::class, 'index'])
             ->name('dashboard');
 
-});
+        // tambahkan route admin lainnya di sini
+
+    });
 
 
 /*
@@ -56,7 +77,7 @@ Route::middleware(['auth','role:admin'])
 | PENGGUNA ROUTES
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth','role:pengguna'])
+Route::middleware(['auth', 'role:pengguna'])
     ->prefix('pengguna')
     ->name('pengguna.')
     ->group(function () {
@@ -109,7 +130,8 @@ Route::middleware(['auth','role:pengguna'])
         Route::put('/kategori/{id}', [CategoryController::class, 'update'])
             ->name('kategori.update');
 
-        Route::delete('/kategori/{id}', [CategoryController::class, 'destroy']);
+        Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])
+            ->name('kategori.destroy');
 
 
         /*
@@ -140,7 +162,7 @@ Route::middleware(['auth','role:pengguna'])
         Route::put('/profile/update', [ProfileController::class, 'update'])
             ->name('profile.update');
 
-});
+    });
 
 
 /*
@@ -152,4 +174,4 @@ Route::get('/u/{username}', [ProfileController::class, 'show'])
     ->name('profile.public');
 
 
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php'; // ← TETAP ADA, jangan dihapus

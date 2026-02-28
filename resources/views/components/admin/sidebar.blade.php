@@ -32,7 +32,7 @@
         </a>
 
         {{-- Koran --}}
-        <a href="#"
+        <a href="{{ route('admin.messages.index')}}"
             class="sidebar-link {{ request()->routeIs('admin.koran*') ? 'active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 font-medium text-sm transition-all duration-200 group">
             <span class="sidebar-icon w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-200">
                 <i class="fa-solid fa-newspaper text-sm"></i>

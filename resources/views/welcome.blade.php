@@ -24,55 +24,77 @@
     }
 
     .yt-thumb {
-  position: relative;
-  cursor: pointer;
-}
+      position: relative;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
 
-.yt-thumb img {
-  width: 100%;
-  border-radius: 12px;
-}
+    .yt-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.yt-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: red;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 50%;
-  font-size: 18px;
-}
+    .yt-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-}
+    .yt-play div {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #dc2626;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-.modal-content {
-  background: #fff;
-  margin: 5% auto;
-  padding: 10px;
-  width: 80%;
-  max-width: 700px;
-  border-radius: 12px;
-}
+    .yt-thumb:hover .yt-play div {
+      transform: scale(1.08);
+      box-shadow: 0 12px 40px rgba(220,38,38,0.5);
+    }
 
-.close {
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
-}
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+    }
 
-/* end yt */
+    .modal-content {
+      background: #1a1a2e;
+      margin: 5% auto;
+      padding: 10px;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+      color: #fff;
+      line-height: 1;
+      padding: 4px 8px;
+    }
 
     .gradient-text {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -84,7 +106,7 @@
 
     @keyframes floatY { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
 
-    /* BG GRID — fixed for mobile */
+    /* BG GRID */
     .bg-grid-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -146,21 +168,11 @@
 
     /* YouTube card */
     #youtubeCard { border-radius:22px; overflow:hidden; border:1px solid var(--border); box-shadow:0 16px 60px rgba(108,99,255,0.15); background:#0c0d1d; }
-    #youtubeCard a.yt-thumb { display:block; position:relative; width:100%; overflow:hidden; aspect-ratio:16/9; }
-    #youtubeCard a.yt-thumb img { width:100%; height:100%; object-fit:cover; }
-    #youtubeCard a.yt-thumb .yt-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-    #youtubeCard a.yt-thumb .yt-play div {
-      width:68px; height:68px; border-radius:50%;
-      background:#dc2626; display:flex; align-items:center; justify-content:center;
-      color:#fff; font-size:1.5rem; box-shadow:0 8px 30px rgba(0,0,0,0.5);
-      transition:transform 0.2s, box-shadow 0.2s;
-    }
-    #youtubeCard a.yt-thumb:hover .yt-play div { transform:scale(1.08); box-shadow:0 12px 40px rgba(220,38,38,0.5); }
-    #youtubeCard a.yt-thumb .yt-badge { position:absolute; bottom:12px; right:12px; background:rgba(0,0,0,0.75); color:#fff; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+    #youtubeCard .yt-badge { position:absolute; bottom:12px; right:12px; background:rgba(0,0,0,0.75); color:#fff; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:4px; }
     #youtubeCard .yt-body { padding:20px 24px 24px; }
     #youtubeCard .yt-body p { font-size:0.88rem; line-height:1.6; color:var(--muted2); margin:0 0 16px; }
-    #youtubeCard .yt-body a.yt-btn { display:flex; align-items:center; justify-content:center; gap:8px; color:#fff; text-decoration:none; padding:12px; border-radius:9999px; font-weight:700; font-size:0.9rem; background:#dc2626; transition:opacity 0.2s; }
-    #youtubeCard .yt-body a.yt-btn:hover { opacity:0.88; }
+    #youtubeCard .yt-body a.yt-btn, #youtubeCard .yt-body button.yt-btn { display:flex; align-items:center; justify-content:center; gap:8px; color:#fff; text-decoration:none; padding:12px; border-radius:9999px; font-weight:700; font-size:0.9rem; background:#dc2626; transition:opacity 0.2s; border:none; cursor:pointer; width:100%; font-family:'Inter',sans-serif; }
+    #youtubeCard .yt-body a.yt-btn:hover, #youtubeCard .yt-body button.yt-btn:hover { opacity:0.88; }
 
     /* ===== TESTIMONIAL ===== */
     .testi-track { display:flex; gap:24px; transition:transform 0.42s cubic-bezier(0.4,0,0.2,1); align-items:stretch; }
@@ -172,6 +184,30 @@
     /* ===== FORM GRID ===== */
     .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 
+    /* ===== BUTTON KIRIM — unified style ===== */
+    .btn-kirim {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 30px var(--glow);
+      transition: opacity 0.2s, transform 0.2s;
+      width: 100%;
+    }
+    .btn-kirim:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-kirim:active { transform: translateY(0); }
+    .btn-kirim:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
     /* ===== FOOTER GRID ===== */
     .footer-grid { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:32px; padding-bottom:32px; border-bottom:1px solid rgba(255,255,255,0.07); }
 
@@ -181,15 +217,33 @@
       #navAuthDesktop { display:block !important; }
       #hamburger { display:none !important; }
     }
+
     @media (max-width: 767px) {
       #aboutBottom { grid-template-columns:1fr; gap:24px; }
+
       .testi-track { gap:16px; }
       .testi-slide { flex:0 0 100%; }
+
       .form-grid { grid-template-columns:1fr !important; }
       .form-grid > * { grid-column:1 !important; }
+      .btn-kirim { grid-column: 1 !important; }
+
       .footer-grid { flex-direction:column; gap:24px; }
+
       .hero-btns { flex-direction:column; align-items:stretch; }
       .hero-btns button { justify-content:center; }
+
+      #youtubeCard .yt-play div { width:52px; height:52px; font-size:1.2rem; }
+
+      .modal-content { margin: 15% auto; width: 95%; }
+      .modal-content iframe { height: 250px; }
+    }
+
+    @media (max-width: 480px) {
+      #aboutSection { padding: 60px 4%; }
+      #testi { padding: 60px 4% !important; }
+      #kontak { padding: 60px 4% !important; }
+      footer { padding: 36px 4% 20px !important; }
     }
   </style>
 </head>
@@ -320,30 +374,33 @@
         </button>
       </div>
       <!-- Kanan: YouTube card -->
-      <!-- YouTube Card -->
-<div id="youtubeCard">
+      <div id="youtubeCard">
+        <!-- Thumbnail -->
+        <div class="yt-thumb" id="openVideo">
+          <img src="https://img.youtube.com/vi/TDzgeOKmURs/hqdefault.jpg" alt="Demo NexFi">
+          <div class="yt-play">
+            <div><i class="fa-solid fa-play" style="margin-left:4px;"></i></div>
+          </div>
+        </div>
 
-  <!-- Thumbnail -->
-  <div class="yt-thumb" id="openVideo">
-    <img src="https://img.youtube.com/vi/TDzgeOKmURs/hqdefault.jpg" alt="Demo NexFi">
-    <div class="yt-play">▶</div>
+        <div class="yt-body">
+          <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
+          <button class="yt-btn" id="openVideoBtn">
+            <i class="fa-brands fa-youtube"></i> Tonton Video Demo
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="yt-body">
-    <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
-    <button class="yt-btn" id="openVideoBtn">Tonton Video Demo</button>
-  </div>
-
-</div>
-
+</section>
 
 <!-- POPUP MODAL -->
 <div id="videoModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <iframe 
+    <iframe
       id="youtubeFrame"
-      width="100%" 
+      width="100%"
       height="400"
       src=""
       frameborder="0"
@@ -352,10 +409,6 @@
     </iframe>
   </div>
 </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- TESTI -->
 <section id="testi" style="padding:80px 5%;position:relative;overflow:hidden;background:#10132a;z-index:1;">
@@ -406,6 +459,7 @@
       </div>
     </div>
     <div style="border-radius:24px;padding:24px;background:#0c0d1d;border:1px solid var(--border);box-shadow:0 10px 45px rgba(108,99,255,0.12);">
+
       <!-- Form Testi -->
       <form id="formTesti" class="form-grid">
         <div><label class="form-label">Nama Lengkap</label><input type="text" placeholder="Nama kamu" class="inp-dark"></div>
@@ -435,20 +489,22 @@
           </div>
         </div>
         <div style="grid-column:1/-1;"><label class="form-label">Testimoni</label><textarea rows="4" placeholder="Ceritakan pengalamanmu..." class="inp-dark" style="resize:none;"></textarea></div>
-        <button type="button" onclick="handleFakeSubmit(this)" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:14px;border-radius:16px;border:none;cursor:pointer;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow);">
+        <button type="button" onclick="handleFakeSubmit(this)" class="btn-kirim">
           <i class="fa-solid fa-paper-plane"></i> Kirim Testimoni
         </button>
       </form>
+
       <!-- Form Kontak -->
       <form id="formKoran" class="form-grid" style="display:none;">
-        <div><label class="form-label">Nama Lengkap</label><input type="text" placeholder="Nama kamu" class="inp-dark"></div>
-        <div><label class="form-label">Email</label><input type="email" placeholder="nama@email.com" class="inp-dark"></div>
-        <div style="grid-column:1/-1;"><label class="form-label">Subjek</label><input type="text" placeholder="Topik pesan" class="inp-dark"></div>
-        <div style="grid-column:1/-1;"><label class="form-label">Pesan</label><textarea rows="5" placeholder="Tulis pesan kamu..." class="inp-dark" style="resize:none;"></textarea></div>
-        <button type="button" onclick="handleFakeSubmit(this)" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:14px;border-radius:16px;border:none;cursor:pointer;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px var(--glow);">
+        <div><label class="form-label">Nama Lengkap</label><input type="text" name="name" placeholder="Nama kamu" class="inp-dark"></div>
+        <div><label class="form-label">Email</label><input type="email" name="email" placeholder="nama@email.com" class="inp-dark"></div>
+        <div style="grid-column:1/-1;"><label class="form-label">Subjek</label><input type="text" name="subject" placeholder="Topik pesan" class="inp-dark"></div>
+        <div style="grid-column:1/-1;"><label class="form-label">Pesan</label><textarea rows="5" name="message" placeholder="Tulis pesan kamu..." class="inp-dark" style="resize:none;"></textarea></div>
+        <button type="button" onclick="handleSubmitKoran(this)" class="btn-kirim">
           <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
         </button>
       </form>
+
     </div>
   </div>
 </section>
@@ -554,22 +610,36 @@ if (fotoInput) {
   });
 }
 
-/* ===== FAKE SUBMIT ===== */
-function handleFakeSubmit(btn) {
-  var orig = btn.innerHTML;
-  btn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim!';
-  btn.disabled = true;
-  setTimeout(function() {
-    btn.innerHTML = orig;
-    btn.disabled = false;
-    document.querySelectorAll('#ratingStars i').forEach(function(s) {
-      s.style.color = 'rgba(255,255,255,0.15)';
+/* ===== SUBMIT KONTAK ===== */
+function handleSubmitKoran(btn) {
+    btn.disabled = true;
+    var btnText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+    const form = document.getElementById('formKoran');
+    const data = new FormData(form);
+
+    fetch("{{ route('kontak.store') }}", {
+        method: 'POST',
+        headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
+        body: data
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.success){
+            alert(res.message);
+            form.reset();
+        } else {
+            alert('Gagal mengirim pesan');
+        }
+        btn.disabled = false;
+        btn.innerHTML = btnText;
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Terjadi error');
+        btn.disabled = false;
+        btn.innerHTML = btnText;
     });
-    var ap = document.getElementById('avatarPreview');
-    var ai = document.getElementById('avatarIcon');
-    if (ap) { ap.src = ''; ap.style.display = 'none'; }
-    if (ai) ai.style.display = '';
-  }, 2500);
 }
 
 /* ===== TESTIMONIAL SLIDER ===== */
@@ -637,8 +707,12 @@ function handleFakeSubmit(btn) {
     buildDots();
   });
 
-  // yt
-  const modal = document.getElementById("videoModal");
+  track.style.cursor = 'grab';
+  buildDots();
+})();
+
+/* ===== YOUTUBE MODAL ===== */
+const modal = document.getElementById("videoModal");
 const frame = document.getElementById("youtubeFrame");
 
 document.getElementById("openVideo").onclick = openVideo;
@@ -654,18 +728,12 @@ document.querySelector(".close").onclick = function() {
   frame.src = "";
 }
 
-window.onclick = function(event) {
+window.addEventListener("click", function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
     frame.src = "";
   }
-}
-
-// end
-
-  track.style.cursor = 'grab';
-  buildDots();
-})();
+});
 </script>
 </body>
 </html>
