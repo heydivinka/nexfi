@@ -271,14 +271,7 @@
                                 </div>
                             </div>
 
-                            <!-- Terms & Conditions -->
-                            <div class="flex items-start gap-2 mt-1 sm:mt-2">
-                                <input type="checkbox" id="terms" name="terms" required 
-                                       class="w-3.5 h-3.5 sm:w-4 sm:h-4 accent-[#6c63ff] cursor-pointer mt-0.5 shrink-0">
-                                <label for="terms" class="text-[10px] sm:text-xs text-white/35 cursor-pointer font-normal leading-relaxed">
-                                    Saya menyetujui <a href="#" class="text-[#6c63ff] hover:underline">Syarat & Ketentuan</a> dan <a href="#" class="text-[#6c63ff] hover:underline">Kebijakan Privasi</a>
-                                </label>
-                            </div>
+                
                         </div>
                     </div>
 
@@ -356,9 +349,9 @@
         }
 
         // Prevent browser autofill
-        window.addEventListener('load', function() {
+       window.addEventListener('load', function() {
             setTimeout(function() {
-                document.querySelectorAll('input').forEach(input => {
+                document.querySelectorAll('input:not([type="hidden"])').forEach(input => {
                     input.value = '';
                 });
             }, 100);

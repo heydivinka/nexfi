@@ -44,7 +44,6 @@
     .stat-val { font-size:15px;font-weight:800;color:white;letter-spacing:-0.3px; }
     .stat-foot { display:flex;align-items:center;gap:4px;margin-top:3px; }
     .stat-sub  { font-size:9.5px;color:rgba(255,255,255,0.22); }
-    .stat-pct  { font-size:9.5px;font-weight:700; }
 
     .activity {
         background:#10132a;
@@ -71,6 +70,14 @@
     .act-title { font-size:11.5px;font-weight:600;color:white;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
     .act-sub2  { font-size:10px;color:rgba(255,255,255,0.28);margin:1px 0 0; }
     .act-amt   { font-size:11.5px;font-weight:700;flex-shrink:0;white-space:nowrap; }
+
+    .act-empty {
+        padding:28px 13px;
+        text-align:center;
+        font-size:12px;
+        color:rgba(255,255,255,0.2);
+    }
+    .act-empty i { display:block; font-size:1.8rem; margin-bottom:8px; opacity:0.2; }
 </style>
 
 <div class="dash">
@@ -80,6 +87,8 @@
     </div>
 
     <div class="stat-grid">
+
+        {{-- Saldo --}}
         <div class="stat">
             <div class="stat-bar" style="background:linear-gradient(90deg,#6c63ff,#9b59f5);"></div>
             <div class="stat-head">
@@ -96,6 +105,7 @@
             <div class="stat-foot"><span class="stat-sub">Total saldo aktif</span></div>
         </div>
 
+        {{-- Pemasukan --}}
         <div class="stat">
             <div class="stat-bar" style="background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
             <div class="stat-head">
@@ -106,16 +116,13 @@
                 </div>
                 <span class="stat-lbl">Pemasukan</span>
             </div>
-
             <div class="stat-val">
                 Rp {{ number_format($totalPemasukan, 0, ',', '.') }}
             </div>
-
-            <div class="stat-foot">
-                <span class="stat-sub">Bulan ini</span>
-            </div>
+            <div class="stat-foot"><span class="stat-sub">Bulan ini</span></div>
         </div>
 
+        {{-- Pengeluaran --}}
         <div class="stat">
             <div class="stat-bar" style="background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
             <div class="stat-head">
@@ -126,52 +133,51 @@
                 </div>
                 <span class="stat-lbl">Pengeluaran</span>
             </div>
-
             <div class="stat-val">
                 Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}
             </div>
-
-            <div class="stat-foot">
-                <span class="stat-sub">Bulan ini</span>
-            </div>
+            <div class="stat-foot"><span class="stat-sub">Bulan ini</span></div>
         </div>
+
     </div>
 
+    {{-- ✅ Aktivitas Terbaru — realtime dari DB --}}
     <div class="activity">
         <div class="act-hdr">
             <p>Aktivitas Terbaru</p>
             <a href="#">Lihat Semua →</a>
         </div>
+
+        @forelse($recentTransactions as $trx)
         <div class="act-item">
-            <div class="act-ico" style="background:rgba(34,197,94,0.1);">
-                <svg width="11" height="11" fill="none" stroke="#22c55e" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/></svg>
+            <div class="act-ico" style="background:{{ $trx->tipe == 'pemasukan' ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)' }};">
+                @if($trx->tipe == 'pemasukan')
+                    <svg width="11" height="11" fill="none" stroke="#22c55e" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                @else
+                    <svg width="11" height="11" fill="none" stroke="#ef4444" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
+                    </svg>
+                @endif
             </div>
             <div class="act-body">
-                <p class="act-title">Gaji Bulanan</p>
-                <p class="act-sub2">Gaji · 2 jam lalu</p>
+                <p class="act-title">{{ $trx->nama }}</p>
+                <p class="act-sub2">
+                    {{ ucfirst($trx->tipe) }} · {{ \Carbon\Carbon::parse($trx->tanggal)->diffForHumans() }}
+                </p>
             </div>
-            <span class="act-amt" style="color:#22c55e;">+Rp 5.000.000</span>
+            <span class="act-amt" style="color:{{ $trx->tipe == 'pemasukan' ? '#22c55e' : '#ef4444' }};">
+                {{ $trx->tipe == 'pemasukan' ? '+' : '−' }}Rp {{ number_format($trx->nominal, 0, ',', '.') }}
+            </span>
         </div>
-        <div class="act-item">
-            <div class="act-ico" style="background:rgba(239,68,68,0.1);">
-                <svg width="11" height="11" fill="none" stroke="#ef4444" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6"/></svg>
-            </div>
-            <div class="act-body">
-                <p class="act-title">Belanja Bulanan</p>
-                <p class="act-sub2">Kebutuhan · 5 jam lalu</p>
-            </div>
-            <span class="act-amt" style="color:#ef4444;">−Rp 850.000</span>
+        @empty
+        <div class="act-empty">
+            <i class="fa-solid fa-inbox"></i>
+            Belum ada transaksi
         </div>
-        <div class="act-item">
-            <div class="act-ico" style="background:rgba(249,115,22,0.1);">
-                <svg width="11" height="11" fill="none" stroke="#f97316" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6"/></svg>
-            </div>
-            <div class="act-body">
-                <p class="act-title">Makan & Minum</p>
-                <p class="act-sub2">Konsumsi · Kemarin</p>
-            </div>
-            <span class="act-amt" style="color:#f97316;">−Rp 120.000</span>
-        </div>
+        @endforelse
+
     </div>
 
 </div>
