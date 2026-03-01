@@ -278,8 +278,71 @@ php artisan view:clear
 
 ---
 
-# 📌 Notes
+# 🔑 Cara Set Akun Admin
 
-Disarankan menggunakan Laragon agar konfigurasi lebih stabil dan kompatibel dengan Laravel 12.
+## 1️⃣ Manual via Database
+
+1. Buka phpMyAdmin → table `users`
+2. Ubah kolom `role` dari `pengguna` → `admin`
+3. Simpan  
+⚡ User langsung punya akses dashboard admin
+
+---
+
+## 2️⃣ Via Thinker / Panel Admin
+
+1. Login user biasa
+2. Masuk ke panel Thinker (admin panel)
+3. Cari user → ubah role dropdown `pengguna` → `admin`
+4. Simpan  
+⚡ User langsung punya akses dashboard admin
+
+---
+
+## 3️⃣ Via Artisan Tinker (CLI)
+
+1. Jalankan terminal di folder project:
+
+```bash
+php artisan tinker
+```
+
+2. Cari user:
+
+```php
+$user = \App\Models\User::where('email', 'user@example.com')->first();
+```
+
+3. Ubah role jadi admin:
+
+```php
+$user->role = 'admin';
+$user->save();
+```
+
+**Shortcut 1 baris:**
+
+```php
+\App\Models\User::where('email', 'user@example.com')->first()->update(['role' => 'admin']);
+```
+⚡ Setelah diubah:
+- User langsung punya akses dashboard admin.
+- Bisa mengelola fitur admin (approve testimoni, lihat pesan landing page, dll).
+
+---
+
+**Catatan:**  
+- Pastikan hanya user terpercaya yang diubah menjadi admin.  
+- Role `pengguna` hanya bisa akses fitur user biasa, sementara `admin` punya akses penuh ke dashboard admin.
+
+---
+# 📌 Notes
+- Gunakan Laragon, jangan XAMPP
+- Pastikan versi PHP 8.3+
+- Jalankan `storage:link`
+- Sesuaikan database sebelum migrate
+- Hanya user terpercaya yang dijadikan admin
+- Role `pengguna` = akses user biasa, `admin` = akses penuh dashboard admin
+- Disarankan menggunakan Laragon agar konfigurasi lebih stabil dan kompatibel dengan Laravel 12.
 
 ---
