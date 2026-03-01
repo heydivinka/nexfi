@@ -10,6 +10,18 @@ use App\Http\Controllers\Pengguna\RiwayatController;
 use App\Http\Controllers\Pengguna\LaporanController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\TestimonialController;
+
+// Route submit testi dari publik
+Route::post('/testimonial/submit', [\App\Http\Controllers\TestimonialSubmitController::class, 'store'])->name('testimonial.store');
+
+// Route Admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/testimoni', [TestimonialController::class, 'index'])->name('testimoni.index');
+    Route::patch('/testimoni/{testimonial}/publish', [TestimonialController::class, 'publish'])->name('testimoni.publish');
+    Route::patch('/testimoni/{testimonial}/reject', [TestimonialController::class, 'reject'])->name('testimoni.reject');
+    Route::delete('/testimoni/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimoni.destroy');
+});
 
 // Submit form frontend user
 Route::post('/kontak', [ContactController::class,'store'])->name('kontak.store');
@@ -37,6 +49,10 @@ Route::get('/', function () {
     }
     return view('welcome');
 });
+
+Route::get('/preview-landing', function () {
+    return view('welcome');
+})->name('preview.landing')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

@@ -415,6 +415,8 @@
   <div class="section-divider" style="position:absolute;top:0;left:0;right:0;"></div>
   <div class="section-divider" style="position:absolute;bottom:0;left:0;right:0;"></div>
   <div style="max-width:1200px;margin:0 auto;width:100%;">
+
+    {{-- JUDUL --}}
     <div style="text-align:center;margin-bottom:40px;">
       <div style="display:inline-flex;align-items:center;gap:6px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:16px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
         <i class="fa-solid fa-comments"></i> Testimoni
@@ -422,16 +424,48 @@
       <h2 style="font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.02em;color:#fff;margin:0 0 8px;">Apa Kata <span class="gradient-text">Mereka?</span></h2>
       <p style="color:var(--muted2);font-size:0.95rem;max-width:480px;margin:0 auto;line-height:1.6;">Ribuan pengguna sudah merasakan manfaat NexFi.</p>
     </div>
+
+    {{-- SLIDER --}}
     <div style="overflow:hidden;">
       <div class="testi-track" id="testiTrack">
-        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"NexFi sangat membantu saya mengatur keuangan dengan mudah dan cepat. Fitur analitik-nya luar biasa!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Andi Setiawan</div><div style="font-size:0.75rem;color:var(--muted);">Pengusaha, Jakarta</div></div></div></div></div>
-        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Aplikasi yang sangat user-friendly! Sekarang nabung dan investasi jadi lebih terencana. Recommend banget!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#EC4899,#F472B6);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Maria Tan</div><div style="font-size:0.75rem;color:var(--muted);">Mahasiswi, Surabaya</div></div></div></div></div>
-        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star" style="color:rgba(255,255,255,0.18);"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Keamanan tinggi dan proses cepat. NexFi bikin hidup saya jauh lebih teratur. Highly recommended!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#10B981,#34D399);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Rahmat H.</div><div style="font-size:0.75rem;color:var(--muted);">Karyawan, Bandung</div></div></div></div></div>
-        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Dashboard-nya bersih dan mudah dipahami. Semua laporan keuangan kelihatan jelas. Top banget!"</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Dian Pratiwi</div><div style="font-size:0.75rem;color:var(--muted);">Ibu Rumah Tangga, Yogyakarta</div></div></div></div></div>
-        <div class="testi-slide"><div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;"><div style="color:#f59e0b;margin-bottom:12px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"Notifikasi real-time-nya keren! Setiap ada transaksi langsung muncul. Nggak ada yang kelewat."</p><div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#6366f1,#818cf8);"><i class="fa-solid fa-user" style="font-size:0.875rem;"></i></div><div><div style="font-weight:700;font-size:0.9rem;color:#fff;">Budi Santoso</div><div style="font-size:0.75rem;color:var(--muted);">Freelancer, Bali</div></div></div></div></div>
+        @php $publishedTestis = \App\Models\Testimonial::where('status','published')->latest()->get(); @endphp
+        @forelse($publishedTestis as $testi)
+        <div class="testi-slide">
+          <div class="card-dark" style="padding:20px 24px;display:flex;flex-direction:column;height:100%;min-height:210px;">
+            <div style="color:#f59e0b;margin-bottom:12px;">
+              @for($i=1;$i<=5;$i++)
+                @if($i <= $testi->rating)
+                  <i class="fa-solid fa-star"></i>
+                @else
+                  <i class="fa-regular fa-star" style="color:rgba(255,255,255,0.18);"></i>
+                @endif
+              @endfor
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--muted2);flex:1;margin:0 0 20px;">"{{ $testi->isi }}"</p>
+            <div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);">
+              @if($testi->foto)
+                <img src="{{ asset('storage/'.$testi->foto) }}" alt="{{ $testi->nama }}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(108,99,255,0.3);">
+              @else
+                <img src="{{ asset('images/anon.png') }}" alt="anon" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(108,99,255,0.3);">
+              @endif
+              <div>
+                <div style="font-weight:700;font-size:0.9rem;color:#fff;">{{ $testi->nama }}</div>
+                <div style="font-size:0.75rem;color:var(--muted);">{{ $testi->created_at->format('M Y') }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @empty
+        <div class="testi-slide">
+          <div class="card-dark" style="padding:20px 24px;min-height:210px;display:flex;align-items:center;justify-content:center;">
+            <p style="color:var(--muted);font-style:italic;text-align:center;">Belum ada testimoni. Jadilah yang pertama!</p>
+          </div>
+        </div>
+        @endforelse
       </div>
       <div class="testi-dots" id="testiDots"></div>
     </div>
+
   </div>
 </section>
 
@@ -462,37 +496,62 @@
 
       <!-- Form Testi -->
       <form id="formTesti" class="form-grid">
-        <div><label class="form-label">Nama Lengkap</label><input type="text" placeholder="Nama kamu" class="inp-dark"></div>
-        <div><label class="form-label">Email</label><input type="email" placeholder="nama@email.com" class="inp-dark"></div>
-        <div style="grid-column:1/-1;">
-          <label class="form-label">Foto Profil</label>
-          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div style="width:56px;height:56px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid rgba(108,99,255,0.3);background:rgba(108,99,255,0.1);flex-shrink:0;">
-              <img id="avatarPreview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
-              <i id="avatarIcon" class="fa-solid fa-user" style="color:rgba(108,99,255,0.5);font-size:1.1rem;"></i>
+      <div>
+        <label class="form-label">Nama Lengkap</label>
+        <input type="text" name="nama" placeholder="Nama kamu" class="inp-dark" required>
+      </div>
+
+      <div>
+        <label class="form-label">Email</label>
+        <input type="email" name="email" placeholder="nama@email.com" class="inp-dark" required>
+      </div>
+
+      <div style="grid-column:1/-1;">
+        <label class="form-label">Foto Profil</label>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          
+          <div style="width:56px;height:56px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid rgba(108,99,255,0.3);background:rgba(108,99,255,0.1);flex-shrink:0;">
+            <img id="avatarPreview" src="" style="display:none;width:100%;height:100%;object-fit:cover;">
+            <i id="avatarIcon" class="fa-solid fa-user" style="color:rgba(108,99,255,0.5);font-size:1.1rem;"></i>
+          </div>
+
+          <label style="flex:1;min-width:160px;display:flex;align-items:center;gap:12px;cursor:pointer;border-radius:12px;padding:16px;background:rgba(255,255,255,0.04);border:1.5px dashed rgba(108,99,255,0.3);">
+            <i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);flex-shrink:0;"></i>
+            <div>
+              <div style="font-weight:600;font-size:0.875rem;color:rgba(255,255,255,0.7);">
+                Klik untuk upload foto
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);">
+                PNG / JPG (max 2MB)
+              </div>
             </div>
-            <label style="flex:1;min-width:160px;display:flex;align-items:center;gap:12px;cursor:pointer;border-radius:12px;padding:16px;background:rgba(255,255,255,0.04);border:1.5px dashed rgba(108,99,255,0.3);">
-              <i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);flex-shrink:0;"></i>
-              <div><div style="font-weight:600;font-size:0.875rem;color:rgba(255,255,255,0.7);">Klik untuk upload foto</div><div style="font-size:0.75rem;color:var(--muted);">PNG / JPG (max 2MB)</div></div>
-              <input type="file" id="fotoInput" accept="image/*" style="display:none;">
-            </label>
-          </div>
+            <input type="file" name="foto" id="fotoInput" accept="image/*" style="display:none;">
+          </label>
         </div>
-        <div style="grid-column:1/-1;">
-          <label class="form-label">Rating</label>
-          <div id="ratingStars" style="display:flex;gap:8px;font-size:1.7rem;cursor:pointer;color:rgba(255,255,255,0.15);">
-            <i class="fa-solid fa-star" data-value="1"></i>
-            <i class="fa-solid fa-star" data-value="2"></i>
-            <i class="fa-solid fa-star" data-value="3"></i>
-            <i class="fa-solid fa-star" data-value="4"></i>
-            <i class="fa-solid fa-star" data-value="5"></i>
-          </div>
+      </div>
+
+      <div style="grid-column:1/-1;">
+        <label class="form-label">Rating</label>
+        <div id="ratingStars" style="display:flex;gap:8px;font-size:1.7rem;cursor:pointer;color:rgba(255,255,255,0.15);">
+          <i class="fa-solid fa-star" data-value="1"></i>
+          <i class="fa-solid fa-star" data-value="2"></i>
+          <i class="fa-solid fa-star" data-value="3"></i>
+          <i class="fa-solid fa-star" data-value="4"></i>
+          <i class="fa-solid fa-star" data-value="5"></i>
         </div>
-        <div style="grid-column:1/-1;"><label class="form-label">Testimoni</label><textarea rows="4" placeholder="Ceritakan pengalamanmu..." class="inp-dark" style="resize:none;"></textarea></div>
-        <button type="button" onclick="handleFakeSubmit(this)" class="btn-kirim">
-          <i class="fa-solid fa-paper-plane"></i> Kirim Testimoni
-        </button>
-      </form>
+        <input type="hidden" name="rating" id="ratingInput" required>
+      </div>
+
+      <div style="grid-column:1/-1;">
+        <label class="form-label">Testimoni</label>
+        <textarea name="isi" rows="4" placeholder="Ceritakan pengalamanmu..." class="inp-dark" style="resize:none;" required></textarea>
+      </div>
+
+      <button type="button" onclick="submitTesti(this)" class="btn-kirim">
+        <i class="fa-solid fa-paper-plane"></i> Kirim Testimoni
+      </button>
+
+    </form>
 
       <!-- Form Kontak -->
       <form id="formKoran" class="form-grid" style="display:none;">
@@ -544,6 +603,135 @@
 </footer>
 
 <script>
+
+// ⭐ STAR RATING
+const stars = document.querySelectorAll("#ratingStars i");
+const ratingInput = document.getElementById("ratingInput");
+
+// ⭐ RATING
+stars.forEach(star => {
+    star.addEventListener("click", function () {
+        const value = this.dataset.value;
+        ratingInput.value = value;
+
+        stars.forEach(s => {
+            s.style.color = s.dataset.value <= value
+                ? "#FFD700"
+                : "rgba(255,255,255,0.15)";
+        });
+    });
+});
+
+
+// 📸 FOTO PREVIEW
+document.getElementById("fotoInput").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        document.getElementById("avatarPreview").src = event.target.result;
+        document.getElementById("avatarPreview").style.display = "block";
+        document.getElementById("avatarIcon").style.display = "none";
+    };
+
+    reader.readAsDataURL(file);
+});
+
+
+// 🚀 SUBMIT TESTIMONI
+function submitTesti(button) {
+
+    const form = document.getElementById("formTesti");
+    const formData = new FormData(form);
+
+    // validasi rating
+    if (!ratingInput.value) {
+        alert("Pilih rating dulu ⭐");
+        return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = "Mengirim...";
+
+    fetch("http://127.0.0.1:8000/api/testimonials", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.success) {
+
+            alert("Testimoni berhasil dikirim 🎉");
+
+            form.reset();
+
+            ratingInput.value = "";
+
+            stars.forEach(s => {
+                s.style.color = "rgba(255,255,255,0.15)";
+            });
+
+            document.getElementById("avatarPreview").style.display = "none";
+            document.getElementById("avatarIcon").style.display = "block";
+
+        } else {
+            alert("Gagal kirim testimoni 😢");
+        }
+
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error!");
+    })
+    .finally(() => {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Testimoni';
+    });
+}
+
+function handleSubmitKoran(button) {
+
+    const form = document.getElementById("formKoran");
+
+    const formData = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+    };
+
+    // Optional: disable tombol biar nggak spam klik
+    button.disabled = true;
+    button.innerHTML = "Mengirim...";
+
+    fetch("http://localhost:8000/api/messages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Pesan berhasil dikirim 🚀");
+            form.reset();
+        } else {
+            alert("Gagal mengirim pesan 😢");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Terjadi kesalahan server!");
+    })
+    .finally(() => {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pesan';
+    });
+}
+
 /* ===== NAVBAR ===== */
 function applyNavLayout() {
   var d = window.innerWidth >= 768;
@@ -608,6 +796,66 @@ if (fotoInput) {
       reader.readAsDataURL(fotoInput.files[0]);
     }
   });
+}
+
+/* ===== SUBMIT TESTIMONI ===== */
+var selectedRating = 0;
+document.querySelectorAll('#ratingStars i').forEach(function(star) {
+  star.addEventListener('click', function() {
+    selectedRating = parseInt(this.getAttribute('data-value'));
+    document.querySelectorAll('#ratingStars i').forEach(function(s) {
+      s.style.color = parseInt(s.getAttribute('data-value')) <= selectedRating
+        ? '#F59E0B' : 'rgba(255,255,255,0.15)';
+    });
+  });
+});
+
+// handle submit testi
+function submitTesti(btn) {
+  var form = document.getElementById('formTesti');
+  var nama = form.querySelector('input[type="text"]').value.trim();
+  var email = form.querySelector('input[type="email"]').value.trim();
+  var isi = form.querySelector('textarea').value.trim();
+
+  if (!nama || !email || !isi || selectedRating === 0) {
+    alert('Mohon isi semua field dan pilih rating!');
+    return;
+  }
+
+  btn.disabled = true;
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+
+  var data = new FormData();
+  data.append('_token', '{{ csrf_token() }}');
+  data.append('nama', nama);
+  data.append('email', email);
+  data.append('rating', selectedRating);
+  data.append('isi', isi);
+  var fotoFile = document.getElementById('fotoInput').files[0];
+  if (fotoFile) data.append('foto', fotoFile);
+
+  fetch('{{ route("testimonial.store") }}', { method: 'POST', body: data })
+    .then(r => r.json())
+    .then(res => {
+      if (res.success) {
+        alert(res.message);
+        form.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(function(el){ el.value=''; });
+        selectedRating = 0;
+        document.querySelectorAll('#ratingStars i').forEach(function(s){ s.style.color='rgba(255,255,255,0.15)'; });
+        document.getElementById('avatarPreview').style.display = 'none';
+        document.getElementById('avatarIcon').style.display = '';
+      } else {
+        alert('Gagal mengirim testimoni');
+      }
+      btn.disabled = false;
+      btn.innerHTML = orig;
+    })
+    .catch(function() {
+      alert('Terjadi error, coba lagi.');
+      btn.disabled = false;
+      btn.innerHTML = orig;
+    });
 }
 
 /* ===== SUBMIT KONTAK ===== */
