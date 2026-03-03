@@ -60,6 +60,7 @@ class RiwayatController extends Controller
 
         $transaction->delete();
 
-        return back()->with('success', 'Data berhasil dihapus');
+        return redirect()->route('pengguna.riwayat.index')
+            ->with('success', 'Transaksi berhasil dihapus.');
     }
 }

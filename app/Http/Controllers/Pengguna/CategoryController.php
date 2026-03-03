@@ -17,7 +17,6 @@ class CategoryController extends Controller
         return view('pengguna.kategori.index', compact('categories'));
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -26,12 +25,12 @@ class CategoryController extends Controller
 
         Category::create([
             'user_id' => auth()->id(),
-            'nama' => $request->nama,
+            'nama'    => $request->nama,
         ]);
 
-        return back()->with('success', 'Kategori berhasil ditambahkan');
+        return redirect()->route('pengguna.kategori.index')
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
-
 
     public function update(Request $request, $id)
     {
@@ -42,13 +41,11 @@ class CategoryController extends Controller
         $category = Category::where('user_id', auth()->id())
             ->findOrFail($id);
 
-        $category->update([
-            'nama' => $request->nama
-        ]);
+        $category->update(['nama' => $request->nama]);
 
-        return back()->with('success', 'Kategori berhasil diperbarui');
+        return redirect()->route('pengguna.kategori.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {
@@ -57,6 +54,7 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return back()->with('success', 'Kategori berhasil dihapus');
+        return redirect()->route('pengguna.kategori.index')
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }

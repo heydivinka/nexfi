@@ -8,10 +8,10 @@
 
     {{-- ── LOGO ── --}}
     <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,0.05);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-    <img src="{{ asset('assets_public/logo.png') }}"
-         alt="NexFi"
-         style="height:72px;width:auto;object-fit:contain;display:block;">
-</div>
+        <img src="{{ asset('assets_public/logo.png') }}"
+             alt="NexFi"
+             style="height:72px;width:auto;object-fit:contain;display:block;">
+    </div>
 
     {{-- ── NAV ── --}}
     <nav style="flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;">
@@ -70,9 +70,9 @@
 
     {{-- ── LOGOUT ── --}}
     <div style="padding:8px;border-top:1px solid rgba(255,255,255,0.05);flex-shrink:0;">
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
-            <button type="submit" class="sb-logout">
+            <button type="button" class="sb-logout" onclick="confirmLogout()">
                 <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
@@ -82,8 +82,13 @@
     </div>
 </aside>
 
+{{-- SweetAlert2 CDN --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     .snav{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;color:rgba(255,255,255,0.38);font-size:12.5px;font-weight:500;text-decoration:none;border:1px solid transparent;font-family:'Plus Jakarta Sans',sans-serif;}
     .snav:hover{color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.05);}
     .snav-on{color:#fff;background:linear-gradient(135deg,rgba(108,99,255,0.2),rgba(155,89,245,0.12));border-color:rgba(108,99,255,0.25);}
@@ -93,6 +98,67 @@
     .spip{width:5px;height:5px;border-radius:50%;background:#6c63ff;flex-shrink:0;}
     .sb-logout{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px;border-radius:10px;font-size:12px;font-weight:600;color:rgba(252,129,129,0.9);background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
     .sb-logout:hover{background:rgba(239,68,68,0.13);border-color:rgba(239,68,68,0.3);}
+
+    /* ── SweetAlert2 Dark Purple Theme ── */
+    .nexfi-swal.swal2-popup {
+        background: #10132a !important;
+        border: 1px solid rgba(108,99,255,0.3) !important;
+        border-radius: 20px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(108,99,255,0.1) !important;
+        padding: 2rem !important;
+    }
+    .nexfi-swal .swal2-title {
+        color: #fff !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .nexfi-swal .swal2-html-container {
+        color: rgba(255,255,255,0.45) !important;
+        font-size: 0.82rem !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        line-height: 1.6 !important;
+    }
+    .nexfi-swal .swal2-icon.swal2-warning {
+        border-color: rgba(108,99,255,0.4) !important;
+        color: #c4b5fd !important;
+    }
+    .nexfi-swal .swal2-icon.swal2-warning .swal2-icon-content {
+        color: #c4b5fd !important;
+    }
+    .nexfi-swal .swal2-confirm {
+        background: linear-gradient(135deg, rgba(239,68,68,0.85), rgba(220,38,38,0.9)) !important;
+        border: 1px solid rgba(239,68,68,0.4) !important;
+        border-radius: 9999px !important;
+        font-weight: 700 !important;
+        font-size: 0.78rem !important;
+        padding: 9px 22px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-shadow: none !important;
+        color: #fff !important;
+    }
+    .nexfi-swal .swal2-confirm:hover {
+        background: linear-gradient(135deg, rgba(239,68,68,1), rgba(220,38,38,1)) !important;
+    }
+    .nexfi-swal .swal2-cancel {
+        background: rgba(255,255,255,0.06) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 9999px !important;
+        font-weight: 600 !important;
+        font-size: 0.78rem !important;
+        padding: 9px 22px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-shadow: none !important;
+        color: rgba(255,255,255,0.6) !important;
+    }
+    .nexfi-swal .swal2-cancel:hover {
+        background: rgba(255,255,255,0.1) !important;
+        color: rgba(255,255,255,0.85) !important;
+    }
+    .nexfi-swal .swal2-actions {
+        gap: 8px !important;
+    }
 </style>
 
 <script>
@@ -132,4 +198,25 @@
     function checkBp(){ window.innerWidth>=1024 ? setDesktop() : (!isOpen && setMobileHide()); }
     checkBp();
     window.addEventListener('resize', checkBp);
+
+    /* ── Logout Confirmation ── */
+    function confirmLogout() {
+        Swal.fire({
+            customClass: { popup: 'nexfi-swal' },
+            title: 'Yakin mau keluar?',
+            html: 'Sesi kamu akan diakhiri dan kamu perlu login ulang.',
+            iconHtml: '<svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" style="color:#c4b5fd"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>',
+            iconColor: '#c4b5fd',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            focusCancel: true,
+            backdrop: 'rgba(8,10,24,0.75)',
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
+    }
 </script>
