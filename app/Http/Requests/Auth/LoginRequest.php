@@ -39,7 +39,6 @@ class LoginRequest extends FormRequest
 
         $login = $this->input('login');
 
-        // cek email atau username
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         if (! Auth::attempt([
@@ -55,6 +54,9 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        // ✅ Flash notif selamat datang setelah login berhasil
+        session()->flash('notif_welcome', 'Selamat datang kembali, ' . Auth::user()->name . '! 👋');
     }
 
     /**

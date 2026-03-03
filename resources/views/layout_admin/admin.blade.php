@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INVEX Admin — @yield('title', 'Dashboard')</title>
-
+    <title>NEXFI Admin — @yield('title', 'Dashboard')</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
     @vite('resources/css/app.css')
 
     {{-- Font --}}
@@ -21,7 +22,7 @@
     <style>
         * { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        .invex-logo {
+        .nexfi-logo {
             background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 60%, #60A5FA 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;

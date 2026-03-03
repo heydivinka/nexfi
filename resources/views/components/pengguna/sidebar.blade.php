@@ -6,22 +6,14 @@
 <aside id="nexfi-sidebar"
        style="position:fixed;top:0;left:0;bottom:0;width:256px;z-index:45;display:flex;flex-direction:column;background:#10132a;border-right:1px solid rgba(108,99,255,0.15);transform:translateX(-100%);overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;">
 
-    <div style="padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.05);flex-shrink:0;">
-        <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#6c63ff,#9b59f5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-            </div>
-            <div>
-                <div style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.5px;line-height:1;">
-                    Nex<span style="background:linear-gradient(135deg,#a78bfa,#9b59f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Fi</span>
-                </div>
-                <div style="font-size:9.5px;color:rgba(255,255,255,0.22);margin-top:1px;">Management System</div>
-            </div>
-        </div>
-    </div>
+    {{-- ── LOGO ── --}}
+    <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,0.05);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+    <img src="{{ asset('assets_public/logo.png') }}"
+         alt="NexFi"
+         style="height:72px;width:auto;object-fit:contain;display:block;">
+</div>
 
+    {{-- ── NAV ── --}}
     <nav style="flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;">
         <a href="{{ route('pengguna.dashboard') }}" class="snav {{ request()->routeIs('pengguna.dashboard') ? 'snav-on' : '' }}">
             <span class="sicon {{ request()->routeIs('pengguna.dashboard') ? 'sicon-on' : '' }}">
@@ -33,7 +25,8 @@
             <span class="slabel">Dashboard</span>
             @if(request()->routeIs('pengguna.dashboard'))<span class="spip"></span>@endif
         </a>
-        <a href="{{ route('pengguna.keuangan.index')}}" class="snav {{ request()->routeIs('pengguna.kelola*') ? 'snav-on' : '' }}">
+
+        <a href="{{ route('pengguna.keuangan.index') }}" class="snav {{ request()->routeIs('pengguna.kelola*') ? 'snav-on' : '' }}">
             <span class="sicon {{ request()->routeIs('pengguna.kelola*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h10"/>
@@ -43,6 +36,7 @@
             <span class="slabel">Kelola Data</span>
             @if(request()->routeIs('pengguna.kelola*'))<span class="spip"></span>@endif
         </a>
+
         <a href="{{ route('pengguna.riwayat.index') }}" class="snav {{ request()->routeIs('pengguna.riwayat*') ? 'snav-on' : '' }}">
             <span class="sicon {{ request()->routeIs('pengguna.riwayat*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -52,7 +46,8 @@
             <span class="slabel">Riwayat</span>
             @if(request()->routeIs('pengguna.riwayat*'))<span class="spip"></span>@endif
         </a>
-        <a href="{{ route('pengguna.kategori.index')}}" class="snav {{ request()->routeIs('pengguna.kategori*') ? 'snav-on' : '' }}">
+
+        <a href="{{ route('pengguna.kategori.index') }}" class="snav {{ request()->routeIs('pengguna.kategori*') ? 'snav-on' : '' }}">
             <span class="sicon {{ request()->routeIs('pengguna.kategori*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
@@ -61,17 +56,19 @@
             <span class="slabel">Kategori</span>
             @if(request()->routeIs('pengguna.kategori*'))<span class="spip"></span>@endif
         </a>
-        <a href="{{ route('pengguna.laporan') }}" class="snav {{ request()->routeIs('pengguna.laporan*') ? 'snav-on' : '' }}">
-            <span class="sicon {{ request()->routeIs('pengguna.laporan*') ? 'sicon-on' : '' }}">
+
+        <a href="{{ route('pengguna.laporan.index') }}" class="snav {{ request()->routeIs('pengguna.laporan.*') ? 'snav-on' : '' }}">
+            <span class="sicon {{ request()->routeIs('pengguna.laporan.*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
             </span>
             <span class="slabel">Laporan</span>
-            @if(request()->routeIs('pengguna.laporan*'))<span class="spip"></span>@endif
+            @if(request()->routeIs('pengguna.laporan.*'))<span class="spip"></span>@endif
         </a>
     </nav>
 
+    {{-- ── LOGOUT ── --}}
     <div style="padding:8px;border-top:1px solid rgba(255,255,255,0.05);flex-shrink:0;">
         <form method="POST" action="{{ route('logout') }}">
             @csrf

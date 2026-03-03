@@ -1,29 +1,46 @@
-# 🚀 NEXFI
+# 🚀 NEXFI — Sistem Manajemen Keuangan
 
-Sistem Manajemen Keuangan berbasis Laravel 12.
+**Nexfi** adalah aplikasi manajemen keuangan berbasis web yang dibangun dengan **Laravel 12**. Aplikasi ini dirancang untuk memudahkan pengelolaan saldo, transaksi, dan laporan keuangan secara efisien.
 
-Nexfi adalah aplikasi pengelolaan keuangan yang memiliki fitur:
-- Manajemen saldo & transaksi
-- Generate QR Code
-- Export / Extract laporan
-- Approval testimoni oleh admin
-- Pesan dari landing page masuk ke dashboard admin
+### ✨ Fitur Utama
 
----
-
-# 🛠 Tech Stack
-
-- PHP 8.3+
-- Laravel 12
-- MySQL
-- Node.js & NPM
-- Laragon (disarankan, bukan XAMPP)
+- 💰 Manajemen saldo & transaksi
+- 📱 Generate & Scan QR Code untuk transaksi
+- 📊 Export / Cetak laporan keuangan
+- ✅ Approval testimoni oleh admin
+- 📩 Pesan dari landing page masuk ke dashboard admin
 
 ---
 
-# ⚙️ INSTALLATION GUIDE
+## 🛠️ Tech Stack
 
-## 1️⃣ Clone Repository
+| Teknologi | Versi |
+|-----------|-------|
+| PHP | 8.3+ |
+| Laravel | 12 |
+| MySQL | - |
+| Node.js & NPM | - |
+| Laragon | Disarankan *(bukan XAMPP)* |
+
+---
+
+## 📋 Prasyarat
+
+Sebelum memulai, pastikan kamu sudah menginstal:
+
+- ✅ [Laragon](https://laragon.org/) — disarankan sebagai local development environment
+- ✅ PHP 8.3+
+- ✅ Composer
+- ✅ Node.js & NPM
+- ✅ MySQL
+
+> ⚠️ **Catatan:** Nexfi direkomendasikan menggunakan **Laragon**, bukan XAMPP, agar konfigurasi lebih stabil dan kompatibel dengan Laravel 12.
+
+---
+
+## ⚙️ Panduan Instalasi (Step by Step)
+
+### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/username/nexfi.git
@@ -32,7 +49,7 @@ cd nexfi
 
 ---
 
-## 2️⃣ Install Dependency Backend
+### 2️⃣ Install Dependency Backend
 
 ```bash
 composer install
@@ -40,15 +57,15 @@ composer install
 
 ---
 
-## 3️⃣ Setup Environment
+### 3️⃣ Setup File Environment
 
-Copy file environment:
+Salin file `.env.example` menjadi `.env`:
 
 ```bash
 cp .env.example .env
 ```
 
-Generate application key:
+Lalu generate application key:
 
 ```bash
 php artisan key:generate
@@ -56,9 +73,9 @@ php artisan key:generate
 
 ---
 
-## 4️⃣ Setting Database
+### 4️⃣ Konfigurasi Database
 
-Buka file `.env` dan sesuaikan:
+Buka file `.env`, lalu sesuaikan dengan konfigurasi database kamu:
 
 ```env
 DB_DATABASE=nexfi
@@ -66,52 +83,40 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Buat database baru di phpMyAdmin dengan nama yang sama sebelum migrate.
+> 💡 **Penting:** Buat database baru di **phpMyAdmin** dengan nama yang sama seperti `DB_DATABASE` sebelum melakukan migrasi.
 
 ---
 
-## 5️⃣ Storage Link (WAJIB)
+### 5️⃣ Storage Link *(WAJIB)*
 
 ```bash
 php artisan storage:link
 ```
 
-### Fungsi storage:link
+**Mengapa ini wajib?**
 
-Command ini membuat symbolic link dari:
-
-```
-storage/app/public
-```
-
-ke:
-
-```
-public/storage
-```
+Command ini membuat *symbolic link* dari `storage/app/public` ke `public/storage`, sehingga file yang diupload bisa diakses melalui browser.
 
 Tanpa perintah ini:
-- QR Code tidak akan tampil
-- File laporan export tidak bisa diakses
-- File upload user tidak muncul
-
-Wajib dijalankan setelah clone project.
+- 🚫 QR Code tidak akan tampil
+- 🚫 File laporan tidak bisa diakses
+- 🚫 Foto & file upload user tidak muncul
 
 ---
 
-## 6️⃣ Install Dependency Frontend
+### 6️⃣ Install Dependency Frontend
 
 ```bash
 npm install
 ```
 
-Build assets:
+Build assets untuk production:
 
 ```bash
 npm run build
 ```
 
-Atau mode development:
+Atau jalankan dalam mode development (live reload):
 
 ```bash
 npm run dev
@@ -119,84 +124,72 @@ npm run dev
 
 ---
 
-## 7️⃣ Setup Package QR Code
+### 7️⃣ Setup Package QR Code
 
-Jika belum terinstall:
+Jika package belum terinstal, jalankan:
 
 ```bash
 composer require simplesoftwareio/simple-qrcode
 ```
 
-Publish config (jika diperlukan):
+Publish konfigurasi (jika diperlukan):
 
 ```bash
 php artisan vendor:publish --provider="SimpleSoftwareIO\QrCode\QrCodeServiceProvider"
 ```
 
-Folder penyimpanan QR biasanya di:
-
-```
-storage/app/public/qr
-```
-
-Karena itu storage:link wajib dijalankan.
+> 📁 File QR Code tersimpan di: `storage/app/public/qr/`  
+> Pastikan `storage:link` sudah dijalankan agar QR Code bisa tampil di browser.
 
 ---
 
-## 8️⃣ Setup Export / Extract Laporan
+### 8️⃣ Setup Export / Cetak Laporan
 
-Jika menggunakan Laravel Excel:
-
-Install:
+Jika package belum terinstal, jalankan:
 
 ```bash
 composer require maatwebsite/excel
 ```
 
-Publish config:
+Publish konfigurasi:
 
 ```bash
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
 ```
 
-File laporan biasanya tersimpan di:
+> 📁 File laporan biasanya tersimpan di: `storage/app/public/laporan/`  
+> Atau bisa langsung terdownload otomatis melalui browser.
 
-```
-storage/app/public/laporan
-```
-
-Atau langsung terdownload otomatis via response download.
-
-Jika laporan tidak bisa didownload:
-- Pastikan storage:link sudah dijalankan
-- Cek permission folder storage
-- Cek konfigurasi path export
+Jika laporan **gagal didownload**, periksa hal berikut:
+- Pastikan `storage:link` sudah dijalankan
+- Cek permission folder `storage/`
+- Pastikan konfigurasi path export sudah benar
 
 ---
 
-## 9️⃣ Migrasi Database
+### 9️⃣ Migrasi Database
 
-Pastikan nama database sudah sesuai sebelum migrate.
+> ⚠️ Pastikan nama database di `.env` sudah sesuai sebelum menjalankan perintah ini.
+
+Migrasi pertama kali:
 
 ```bash
 php artisan migrate
 ```
 
----
-
-### Reset Database
+Reset dan jalankan ulang semua migrasi:
 
 ```bash
 php artisan migrate:fresh
 ```
 
-Dengan seeder:
+Reset + jalankan seeder (data dummy):
 
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-Rollback migration:
+Rollback migrasi terakhir:
 
 ```bash
 php artisan migrate:rollback
@@ -204,19 +197,19 @@ php artisan migrate:rollback
 
 ---
 
-## 🔟 Jalankan Server
+### 🔟 Jalankan Server
 
 ```bash
 php artisan serve
 ```
 
-Akses melalui:
+Buka di browser:
 
 ```
 http://127.0.0.1:8000
 ```
 
-Jika menggunakan Laragon:
+Jika menggunakan **Laragon**:
 
 ```
 http://nexfi.test
@@ -224,125 +217,132 @@ http://nexfi.test
 
 ---
 
-# 🧹 Command Penting Saat Error
+## 🧹 Command Penting Saat Error
 
-Clear semua cache:
+Jika mengalami error cache atau tampilan tidak terupdate, jalankan perintah berikut:
 
 ```bash
+# Clear semua cache sekaligus
 php artisan optimize:clear
-```
 
-Clear config:
-
-```bash
+# Clear cache konfigurasi
 php artisan config:clear
-```
 
-Clear view:
-
-```bash
+# Clear cache tampilan (view)
 php artisan view:clear
 ```
-
 ---
 
-# 📂 Struktur Folder Penting
+## 👤 Cara Menggunakan Nexfi
 
-- app/ → Logic aplikasi
-- routes/web.php → Routing
-- database/migrations → Struktur tabel
-- resources/views → Tampilan
-- storage/app/public → File upload, QR, laporan
-- public/storage → Akses file ke browser (hasil storage:link)
-
----
-
-# ⚠️ Hal yang Sering Menyebabkan Error
-
-- Lupa setting database sebelum migrate
-- Lupa menjalankan storage:link
-- Lupa npm install
-- Versi PHP tidak sesuai
-- Permission folder storage bermasalah
-
----
-
-# 👨‍💻 Cara Menggunakan Nexfi
-
-1. Register akun
+### Sebagai Pengguna (User)
+1. Register akun baru
 2. Login ke dashboard
-3. Kelola saldo dan transaksi
-4. Generate QR untuk transaksi
-5. Export laporan keuangan
-6. Admin dapat approve testimoni dan membaca pesan dari landing page
+3. Kelola saldo & transaksi
+4. Generate QR Code untuk transaksi
+5. Export / cetak laporan keuangan
+
+### Sebagai Admin
+1. Akses dashboard admin
+2. Approve / tolak testimoni dari pengguna
+3. Baca & kelola pesan yang masuk dari landing page
+4. Kelola data pengguna dan role akun
 
 ---
 
-# 🔑 Cara Set Akun Admin
+## 🔑 Cara Set Akun Admin
 
-## 1️⃣ Manual via Database
-
-1. Buka phpMyAdmin → table `users`
-2. Ubah kolom `role` dari `pengguna` → `admin`
-3. Simpan  
-⚡ User langsung punya akses dashboard admin
+Secara default, akun yang baru dibuat memiliki role `pengguna`. Berikut cara mengubahnya menjadi `admin`:
 
 ---
 
-## 2️⃣ Via Thinker / Panel Admin
+### Cara 1: Manual via Database (phpMyAdmin)
 
-1. Login user biasa
-2. Masuk ke panel Thinker (admin panel)
-3. Cari user → ubah role dropdown `pengguna` → `admin`
-4. Simpan  
-⚡ User langsung punya akses dashboard admin
+1. Buka **phpMyAdmin**
+2. Pilih database `nexfi` → buka tabel `users`
+3. Cari user yang ingin dijadikan admin
+4. Klik **Edit**, ubah kolom `role` dari `pengguna` → `admin`
+5. Klik **Simpan**
+
+> ⚡ Setelah disimpan, user tersebut langsung bisa login dan mengakses **dashboard admin**.
 
 ---
 
-## 3️⃣ Via Artisan Tinker (CLI)
+### Cara 2: Via Artisan Tinker *(Direkomendasikan)*
 
-1. Jalankan terminal di folder project:
+Artisan Tinker adalah REPL (interactive shell) Laravel yang memungkinkan kita memanipulasi database langsung dari terminal, tanpa perlu membuka phpMyAdmin.
+
+**Langkah-langkah:**
+
+**1. Buka terminal, masuk ke folder project:**
+
+```bash
+cd path/ke/folder/nexfi
+```
+
+**2. Jalankan Artisan Tinker:**
 
 ```bash
 php artisan tinker
 ```
 
-2. Cari user:
+**3. Cari user berdasarkan email:**
 
 ```php
-$user = \App\Models\User::where('email', 'user@example.com')->first();
+$user = \App\Models\User::where('email', 'email@example.com')->first();
 ```
 
-3. Ubah role jadi admin:
+**4. Ubah role menjadi admin:**
 
 ```php
 $user->role = 'admin';
 $user->save();
 ```
 
-**Shortcut 1 baris:**
+**5. Verifikasi perubahan (opsional):**
 
 ```php
-\App\Models\User::where('email', 'user@example.com')->first()->update(['role' => 'admin']);
+$user->fresh();
+// Akan menampilkan data user terbaru, pastikan role sudah berubah menjadi 'admin'
 ```
-⚡ Setelah diubah:
-- User langsung punya akses dashboard admin.
-- Bisa mengelola fitur admin (approve testimoni, lihat pesan landing page, dll).
+
+**Atau gunakan shortcut 1 baris:**
+
+```php
+\App\Models\User::where('email', 'email@example.com')->first()->update(['role' => 'admin']);
+```
+
+**6. Keluar dari Tinker:**
+
+```bash
+exit
+```
+
+> ⚡ Setelah diubah, user bisa langsung login dan mengakses **dashboard admin** tanpa perlu daftar ulang.
 
 ---
 
-**Catatan:**  
-- Pastikan hanya user terpercaya yang diubah menjadi admin.  
-- Role `pengguna` hanya bisa akses fitur user biasa, sementara `admin` punya akses penuh ke dashboard admin.
+## ⚠️ Hal yang Sering Menyebabkan Error
+
+| Masalah | Solusi |
+|--------|--------|
+| Gambar / QR tidak tampil | Jalankan `php artisan storage:link` |
+| Tampilan berantakan / CSS tidak jalan | Jalankan `npm install` dan `npm run build` |
+| Error saat migrate | Cek konfigurasi database di `.env` |
+| Error cache / config lama | Jalankan `php artisan optimize:clear` |
+| Versi PHP tidak sesuai | Pastikan PHP 8.3+ sudah aktif di Laragon |
+| Permission storage error | Cek permission folder `storage/` dan `bootstrap/cache/` |
 
 ---
-# 📌 Notes
-- Gunakan Laragon, jangan XAMPP
-- Pastikan versi PHP 8.3+
-- Jalankan `storage:link`
-- Sesuaikan database sebelum migrate
-- Hanya user terpercaya yang dijadikan admin
-- Role `pengguna` = akses user biasa, `admin` = akses penuh dashboard admin
-- Disarankan menggunakan Laragon agar konfigurasi lebih stabil dan kompatibel dengan Laravel 12.
+
+## 📌 Catatan Penting
+
+- 🟢 Gunakan **Laragon** sebagai local server, bukan XAMPP
+- 🟢 Pastikan PHP versi **8.3 atau lebih baru**
+- 🟢 Selalu jalankan `storage:link` setelah clone project
+- 🟢 Sesuaikan konfigurasi `.env` sebelum migrate
+- 🟢 Hanya berikan role `admin` kepada orang yang terpercaya
 
 ---
+
+*Dibuat dengan ❤️ menggunakan kekompakan team nexfi*

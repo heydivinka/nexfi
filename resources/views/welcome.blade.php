@@ -6,6 +6,8 @@
   <title>NexFi — Your Next Future in Finance</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; overflow-x:hidden !important; max-width:100%; font-family:'Inter',sans-serif; }

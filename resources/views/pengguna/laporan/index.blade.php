@@ -222,11 +222,12 @@
             <h2><i class="fa-solid fa-chart-bar" style="color:#6c63ff;margin-right:6px;"></i>Laporan Keuangan</h2>
             <p>Data transaksi lengkap dengan filter & export</p>
         </div>
+        {{-- ✅ FIX: tombol export bawa query params filter yang aktif --}}
         <div class="export-btns">
-            <a href="{{ route('pengguna.laporan.pdf') }}" class="btn-exp btn-pdf">
+            <a href="{{ route('pengguna.laporan.pdf', request()->query()) }}" class="btn-exp btn-pdf">
                 <i class="fa-solid fa-file-pdf"></i> Export PDF
             </a>
-            <a href="{{ route('pengguna.laporan.excel') }}" class="btn-exp btn-excel">
+            <a href="{{ route('pengguna.laporan.excel', request()->query()) }}" class="btn-exp btn-excel">
                 <i class="fa-solid fa-file-excel"></i> Export Excel
             </a>
         </div>
@@ -234,39 +235,64 @@
 
     {{-- ══ FILTER ══ --}}
     <div class="filter-card">
-        <div class="filter-label"><i class="fa-solid fa-sliders"></i> Filter Transaksi</div>
-        <form action="{{ route('pengguna.laporan.filter') }}" method="POST" id="filterForm">
-            @csrf
+        <div class="filter-label">
+            <i class="fa-solid fa-sliders"></i> Filter Transaksi
+        </div>
+
+        <form action="{{ route('pengguna.laporan.index') }}" method="GET">
             <div class="filter-grid">
+
                 <div class="f-group">
                     <label>Tanggal Awal</label>
-                    <input type="date" name="tanggal_awal" class="f-input"
-                        value="{{ request('tanggal_awal') ?? old('tanggal_awal') }}">
+                    <input type="date"
+                           name="tanggal_awal"
+                           class="f-input"
+                           value="{{ request('tanggal_awal') }}">
                 </div>
+
                 <div class="f-group">
                     <label>Tanggal Akhir</label>
-                    <input type="date" name="tanggal_akhir" class="f-input"
-                        value="{{ request('tanggal_akhir') ?? old('tanggal_akhir') }}">
+                    <input type="date"
+                           name="tanggal_akhir"
+                           class="f-input"
+                           value="{{ request('tanggal_akhir') }}">
                 </div>
+
                 <div class="f-group">
                     <label>Kategori</label>
                     <select name="kategori" class="f-input">
                         <option value="">Semua Kategori</option>
-                        @isset($categories)
-                            @foreach($categories as $cat)
-                            <option value="{{ $cat->id }}" {{ request('kategori') == $cat->id ? 'selected' : '' }}>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}"
+                                {{ request('kategori') == $cat->id ? 'selected' : '' }}>
                                 {{ $cat->nama }}
                             </option>
-                            @endforeach
-                        @endisset
+                        @endforeach
                     </select>
                 </div>
+
+                <div class="f-group">
+                    <label>Tipe</label>
+                    <select name="tipe" class="f-input">
+                        <option value="">Semua Tipe</option>
+                        <option value="pemasukan"
+                            {{ request('tipe') == 'pemasukan' ? 'selected' : '' }}>
+                            Pemasukan
+                        </option>
+                        <option value="pengeluaran"
+                            {{ request('tipe') == 'pengeluaran' ? 'selected' : '' }}>
+                            Pengeluaran
+                        </option>
+                    </select>
+                </div>
+
                 <div class="f-group">
                     <label>&nbsp;</label>
                     <button type="submit" class="btn-filter">
                         <i class="fa-solid fa-magnifying-glass"></i> Filter
                     </button>
                 </div>
+
             </div>
         </form>
     </div>

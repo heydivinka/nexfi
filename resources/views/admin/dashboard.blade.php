@@ -68,15 +68,18 @@
     </div>
 
     {{-- Testimoni --}}
-    <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
-                <i class="fa-solid fa-comments text-orange-500 text-sm"></i>
-            </div>
-            <span class="text-orange-500 text-[10px] font-bold bg-orange-50 px-2 py-0.5 rounded-full">5 belum dibaca</span>
+<div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div class="flex items-start justify-between mb-4">
+        <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+            <i class="fa-solid fa-comments text-orange-500 text-sm"></i>
         </div>
-        <p class="text-2xl font-extrabold text-slate-800 leading-none">391</p>
-        <p class="text-slate-400 text-xs mt-1 font-medium">Total Testimoni</p>
+        <span class="text-orange-500 text-[10px] font-bold bg-orange-50 px-2 py-0.5 rounded-full">
+            +{{ $todayTestimoni }} hari ini
+        </span>
+    </div>
+    <p class="text-2xl font-extrabold text-slate-800 leading-none">{{ $totalTestimoni }}</p>
+    <p class="text-slate-400 text-xs mt-1 font-medium">Total Testimoni</p>
+</div>
 
 </div>
 

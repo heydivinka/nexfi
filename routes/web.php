@@ -154,10 +154,7 @@ Route::middleware(['auth', 'role:pengguna'])
         ================= LAPORAN
         */
         Route::get('/laporan', [LaporanController::class, 'index'])
-            ->name('laporan');
-
-        Route::post('/laporan/filter', [LaporanController::class, 'filter'])
-            ->name('laporan.filter');
+            ->name('laporan.index');
 
         Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])
             ->name('laporan.pdf');

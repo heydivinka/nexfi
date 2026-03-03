@@ -422,12 +422,13 @@
                         <i class="fa-solid fa-reply"></i> Balas
                     </a>
                     <form action="{{ route('admin.messages.destroy', $msg->id) }}"
-                          method="POST"
-                          onsubmit="return confirm('Yakin mau hapus pesan ini?')"
-                          style="display:inline;">
+                        method="POST"
+                        id="delete-form-{{ $msg->id }}"
+                        style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="action-btn btn-delete-msg">
+                        <button type="button" class="action-btn btn-delete-msg"
+                                onclick="confirmDelete({{ $msg->id }})">
                             <i class="fa-solid fa-trash"></i> Hapus
                         </button>
                     </form>
@@ -452,15 +453,35 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Auto-scroll to bottom of chat on load
     document.addEventListener('DOMContentLoaded', function () {
         const scrollWrap = document.querySelector('.chat-body-scroll');
         if (scrollWrap) {
             scrollWrap.scrollTop = scrollWrap.scrollHeight;
         }
-        }
     });
+
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Hapus pesan ini?',
+            text: 'Pesan yang dihapus tidak bisa dikembalikan.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#e2e8f0',
+            customClass: { cancelButton: 'swal-cancel-dark' }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
 </script>
+<style>
+.swal-cancel-dark { color: #475569 !important; }
+</style>
 
 @endsection

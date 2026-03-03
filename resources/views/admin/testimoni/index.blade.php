@@ -5,6 +5,10 @@
 
 @section('content')
 
+{{-- SweetAlert2 CDN --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 <style>
 /* ===== RESET SCOPE ===== */
 .testi-admin * { box-sizing: border-box; }
@@ -463,6 +467,43 @@
   overflow: hidden;
 }
 .ta-m-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ===== SWEETALERT2 CUSTOM THEME ===== */
+.swal2-popup.ta-swal {
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  font-family: inherit !important;
+  border: 1px solid #fca5a5 !important;
+}
+.swal2-popup.ta-swal .swal2-title {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #111827 !important;
+}
+.swal2-popup.ta-swal .swal2-html-container {
+  font-size: 0.85rem !important;
+  color: #6b7280 !important;
+}
+.swal2-popup.ta-swal .swal2-confirm {
+  background: #ef4444 !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  padding: 9px 22px !important;
+  box-shadow: none !important;
+}
+.swal2-popup.ta-swal .swal2-cancel {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  padding: 9px 22px !important;
+  box-shadow: none !important;
+}
+.swal2-popup.ta-swal .swal2-cancel:hover {
+  background: #e5e7eb !important;
+}
 </style>
 
 <div class="testi-admin">
@@ -636,10 +677,12 @@
                   </button>
                 </form>
                 @endif
+                {{-- HAPUS dengan SweetAlert --}}
                 <form method="POST" action="{{ route('admin.testimoni.destroy', $t) }}"
-                      onsubmit="return confirm('Yakin hapus testimoni ini?')">
+                      class="ta-delete-form">
                   @csrf @method('DELETE')
-                  <button type="submit" class="ta-btn del">
+                  <button type="button" class="ta-btn del"
+                          onclick="taConfirmDelete(this, '{{ addslashes($t->nama) }}')">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                 </form>
@@ -716,10 +759,12 @@
             </button>
           </form>
           @endif
+          {{-- HAPUS dengan SweetAlert (mobile) --}}
           <form method="POST" action="{{ route('admin.testimoni.destroy', $t) }}"
-                onsubmit="return confirm('Yakin hapus testimoni ini?')">
+                class="ta-delete-form">
             @csrf @method('DELETE')
-            <button type="submit" class="ta-btn del">
+            <button type="button" class="ta-btn del"
+                    onclick="taConfirmDelete(this, '{{ addslashes($t->nama) }}')">
               <i class="fa-solid fa-trash"></i> Hapus
             </button>
           </form>
@@ -781,6 +826,7 @@
 </div>
 
 <script>
+/* ===== PREVIEW MODAL ===== */
 function taPreview(nama, rating, isi, foto) {
   document.getElementById('taModalName').textContent = nama;
   document.getElementById('taModalAvatar').src = foto;
@@ -804,6 +850,26 @@ document.getElementById('taModal').addEventListener('click', function(e) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') taCloseModal();
 });
+
+/* ===== SWEETALERT2 HAPUS ===== */
+function taConfirmDelete(btn, nama) {
+  Swal.fire({
+    customClass: { popup: 'ta-swal' },
+    title: 'Hapus Testimoni?',
+    html: 'Testimoni dari <strong>' + nama + '</strong> akan dihapus permanen dan tidak bisa dikembalikan.',
+    icon: 'warning',
+    iconColor: '#ef4444',
+    showCancelButton: true,
+    confirmButtonText: '<i class="fa-solid fa-trash" style="margin-right:6px;"></i>Ya, Hapus',
+    cancelButtonText: 'Batal',
+    reverseButtons: true,
+    focusCancel: true,
+  }).then(function(result) {
+    if (result.isConfirmed) {
+      btn.closest('form').submit();
+    }
+  });
+}
 </script>
 
 @endsection
