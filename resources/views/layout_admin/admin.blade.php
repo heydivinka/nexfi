@@ -8,16 +8,13 @@
     <title>NEXFI Admin — @yield('title', 'Dashboard')</title>
     <link rel="icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
-    @vite('resources/css/app.css')
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     {{-- Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    {{-- Alpine JS --}}
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <style>
         * { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -84,15 +81,14 @@
     ></div>
 
     {{-- Sidebar --}}
-    <x-admin.sidebar />
+    @include('components.admin.sidebar')
 
     {{-- Main area --}}
     <div class="flex-1 flex flex-col overflow-hidden min-w-0">
 
         {{-- Navbar --}}
-        <x-admin.navbar />
+        @include('components.admin.navbar')
 
-        {{-- Content --}}
         <main class="flex-1 overflow-y-auto p-4 md:p-6">
             @yield('content')
         </main>

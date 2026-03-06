@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        // ✅ Flash notif selamat datang setelah login berhasil
+        // Flash notif selamat datang setelah login berhasil
         session()->flash('notif_welcome', 'Selamat datang kembali, ' . Auth::user()->name . '! 👋');
     }
 

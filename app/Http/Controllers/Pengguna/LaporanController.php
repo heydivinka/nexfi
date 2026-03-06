@@ -38,7 +38,7 @@ class LaporanController extends Controller
 
         $transactions = $query->latest()->get();
 
-        // ✅ Hitung summary dari SEMUA transaksi (tanpa filter tipe)
+        // Hitung summary dari SEMUA transaksi (tanpa filter tipe)
         // supaya totalPemasukan & totalPengeluaran selalu tampil benar
         $summaryQuery = Transaction::where('user_id', $user->id);
 
@@ -93,7 +93,7 @@ class LaporanController extends Controller
 
         $transactions = $query->latest()->get();
 
-        // ✅ Hitung summary dari SEMUA transaksi (tanpa filter tipe)
+        // Hitung summary dari SEMUA transaksi (tanpa filter tipe)
         // supaya card pemasukan & pengeluaran di PDF selalu tampil benar
         $summaryQuery = Transaction::where('user_id', $user->id);
 
@@ -113,7 +113,7 @@ class LaporanController extends Controller
         $totalPengeluaran = $allTransactions->where('tipe', 'pengeluaran')->sum('nominal');
         $saldo            = $user->saldo ?? 0;
 
-        // ✅ Nama file dinamis sesuai filter aktif
+        // Nama file dinamis sesuai filter aktif
         $namaFile = 'Laporan-Nexfi';
         if ($request->tipe) {
             $namaFile .= '-' . ucfirst($request->tipe);
@@ -166,7 +166,7 @@ class LaporanController extends Controller
 
         $transactions = $query->latest()->get();
 
-        // ✅ Nama file dinamis sesuai filter aktif
+        //  Nama file dinamis sesuai filter aktif
         $namaFile = 'Laporan-Nexfi';
         if ($request->tipe) {
             $namaFile .= '-' . ucfirst($request->tipe);
@@ -181,7 +181,6 @@ class LaporanController extends Controller
             $namaFile .= '-' . $request->tanggal_awal . '_sd_' . $request->tanggal_akhir;
         }
 
-        // Sesuaikan dengan package Excel yang kamu pakai (contoh: Maatwebsite/Excel)
         // return Excel::download(new TransactionsExport($transactions), $namaFile . '.xlsx');
 
         return response()->json([

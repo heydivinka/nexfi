@@ -28,7 +28,7 @@ class DashboardController extends Controller
             ->whereYear('tanggal', $tahunIni)
             ->sum('nominal');
 
-        // ✅ Ambil 5 transaksi terbaru
+        //  ngammbil 5 transaksi terbaru
         $recentTransactions = Transaction::where('user_id', $userId)
             ->orderBy('tanggal', 'desc')
             ->orderBy('created_at', 'desc')

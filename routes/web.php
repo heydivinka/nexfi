@@ -11,6 +11,11 @@ use App\Http\Controllers\Pengguna\LaporanController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Pengguna\AiController;
+
+// AI
+Route::get('/pengguna/ai', [AiController::class,'index'])->name('pengguna.ai.index');
+Route::post('/ai-nexfi', [AiController::class,'chat'])->name('pengguna.ai.chat');
 
 // Route submit testi dari publik
 Route::post('/testimonial/submit', [\App\Http\Controllers\TestimonialSubmitController::class, 'store'])->name('testimonial.store');

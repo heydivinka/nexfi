@@ -34,9 +34,9 @@
 <header class="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-4 md:px-6 gap-3 flex-shrink-0"
     style="box-shadow: 0 1px 12px rgba(0,0,0,0.04);">
 
-    {{-- Hamburger (mobile) --}}
+    {{-- ✅ FIX: Hamburger pakai x-on:click supaya Alpine baca scope open dari parent --}}
     <button
-        @click="open = !open"
+        x-on:click="open = !open"
         class="md:hidden w-9 h-9 flex flex-col gap-[5px] items-center justify-center rounded-xl hover:bg-blue-50 transition-colors duration-200 flex-shrink-0"
         aria-label="Toggle menu">
         <span class="block w-5 h-0.5 bg-slate-600 rounded-full transition-all duration-300"
@@ -63,7 +63,6 @@
         {{-- Notification Bell --}}
         <div class="relative" id="notif-wrap">
 
-            {{-- Bell Button --}}
             <button
                 id="notif-btn"
                 onclick="toggleNotif()"
@@ -81,13 +80,10 @@
                         w-[calc(100vw-2rem)] max-w-xs sm:w-72"
                  style="box-shadow: 0 8px 32px rgba(0,0,0,0.10);">
 
-                {{-- Header --}}
                 <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between gap-2">
                     <span class="text-sm font-bold text-slate-700">Notifikasi</span>
                     <div class="flex items-center gap-2">
-                        <span id="notif-badge"
-                              class="text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
-                        </span>
+                        <span id="notif-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap"></span>
                         <button
                             id="mark-read-btn"
                             onclick="markAllRead()"
@@ -98,7 +94,6 @@
                     </div>
                 </div>
 
-                {{-- Notif List --}}
                 <div id="notif-list">
                     @if($notifCount > 0)
                         @foreach($notifs as $i => $notif)
@@ -114,15 +109,10 @@
                                 <p class="notif-title text-xs font-semibold text-slate-700 leading-tight">
                                     {{ $notif['label'] }}
                                 </p>
-                                <p class="text-[11px] text-slate-400 truncate mt-0.5">
-                                    dari {{ $notif['name'] }}
-                                </p>
-                                <p class="text-[10px] text-slate-300 mt-1">
-                                    {{ $notif['time'] }}
-                                </p>
+                                <p class="text-[11px] text-slate-400 truncate mt-0.5">dari {{ $notif['name'] }}</p>
+                                <p class="text-[10px] text-slate-300 mt-1">{{ $notif['time'] }}</p>
                             </div>
 
-                            {{-- Status indicator --}}
                             <div class="flex-shrink-0 mt-1">
                                 <span class="notif-status-dot block w-2 h-2 bg-blue-500 rounded-full"></span>
                                 <span class="notif-status-check hidden text-[11px] text-green-500">
@@ -140,7 +130,6 @@
                     @endif
                 </div>
 
-                {{-- All Read State --}}
                 <div id="notif-all-read" class="hidden px-4 py-6 text-center">
                     <div class="w-10 h-10 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-2">
                         <i class="fa-solid fa-check-double text-green-500 text-base"></i>
@@ -151,7 +140,6 @@
 
             </div>
         </div>
-        {{-- /Notification Bell --}}
 
         {{-- Admin Avatar --}}
         <div class="flex items-center gap-2 pl-2 border-l border-slate-100">
@@ -167,33 +155,17 @@
     </div>
 </header>
 
-{{-- ─────────────────────────────────────────────── --}}
-{{-- Styles                                          --}}
-{{-- ─────────────────────────────────────────────── --}}
 <style>
-    /* Bell: unread — biru + animasi goyang */
     #notif-btn.has-unread {
         background-color: #eff6ff;
         border-color: #93c5fd;
         animation: bell-ring 0.7s ease 0.3s both;
     }
-    #notif-btn.has-unread #notif-bell-icon {
-        color: #2563eb;
-    }
-    #notif-btn.has-unread #notif-dot {
-        background-color: #2563eb;
-    }
+    #notif-btn.has-unread #notif-bell-icon { color: #2563eb; }
+    #notif-btn.has-unread #notif-dot { background-color: #2563eb; }
+    #notif-btn.all-read { background-color: #f8fafc; border-color: #e2e8f0; }
+    #notif-btn.all-read #notif-bell-icon { color: #94a3b8; }
 
-    /* Bell: all-read — abu normal */
-    #notif-btn.all-read {
-        background-color: #f8fafc;
-        border-color: #e2e8f0;
-    }
-    #notif-btn.all-read #notif-bell-icon {
-        color: #94a3b8;
-    }
-
-    /* Animasi goyang bell */
     @keyframes bell-ring {
         0%   { transform: rotate(0deg); }
         15%  { transform: rotate(15deg); }
@@ -205,37 +177,24 @@
         100% { transform: rotate(0deg); }
     }
 
-    /* Notif item yang sudah dibaca */
-    .notif-item.is-read {
-        opacity: 0.55;
-    }
-    .notif-item.is-read .notif-title {
-        color: #94a3b8;
-        font-weight: 500;
-    }
+    .notif-item.is-read { opacity: 0.55; }
+    .notif-item.is-read .notif-title { color: #94a3b8; font-weight: 500; }
 </style>
 
-{{-- ─────────────────────────────────────────────── --}}
-{{-- Scripts                                         --}}
-{{-- ─────────────────────────────────────────────── --}}
 <script>
-    const TOTAL_NOTIFS  = {{ $notifCount }};
-    const STORAGE_KEY   = 'nexfi_notif_read_v1';
-    // Signature unik berdasarkan isi notif dari server (nama + waktu)
-    const SERVER_SIG    = '{{ md5($notifs->pluck("name")->concat($notifs->pluck("time"))->implode("|")) }}';
-    const SIG_KEY       = 'nexfi_notif_sig';
+    const TOTAL_NOTIFS = {{ $notifCount }};
+    const STORAGE_KEY  = 'nexfi_notif_read_v1';
+    const SERVER_SIG   = '{{ md5($notifs->pluck("name")->concat($notifs->pluck("time"))->implode("|")) }}';
+    const SIG_KEY      = 'nexfi_notif_sig';
 
-    /* ── Cek apakah ada notif baru sejak terakhir dibaca ── */
     function checkForNewNotifs() {
         const savedSig = sessionStorage.getItem(SIG_KEY);
         if (savedSig !== SERVER_SIG) {
-            // Signature beda = ada notif baru, reset semua ke unread
             sessionStorage.removeItem(STORAGE_KEY);
             sessionStorage.setItem(SIG_KEY, SERVER_SIG);
         }
     }
 
-    /* ── Storage helpers ── */
     function getReadSet() {
         try { return new Set(JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]')); }
         catch { return new Set(); }
@@ -244,7 +203,6 @@
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
     }
 
-    /* ── Init: set tampilan bell & item sesuai state ── */
     function initBell() {
         const btn     = document.getElementById('notif-btn');
         const badge   = document.getElementById('notif-badge');
@@ -273,7 +231,6 @@
         });
     }
 
-    /* ── Tandai satu item sebagai dibaca ── */
     function applyRead(el) {
         if (!el) return;
         el.classList.add('is-read');
@@ -291,7 +248,6 @@
         if (readSet.size >= TOTAL_NOTIFS) setTimeout(showAllReadState, 300);
     }
 
-    /* ── Tandai semua dibaca ── */
     function markAllRead() {
         saveReadSet(new Set([...Array(TOTAL_NOTIFS).keys()]));
         document.querySelectorAll('.notif-item').forEach(applyRead);
@@ -299,18 +255,15 @@
         setTimeout(showAllReadState, 300);
     }
 
-    /* ── Tampilkan state "semua sudah dibaca" ── */
     function showAllReadState() {
         document.getElementById('notif-list').classList.add('hidden');
         document.getElementById('notif-all-read').classList.remove('hidden');
     }
 
-    /* ── Toggle dropdown ── */
     function toggleNotif() {
         document.getElementById('notif-dropdown').classList.toggle('hidden');
     }
 
-    /* ── Tutup dropdown saat klik di luar ── */
     document.addEventListener('click', function (e) {
         const wrap = document.getElementById('notif-wrap');
         if (wrap && !wrap.contains(e.target)) {
@@ -318,9 +271,8 @@
         }
     });
 
-    /* ── Jalankan saat DOM siap ── */
     document.addEventListener('DOMContentLoaded', function () {
-        checkForNewNotifs(); // cek dulu sebelum init
+        checkForNewNotifs();
         initBell();
     });
 </script>

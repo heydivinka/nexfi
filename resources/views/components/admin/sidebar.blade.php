@@ -78,9 +78,7 @@ function confirmLogout() {
         cancelButtonText: 'Batal',
         confirmButtonColor: '#2563eb',
         cancelButtonColor: '#e2e8f0',
-        customClass: {
-            cancelButton: 'swal-cancel-btn'
-        }
+        customClass: { cancelButton: 'swal-cancel-btn' }
     }).then((result) => {
         if (result.isConfirmed) {
             document.getElementById('logout-form').submit();

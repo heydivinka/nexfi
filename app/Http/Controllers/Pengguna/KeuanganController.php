@@ -19,7 +19,7 @@ class KeuanganController extends Controller
 
 
     /*
-    ================= UPDATE SALDO MANUAL
+    UPDATE SALDO MANUAL
     */
     public function updateSaldo(Request $request)
     {
@@ -34,7 +34,7 @@ class KeuanganController extends Controller
 
 
     /*
-    ================= STORE TRANSAKSI
+     STORE TRANSAKSI
     */
     public function store(Request $request)
     {
@@ -76,7 +76,7 @@ class KeuanganController extends Controller
 
 
     /*
-    ================= EDIT
+     EDIT
     */
     public function edit($id)
     {
@@ -93,7 +93,7 @@ class KeuanganController extends Controller
 
 
     /*
-    ================= UPDATE TRANSAKSI
+     UPDATE TRANSAKSI
     */
     public function update(Request $request, $id)
     {

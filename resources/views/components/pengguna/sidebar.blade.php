@@ -66,6 +66,23 @@
             <span class="slabel">Laporan</span>
             @if(request()->routeIs('pengguna.laporan.*'))<span class="spip"></span>@endif
         </a>
+
+        <a href="{{ route('pengguna.ai.index') }}" class="snav {{ request()->routeIs('pengguna.ai.*') ? 'snav-on' : '' }}">
+        <span class="sicon {{ request()->routeIs('pengguna.ai.*') ? 'sicon-on' : '' }}">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6m-9 6h12M7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"/>
+                <circle cx="9" cy="14" r="1"/>
+                <circle cx="15" cy="14" r="1"/>
+            </svg>
+        </span>
+
+        <span class="slabel">AI Nexfi</span>
+
+        @if(request()->routeIs('pengguna.ai.*'))
+            <span class="spip"></span>
+        @endif
+
+    </a>
     </nav>
 
     {{-- ── LOGOUT ── --}}
