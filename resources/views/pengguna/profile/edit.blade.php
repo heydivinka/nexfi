@@ -5,207 +5,30 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: { bg3: '#10132a', acc: '#6c63ff', acc2: '#9b59f5' }
+            }
+        }
+    }
+</script>
 <style>
-    .ep-wrap {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .ep-alert {
-        padding: 12px 16px; border-radius: 12px;
-        background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
-        color: #4ade80; font-size: 13px; font-weight: 600;
-        display: flex; align-items: center; gap: 9px;
-    }
-
-    /* CARD */
-    .ep-card {
-        background: #10132a;
-        border: 1px solid rgba(108,99,255,0.14);
-        border-radius: 18px;
-        overflow: hidden;
-    }
-
-    /* SECTION HEADER */
-    .ep-sec {
-        display: flex; align-items: center; gap: 10px;
-        padding: 14px 20px 12px;
-        border-bottom: 1px solid rgba(108,99,255,0.08);
-    }
-    .ep-sec-ico {
-        width: 32px; height: 32px; border-radius: 9px;
-        background: rgba(108,99,255,0.12); color: #a78bfa;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 12px; flex-shrink: 0;
-    }
-    .ep-sec-title {
-        font-size: 11px; font-weight: 700;
-        text-transform: uppercase; letter-spacing: 0.08em;
-        color: rgba(255,255,255,0.35);
-    }
-
-    /* ── CARD 1: FOTO — full width, horizontal layout ── */
-    .ep-foto-body {
-        padding: 24px 28px;
-        display: flex;
-        align-items: center;
-        gap: 28px;
-    }
-    .ep-avatar-preview { position: relative; flex-shrink: 0; }
-    .ep-avatar-img {
-        width: 96px; height: 96px; border-radius: 50%; object-fit: cover;
-        border: 3px solid #10132a;
-        box-shadow: 0 0 0 3px rgba(108,99,255,0.5), 0 8px 28px rgba(108,99,255,0.3);
-        display: block;
-    }
-    .ep-avatar-ph {
-        width: 96px; height: 96px; border-radius: 50%;
-        background: linear-gradient(135deg,#6c63ff,#9b59f5);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 2.2rem; font-weight: 800; color: #fff;
-        border: 3px solid #10132a;
-        box-shadow: 0 0 0 3px rgba(108,99,255,0.5), 0 8px 28px rgba(108,99,255,0.3);
-    }
-    .ep-avatar-badge {
-        position: absolute; bottom: 3px; right: 3px;
-        width: 26px; height: 26px; border-radius: 50%;
-        background: linear-gradient(135deg,#6c63ff,#9b59f5);
-        border: 2px solid #10132a;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 10px; color: #fff; pointer-events: none;
-        cursor: pointer;
-    }
-    .ep-foto-info { flex: 1; }
-    .ep-foto-info-title { font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
-    .ep-foto-info-hint  { font-size: 12px; color: rgba(255,255,255,0.25); margin-bottom: 14px; line-height: 1.6; }
-    .ep-foto-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .ep-file-label {
-        display: inline-flex; align-items: center; gap: 7px;
-        padding: 9px 18px; border-radius: 10px;
-        background: rgba(108,99,255,0.14); border: 1px solid rgba(108,99,255,0.3);
-        color: #a78bfa; font-size: 12.5px; font-weight: 700;
-        cursor: pointer; transition: all 0.2s; user-select: none;
-    }
-    .ep-file-label:hover { background: rgba(108,99,255,0.25); border-color: rgba(108,99,255,0.5); color: #c4b5fd; }
-    .ep-file-input { display: none; }
-    .ep-file-name {
-        font-size: 11.5px; color: rgba(255,255,255,0.2);
-        font-family: monospace; word-break: break-all;
-    }
-
-    /* ── ROW BAWAH: 2 kolom sama tinggi ── */
-    .ep-bottom-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        align-items: stretch;
-    }
-
-    /* card dalam bottom grid = flex column agar footer bisa margin-top auto */
-    .ep-bottom-grid .ep-card {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* FORM BODY */
-    .ep-form-body {
-        padding: 18px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        flex: 1; /* isi ruang tersisa dalam card */
-    }
-
-    /* FIELD */
-    .ep-field { display: flex; flex-direction: column; gap: 6px; }
-    .ep-label {
-        font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-        letter-spacing: 0.07em; color: rgba(255,255,255,0.3);
-        display: flex; align-items: center; gap: 6px;
-    }
-    .ep-label i { color: rgba(108,99,255,0.6); font-size: 10px; }
-    .ep-input {
-        width: 100%; padding: 11px 14px; border-radius: 11px;
-        border: 1px solid rgba(108,99,255,0.15);
-        background: rgba(255,255,255,0.03);
-        color: rgba(255,255,255,0.88); font-size: 13.5px; font-family: inherit;
-        transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-        outline: none; -webkit-appearance: none;
-    }
-    .ep-input::placeholder { color: rgba(255,255,255,0.15); }
-    .ep-input:focus {
-        border-color: rgba(108,99,255,0.5); background: rgba(108,99,255,0.06);
-        box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
-    }
-    .ep-input.ep-input-error { border-color: rgba(239,68,68,0.5); box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
-    .ep-err { font-size: 11px; color: #f87171; display: flex; align-items: center; gap: 5px; }
-    .ep-hint { font-size: 12px; color: rgba(255,255,255,0.22); line-height: 1.6; }
-
-    /* PASSWORD TOGGLE */
-    .ep-pw-wrap { position: relative; }
-    .ep-pw-wrap .ep-input { padding-right: 42px; }
-    .ep-pw-toggle {
-        position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
-        background: none; border: none; cursor: pointer;
-        color: rgba(255,255,255,0.25); font-size: 13px; padding: 4px;
-        transition: color 0.2s; line-height: 1;
-    }
-    .ep-pw-toggle:hover { color: rgba(255,255,255,0.55); }
-
-    /* FOOTER */
-    .ep-footer {
-        padding: 14px 20px 18px;
-        border-top: 1px solid rgba(108,99,255,0.08);
-        display: flex; align-items: center; justify-content: flex-end;
-        gap: 10px; flex-wrap: wrap;
-        margin-top: auto;
-    }
-    .btn-cancel {
-        padding: 11px 20px; border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 700;
-        text-decoration: none; cursor: pointer; transition: all 0.2s;
-        font-family: inherit; display: flex; align-items: center; gap: 7px;
-    }
-    .btn-cancel:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.15); }
-    .btn-save {
-        padding: 11px 24px; border-radius: 12px; border: none;
-        background: linear-gradient(135deg,#6c63ff,#9b59f5); color: #fff;
-        font-size: 13px; font-weight: 800; cursor: pointer;
-        box-shadow: 0 4px 18px rgba(108,99,255,0.35);
-        font-family: inherit; display: flex; align-items: center; gap: 8px;
-        transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-save:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-save:active { transform: translateY(0); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-        .ep-bottom-grid { grid-template-columns: 1fr; }
-        .ep-bottom-grid .ep-card { display: block; }
-        .ep-form-body { flex: none; }
-    }
-    @media (max-width: 480px) {
-        .ep-card { border-radius: 14px; }
-        .ep-foto-body { flex-direction: column; align-items: flex-start; padding: 18px; gap: 16px; }
-        .ep-avatar-img, .ep-avatar-ph { width: 76px; height: 76px; font-size: 1.7rem; }
-        .ep-form-body { padding: 14px 16px; gap: 12px; }
-        .ep-sec { padding: 12px 16px 10px; }
-        .ep-footer { justify-content: stretch; }
-        .btn-cancel, .btn-save { flex: 1; justify-content: center; }
-    }
-    @media (max-width: 360px) {
-        .ep-footer { flex-direction: column; }
-        .btn-cancel, .btn-save { width: 100%; }
-    }
+    body, input, button, label { font-family: inherit; }
+    .btn-save { background: linear-gradient(135deg,#6c63ff,#9b59f5); }
+    .avatar-shadow { box-shadow: 0 0 0 3px rgba(108,99,255,0.5), 0 8px 28px rgba(108,99,255,0.3); }
+    .avatar-ph { background: linear-gradient(135deg,#6c63ff,#9b59f5); }
+    .badge-grad { background: linear-gradient(135deg,#6c63ff,#9b59f5); }
+    input:focus { box-shadow: 0 0 0 3px rgba(108,99,255,0.12); }
+    input.err { border-color: rgba(239,68,68,0.5) !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
 </style>
 
-<div class="ep-wrap">
+<div class="flex flex-col gap-4 w-full">
 
     @if(session('success'))
-        <div class="ep-alert">
+        <div class="px-4 py-3 rounded-xl border flex items-center gap-2.5 text-[13px] font-semibold text-green-400" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.25)">
             <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
         </div>
     @endif
@@ -214,168 +37,196 @@
         @csrf
         @method('PUT')
 
-        {{-- ══ CARD 1: FOTO — full width ══ --}}
-        <div class="ep-card">
-            <div class="ep-sec">
-                <div class="ep-sec-ico">
+        {{-- ══ CARD 1: FOTO ══ --}}
+        <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden">
+            {{-- Section header --}}
+            <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
+                <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
                     <i class="fa-solid fa-camera"></i>
                 </div>
-                <span class="ep-sec-title">Foto Profile</span>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-white/35">Foto Profile</span>
             </div>
 
-            <div class="ep-foto-body">
+            {{-- Body --}}
+            <div class="px-7 py-6 flex items-center gap-7 flex-wrap">
 
-                <div class="ep-avatar-preview">
+                {{-- Avatar --}}
+                <div class="relative flex-shrink-0">
+                    @if($user->photo)
+                        <img id="avatarPreview"
+                             class="w-24 h-24 rounded-full object-cover border-[3px] border-bg3 avatar-shadow block"
+                             src="{{ asset('assets_public/' . $user->photo) }}"
+                             alt="Foto Profile"
+                             onerror="this.src='{{ asset('default.png') }}'">
+                        <div id="avatarPlaceholder"
+                             class="avatar-ph w-24 h-24 rounded-full border-[3px] border-bg3 avatar-shadow items-center justify-center text-[2.2rem] font-extrabold text-white hidden">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
+                    @else
+                        <img id="avatarPreview"
+                             class="w-24 h-24 rounded-full object-cover border-[3px] border-bg3 avatar-shadow hidden"
+                             src=""
+                             alt="Foto Profile">
+                        <div id="avatarPlaceholder"
+                             class="avatar-ph w-24 h-24 rounded-full border-[3px] border-bg3 avatar-shadow flex items-center justify-center text-[2.2rem] font-extrabold text-white">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
+                    @endif
 
-                    {{-- FOTO --}}
-                    <img id="avatarPreview"
-                        class="ep-avatar-img"
-                        src="{{ $user->photo ? asset('profile/' . $user->photo) : asset('default.png') }}"
-                        alt="Foto Profile"
-                        onerror="this.src='{{ asset('default.png') }}'">
-
-                    {{-- PLACEHOLDER --}}
-                    <div class="ep-avatar-ph"
-                        id="avatarPlaceholder"
-                        style="{{ $user->photo ? 'display:none;' : '' }}">
-
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-
-                    </div>
-
-                    {{-- BUTTON EDIT --}}
-                    <div class="ep-avatar-badge"
-                        onclick="document.getElementById('photoInput').click()">
+                    {{-- Badge edit --}}
+                    <div class="badge-grad absolute bottom-[3px] right-[3px] w-[26px] h-[26px] rounded-full border-2 border-bg3 flex items-center justify-center text-[10px] text-white cursor-pointer"
+                         onclick="document.getElementById('photoInput').click()">
                         <i class="fa-solid fa-pen"></i>
                     </div>
-                    
                 </div>
 
-                <div class="ep-foto-info">
-
-                    <div class="ep-foto-info-title">
+                {{-- Info & upload --}}
+                <div class="flex-1 min-w-0">
+                    <div class="text-[14px] font-extrabold text-white/90 mb-1">
                         {{ $user->photo ? 'Ganti Foto Profile' : 'Upload Foto Profile' }}
                     </div>
-
-                    <div class="ep-foto-info-hint">
+                    <div class="text-[12px] text-white/25 mb-3.5 leading-relaxed">
                         Format JPG, PNG, atau GIF. Ukuran maks. 2MB.
                     </div>
-
-                    <div class="ep-foto-actions">
-
-                        <label class="ep-file-label" for="photoInput">
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <label class="inline-flex items-center gap-1.5 px-[18px] py-2.5 rounded-[10px] border border-acc/30 text-purple-400 text-[12.5px] font-bold cursor-pointer transition-all hover:border-acc/50 hover:text-purple-300" style="background:rgba(108,99,255,0.14)" for="photoInput">
                             <i class="fa-solid fa-upload"></i>
                             {{ $user->photo ? 'Ganti Foto' : 'Pilih Foto' }}
                         </label>
-
-                        <input class="ep-file-input"
-                            type="file"
-                            id="photoInput"
-                            name="photo"
-                            accept="image/*">
-
-                        <span class="ep-file-name" id="fileName">
+                        <input class="hidden" type="file" id="photoInput" name="photo" accept="image/*">
+                        <span class="text-[11.5px] text-white/20 font-mono break-all" id="fileName">
                             {{ $user->photo ? basename($user->photo) : 'Belum ada file dipilih' }}
                         </span>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
 
-        {{-- ══ ROW BAWAH: Info Pribadi | Keamanan ══ --}}
-        <div class="ep-bottom-grid">
+        {{-- ══ ROW BAWAH: 2 kolom ══ --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
 
             {{-- Info Pribadi --}}
-            <div class="ep-card">
-                <div class="ep-sec">
-                    <div class="ep-sec-ico"><i class="fa-solid fa-user"></i></div>
-                    <span class="ep-sec-title">Informasi Pribadi</span>
+            <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden flex flex-col">
+                <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
+                    <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-white/35">Informasi Pribadi</span>
                 </div>
-                <div class="ep-form-body">
-                    <div class="ep-field">
-                        <label class="ep-label" for="name"><i class="fa-solid fa-id-card"></i> Nama Lengkap</label>
-                        <input class="ep-input {{ $errors->has('name') ? 'ep-input-error' : '' }}"
+                <div class="p-5 flex flex-col gap-3.5 flex-1">
+
+                    {{-- Nama --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="name">
+                            <i class="fa-solid fa-id-card text-acc/60 text-[10px]"></i> Nama Lengkap
+                        </label>
+                        <input class="w-full px-3.5 py-[11px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('name') ? 'err' : '' }}"
                                type="text" id="name" name="name"
                                value="{{ old('name', $user->name) }}" placeholder="Nama lengkap kamu">
-                        @error('name')<span class="ep-err"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('name')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
-                    <div class="ep-field">
-                        <label class="ep-label" for="username"><i class="fa-solid fa-at"></i> Username</label>
-                        <input class="ep-input {{ $errors->has('username') ? 'ep-input-error' : '' }}"
+
+                    {{-- Username --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="username">
+                            <i class="fa-solid fa-at text-acc/60 text-[10px]"></i> Username
+                        </label>
+                        <input class="w-full px-3.5 py-[11px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('username') ? 'err' : '' }}"
                                type="text" id="username" name="username"
                                value="{{ old('username', $user->username) }}" placeholder="username_kamu">
-                        @error('username')<span class="ep-err"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('username')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
-                    <div class="ep-field">
-                        <label class="ep-label" for="email"><i class="fa-solid fa-envelope"></i> Email</label>
-                        <input class="ep-input {{ $errors->has('email') ? 'ep-input-error' : '' }}"
+
+                    {{-- Email --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="email">
+                            <i class="fa-solid fa-envelope text-acc/60 text-[10px]"></i> Email
+                        </label>
+                        <input class="w-full px-3.5 py-[11px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('email') ? 'err' : '' }}"
                                type="email" id="email" name="email"
                                value="{{ old('email', $user->email) }}" placeholder="email@kamu.com">
-                        @error('email')<span class="ep-err"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('email')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
-                    <div class="ep-field">
-                        <label class="ep-label" for="no_telp"><i class="fa-solid fa-phone"></i> No. Telepon</label>
-                        <input class="ep-input {{ $errors->has('no_telp') ? 'ep-input-error' : '' }}"
+
+                    {{-- No. Telepon --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="no_telp">
+                            <i class="fa-solid fa-phone text-acc/60 text-[10px]"></i> No. Telepon
+                        </label>
+                        <input class="w-full px-3.5 py-[11px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('no_telp') ? 'err' : '' }}"
                                type="text" id="no_telp" name="no_telp"
                                value="{{ old('no_telp', $user->no_telp) }}" placeholder="08xxxxxxxxxx">
-                        @error('no_telp')<span class="ep-err"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('no_telp')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
+
                 </div>
             </div>
 
             {{-- Keamanan --}}
-            <div class="ep-card">
-                <div class="ep-sec">
-                    <div class="ep-sec-ico"><i class="fa-solid fa-lock"></i></div>
-                    <span class="ep-sec-title">Keamanan & Password</span>
+            <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden flex flex-col">
+                <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
+                    <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-white/35">Keamanan & Password</span>
                 </div>
-                <div class="ep-form-body">
-                    <p class="ep-hint">Kosongkan jika tidak ingin mengubah password.</p>
-                    <div class="ep-field">
-                        <label class="ep-label" for="password"><i class="fa-solid fa-key"></i> Password Baru</label>
-                        <div class="ep-pw-wrap">
-                            <input class="ep-input {{ $errors->has('password') ? 'ep-input-error' : '' }}"
+                <div class="p-5 flex flex-col gap-3.5 flex-1">
+                    <p class="text-[12px] text-white/22 leading-relaxed">Kosongkan jika tidak ingin mengubah password.</p>
+
+                    {{-- Password Baru --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="password">
+                            <i class="fa-solid fa-key text-acc/60 text-[10px]"></i> Password Baru
+                        </label>
+                        <div class="relative">
+                            <input class="w-full px-3.5 py-[11px] pr-[42px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('password') ? 'err' : '' }}"
                                    type="password" id="password" name="password"
                                    placeholder="Min. 8 karakter" autocomplete="new-password">
-                            <button type="button" class="ep-pw-toggle" onclick="togglePw('password','eye1')">
+                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
+                                    onclick="togglePw('password','eye1')">
                                 <i class="fa-solid fa-eye" id="eye1"></i>
                             </button>
                         </div>
-                        @error('password')<span class="ep-err"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('password')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
-                    <div class="ep-field">
-                        <label class="ep-label" for="password_confirmation"><i class="fa-solid fa-shield-halved"></i> Konfirmasi Password</label>
-                        <div class="ep-pw-wrap">
-                            <input class="ep-input"
+
+                    {{-- Konfirmasi Password --}}
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="password_confirmation">
+                            <i class="fa-solid fa-shield-halved text-acc/60 text-[10px]"></i> Konfirmasi Password
+                        </label>
+                        <div class="relative">
+                            <input class="w-full px-3.5 py-[11px] pr-[42px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06]"
                                    type="password" id="password_confirmation" name="password_confirmation"
                                    placeholder="Ulangi password baru" autocomplete="new-password">
-                            <button type="button" class="ep-pw-toggle" onclick="togglePw('password_confirmation','eye2')">
+                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
+                                    onclick="togglePw('password_confirmation','eye2')">
                                 <i class="fa-solid fa-eye" id="eye2"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="ep-footer">
-                    <a href="{{ route('pengguna.profile') }}" class="btn-cancel">
+                {{-- Footer --}}
+                <div class="px-5 pt-3.5 pb-[18px] border-t border-acc/[0.08] flex items-center justify-end gap-2.5 flex-wrap mt-auto">
+                    <a href="{{ route('pengguna.profile') }}"
+                       class="flex items-center gap-1.5 px-5 py-[11px] rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-white/40 text-[13px] font-bold no-underline transition-all hover:bg-white/[0.08] hover:text-white/70 hover:border-white/15">
                         <i class="fa-solid fa-xmark"></i> Batal
                     </a>
-                    <button type="submit" class="btn-save">
+                    <button type="submit"
+                            class="btn-save flex items-center gap-2 px-6 py-[11px] rounded-[12px] border-none text-white text-[13px] font-extrabold cursor-pointer transition-all hover:opacity-90 hover:-translate-y-px active:translate-y-0"
+                            style="box-shadow:0 4px 18px rgba(108,99,255,0.35)">
                         <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
                     </button>
                 </div>
             </div>
 
-        </div>{{-- /ep-bottom-grid --}}
+        </div>{{-- /grid --}}
 
     </form>
 </div>
 
 <script>
-// Preview foto langsung saat pilih file baru
 document.getElementById('photoInput').addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
@@ -393,7 +244,6 @@ document.getElementById('photoInput').addEventListener('change', function () {
     reader.readAsDataURL(file);
 });
 
-// Toggle show/hide password
 function togglePw(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon  = document.getElementById(iconId);

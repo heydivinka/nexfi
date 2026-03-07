@@ -272,9 +272,9 @@
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <a href="#home" style="display:flex;align-items:center;gap:8px;font-size:1.3rem;font-weight:800;text-decoration:none;" class="gradient-text">
-    <i class="fa-solid fa-circle-nodes"></i> NexFi
-  </a>
+  <a href="#home" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <img src="{{ asset('assets_public/logo.png') }}" alt="NexFi" style="height:52px;width:auto;object-fit:contain;">
+</a>
   <ul id="navLinks">
     <li><a href="#home"         style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-house"></i> Home</a></li>
     <li><a href="#aboutSection" style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-circle-info"></i> About</a></li>
@@ -329,13 +329,15 @@
     </h1>
     <p style="font-size:1rem;line-height:1.7;color:var(--muted2);margin:0 auto 32px;max-width:520px;">Kelola keuanganmu dengan fitur pintar, cepat, dan aman bersama NexFi.</p>
     <div class="hero-btns" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-      <button style="display:flex;align-items:center;gap:8px;color:#fff;font-weight:700;padding:12px 24px;border-radius:9999px;border:none;cursor:pointer;font-size:0.875rem;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow);">
-        <i class="fa-solid fa-rocket"></i> Get Started
-      </button>
-      <button style="display:flex;align-items:center;gap:8px;font-weight:700;padding:12px 24px;border-radius:9999px;border:2px solid rgba(108,99,255,0.4);cursor:pointer;font-size:0.875rem;font-family:'Inter',sans-serif;background:transparent;color:var(--accent);"
-              onmouseover="this.style.background='rgba(108,99,255,0.15)'" onmouseout="this.style.background='transparent'">
-        <i class="fa-solid fa-download"></i> Download App
-      </button>
+      <a href="{{ route('login') }}"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:12px 24px;min-width:180px;border-radius:9999px;border:none;cursor:pointer;font-size:0.875rem;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow);text-decoration:none;">
+          <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+      <a href="{{ route('kebijakan.index') }}"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;padding:12px 24px;min-width:180px;border-radius:9999px;border:2px solid rgba(108,99,255,0.4);cursor:pointer;font-size:0.875rem;font-family:'Plus Jakarta Sans',sans-serif;background:transparent;color:var(--accent);text-decoration:none;"
+        onmouseover="this.style.background='rgba(108,99,255,0.15)'" onmouseout="this.style.background='transparent'">
+          <i class="fa-solid fa-shield-halved"></i> Kebijakan Privasi
+      </a>
     </div>
   </div>
 </section>
@@ -562,8 +564,8 @@
   <div style="max-width:1200px;margin:0 auto;">
     <div class="footer-grid">
       <div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:1.3rem;font-weight:800;margin-bottom:8px;" class="gradient-text">
-          <i class="fa-solid fa-circle-nodes"></i> NexFi
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <img src="{{ asset('assets_public/logo.png') }}" alt="NexFi" style="height:52px;width:auto;object-fit:contain;">
         </div>
         <p style="font-size:0.83rem;color:var(--muted);max-width:220px;margin:0;">Your Next Future in Finance. Kelola keuanganmu lebih cerdas.</p>
       </div>

@@ -12,6 +12,10 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Pengguna\AiController;
+use App\Http\Controllers\KebijakanController;
+
+// Kebijakan & Privasi
+Route::get('/kebijakan-privasi', [KebijakanController::class, 'index'])->name('kebijakan.index');
 
 // AI
 Route::get('/pengguna/ai', [AiController::class,'index'])->name('pengguna.ai.index');

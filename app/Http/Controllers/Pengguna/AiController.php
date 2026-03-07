@@ -13,18 +13,18 @@ class AiController extends Controller
 
     public function index()
     {
-        return view('pengguna.ai.index');
+        $user = Auth::user();
+        return view('pengguna.ai.index', compact('user'));
     }
 
     public function chat(Request $request)
     {
-
         $user = Auth::user();
 
-        $transaksi = Transaction::where('user_id',$user->id)->get();
+        $transaksi = Transaction::where('user_id', $user->id)->get();
 
-        $totalPemasukan = $transaksi->where('tipe','pemasukan')->sum('nominal');
-        $totalPengeluaran = $transaksi->where('tipe','pengeluaran')->sum('nominal');
+        $totalPemasukan   = $transaksi->where('tipe', 'pemasukan')->sum('nominal');
+        $totalPengeluaran = $transaksi->where('tipe', 'pengeluaran')->sum('nominal');
 
         $dataUser = "
         Nama pengguna: {$user->name}
@@ -62,7 +62,7 @@ class AiController extends Controller
 
         Maka jawab dengan normal dan membantu.
 
-        Hanya jika pertanyaan benar-benar tidak berhubungan sama sekali 
+        Hanya jika pertanyaan benar-benar tidak berhubungan sama sekali
         dengan Nexfi atau keuangan (misalnya tentang game, artis, politik, dll),
         baru jawab dengan:
 
@@ -75,28 +75,17 @@ class AiController extends Controller
         ";
 
         $response = Http::withHeaders([
-            "Authorization" => "Bearer ".env('OPENROUTER_API_KEY'),
-            "HTTP-Referer" => "https://nexfi.pplgsmkn1ciomas.my.id",
-            "X-Title" => "NEXFI"
-        ])->post("https://openrouter.ai/api/v1/chat/completions",[
-
-            "model"=>"openai/gpt-3.5-turbo",
-
-            "messages"=>[
-                [
-                    "role"=>"system",
-                    "content"=>$promptSystem
-                ],
-                [
-                    "role"=>"user",
-                    "content"=>$request->message
-                ]
+            "Authorization" => "Bearer " . env('OPENROUTER_API_KEY'),
+            "HTTP-Referer"  => "https://nexfi.pplgsmkn1ciomas.my.id",
+            "X-Title"       => "NEXFI"
+        ])->post("https://openrouter.ai/api/v1/chat/completions", [
+            "model"    => "openai/gpt-3.5-turbo",
+            "messages" => [
+                ["role" => "system", "content" => $promptSystem],
+                ["role" => "user",   "content" => $request->message]
             ]
-
         ]);
 
         return response()->json($response->json());
-
     }
-
 }

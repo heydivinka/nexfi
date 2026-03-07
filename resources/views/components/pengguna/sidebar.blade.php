@@ -26,15 +26,15 @@
             @if(request()->routeIs('pengguna.dashboard'))<span class="spip"></span>@endif
         </a>
 
-        <a href="{{ route('pengguna.keuangan.index') }}" class="snav {{ request()->routeIs('pengguna.kelola*') ? 'snav-on' : '' }}">
-            <span class="sicon {{ request()->routeIs('pengguna.kelola*') ? 'sicon-on' : '' }}">
+        <a href="{{ route('pengguna.keuangan.index') }}" class="snav {{ request()->routeIs('pengguna.keuangan*') ? 'snav-on' : '' }}">
+            <span class="sicon {{ request()->routeIs('pengguna.keuangan*') ? 'sicon-on' : '' }}">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h10"/>
                     <circle cx="18" cy="16" r="3"/>
                 </svg>
             </span>
             <span class="slabel">Kelola Data</span>
-            @if(request()->routeIs('pengguna.kelola*'))<span class="spip"></span>@endif
+            @if(request()->routeIs('pengguna.keuangan*'))<span class="spip"></span>@endif
         </a>
 
         <a href="{{ route('pengguna.riwayat.index') }}" class="snav {{ request()->routeIs('pengguna.riwayat*') ? 'snav-on' : '' }}">
@@ -70,9 +70,12 @@
         <a href="{{ route('pengguna.ai.index') }}" class="snav {{ request()->routeIs('pengguna.ai.*') ? 'snav-on' : '' }}">
         <span class="sicon {{ request()->routeIs('pengguna.ai.*') ? 'sicon-on' : '' }}">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6m-9 6h12M7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"/>
-                <circle cx="9" cy="14" r="1"/>
-                <circle cx="15" cy="14" r="1"/>
+                <rect x="3" y="8" width="18" height="13" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v6M8 2h8"/>
+                <circle cx="9" cy="14" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="15" cy="14" r="1.5" fill="currentColor" stroke="none"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 18h6"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13H1M23 13h-2"/>
             </svg>
         </span>
 

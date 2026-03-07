@@ -42,22 +42,26 @@
     .filter-label {
         font-size:9.5px; font-weight:700; text-transform:uppercase;
         letter-spacing:.07em; color:rgba(255,255,255,0.25);
-        display:flex; align-items:center; gap:5px; margin-bottom:10px;
+        display:flex; align-items:center; gap:5px; margin-bottom:12px;
     }
     .filter-label i { color:rgba(108,99,255,.5); }
+
     .filter-grid {
         display:grid;
-        grid-template-columns:1fr 1fr 1fr auto;
-        gap:8px;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
         align-items:end;
     }
-    @media(max-width:640px){ .filter-grid { grid-template-columns:1fr 1fr; } }
-    @media(max-width:400px){ .filter-grid { grid-template-columns:1fr; } }
+    @media(min-width:640px) { .filter-grid { grid-template-columns:1fr 1fr 1fr; } }
+    @media(min-width:900px) { .filter-grid { grid-template-columns:1fr 1fr 1fr 1fr auto; } }
 
-    .f-group label {
-        display:block; font-size:9.5px; font-weight:600;
-        color:rgba(255,255,255,0.3); margin-bottom:4px;
+    .f-group { display:flex; flex-direction:column; gap:5px; }
+    .f-label {
+        font-size:9.5px; font-weight:700; color:rgba(255,255,255,0.3);
+        display:flex; align-items:center; gap:5px;
+        text-transform:uppercase; letter-spacing:.05em;
     }
+    .f-label i { color:rgba(108,99,255,0.6); font-size:9px; }
     .f-input {
         width:100%; padding:8px 10px; border-radius:8px;
         background:rgba(255,255,255,0.04);
@@ -69,12 +73,11 @@
     }
     .f-input:focus { border-color:rgba(108,99,255,.55); background:rgba(108,99,255,.06); }
     .f-input option { background:#10132a; color:#fff; }
-
-    /* date input placeholder color */
     .f-input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(0.4); cursor:pointer; }
 
+    .filter-actions { display:flex; gap:6px; align-items:center; }
     .btn-filter {
-        display:inline-flex; align-items:center; justify-content:center; gap:6px;
+        flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px;
         padding:8px 16px; border-radius:8px; border:none; cursor:pointer;
         background:linear-gradient(135deg,#6c63ff,#9b59f5);
         color:#fff; font-size:11.5px; font-weight:700;
@@ -83,6 +86,26 @@
         transition:opacity .15s; white-space:nowrap;
     }
     .btn-filter:hover { opacity:.86; }
+    .btn-reset {
+        display:inline-flex; align-items:center; justify-content:center; gap:5px;
+        padding:8px 12px; border-radius:8px;
+        border:1px solid rgba(255,255,255,0.08);
+        background:rgba(255,255,255,0.04);
+        color:rgba(255,255,255,0.35); font-size:11px; font-weight:700;
+        text-decoration:none; white-space:nowrap; transition:all .15s;
+        font-family:'Plus Jakarta Sans',sans-serif;
+    }
+    .btn-reset:hover { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.65); }
+
+    /* active filter tags */
+    .filter-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .filter-tag {
+        display:inline-flex; align-items:center; gap:5px;
+        padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700;
+        background:rgba(108,99,255,0.12); color:#a78bfa;
+        border:1px solid rgba(108,99,255,0.2);
+    }
+    .filter-tag i { font-size:8px; opacity:.7; }
 
     /* ── SUMMARY STRIP ── */
     .summary-strip {
@@ -116,7 +139,6 @@
     .table-head-left p { font-size:12px; font-weight:700; color:#fff; margin:0; }
     .table-head-left span { font-size:10px; color:rgba(255,255,255,0.2); }
 
-    /* search box */
     .tbl-search {
         padding:6px 10px; border-radius:7px;
         background:rgba(255,255,255,0.04);
@@ -129,15 +151,12 @@
     .tbl-search:focus { border-color:rgba(108,99,255,.4); }
     @media(max-width:480px){ .tbl-search { width:100%; } }
 
-    /* scrollable table wrapper */
     .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 
     table.lap-table {
         width:100%; border-collapse:collapse; min-width:520px;
     }
-    .lap-table thead tr {
-        background:rgba(108,99,255,0.07);
-    }
+    .lap-table thead tr { background:rgba(108,99,255,0.07); }
     .lap-table th {
         padding:9px 14px; text-align:left;
         font-size:9.5px; font-weight:700; text-transform:uppercase;
@@ -160,7 +179,7 @@
     }
     .badge.in  { background:rgba(34,197,94,0.12);  color:#4ade80; }
     .badge.out { background:rgba(239,68,68,0.1);   color:#f87171; }
-    .badge.dot { width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:2px; }
+    .badge .dot { width:5px;height:5px;border-radius:50%;display:inline-block; }
     .badge.in  .dot { background:#4ade80; }
     .badge.out .dot { background:#f87171; }
 
@@ -172,7 +191,6 @@
         background:rgba(108,99,255,0.1); color:rgba(155,89,245,0.9);
     }
 
-    /* empty state */
     .tbl-empty {
         padding:40px 20px; text-align:center;
         font-size:12px; color:rgba(255,255,255,0.2);
@@ -200,7 +218,6 @@
     .pag-btn.active { background:linear-gradient(135deg,#6c63ff,#9b59f5); color:#fff; box-shadow:0 3px 10px rgba(108,99,255,0.35); }
     .pag-btn:disabled { opacity:.3; cursor:default; }
 
-    /* per page */
     .per-page-wrap { display:flex; align-items:center; gap:6px; }
     .per-page-wrap label { font-size:10px; color:rgba(255,255,255,0.22); }
     .per-page-sel {
@@ -222,7 +239,6 @@
             <h2><i class="fa-solid fa-chart-bar" style="color:#6c63ff;margin-right:6px;"></i>Laporan Keuangan</h2>
             <p>Data transaksi lengkap dengan filter & export</p>
         </div>
-        {{-- ✅ FIX: tombol export bawa query params filter yang aktif --}}
         <div class="export-btns">
             <a href="{{ route('pengguna.laporan.pdf', request()->query()) }}" class="btn-exp btn-pdf">
                 <i class="fa-solid fa-file-pdf"></i> Export PDF
@@ -243,28 +259,21 @@
             <div class="filter-grid">
 
                 <div class="f-group">
-                    <label>Tanggal Awal</label>
-                    <input type="date"
-                           name="tanggal_awal"
-                           class="f-input"
-                           value="{{ request('tanggal_awal') }}">
+                    <label class="f-label"><i class="fa-solid fa-calendar-days"></i> Tanggal Awal</label>
+                    <input type="date" name="tanggal_awal" class="f-input" value="{{ request('tanggal_awal') }}">
                 </div>
 
                 <div class="f-group">
-                    <label>Tanggal Akhir</label>
-                    <input type="date"
-                           name="tanggal_akhir"
-                           class="f-input"
-                           value="{{ request('tanggal_akhir') }}">
+                    <label class="f-label"><i class="fa-solid fa-calendar-check"></i> Tanggal Akhir</label>
+                    <input type="date" name="tanggal_akhir" class="f-input" value="{{ request('tanggal_akhir') }}">
                 </div>
 
                 <div class="f-group">
-                    <label>Kategori</label>
+                    <label class="f-label"><i class="fa-solid fa-tag"></i> Kategori</label>
                     <select name="kategori" class="f-input">
-                        <option value="">Semua Kategori</option>
+                        <option value="">— Semua Kategori —</option>
                         @foreach($categories as $cat)
-                            <option value="{{ $cat->id }}"
-                                {{ request('kategori') == $cat->id ? 'selected' : '' }}>
+                            <option value="{{ $cat->id }}" {{ request('kategori') == $cat->id ? 'selected' : '' }}>
                                 {{ $cat->nama }}
                             </option>
                         @endforeach
@@ -272,29 +281,49 @@
                 </div>
 
                 <div class="f-group">
-                    <label>Tipe</label>
+                    <label class="f-label"><i class="fa-solid fa-arrow-right-arrow-left"></i> Tipe Transaksi</label>
                     <select name="tipe" class="f-input">
-                        <option value="">Semua Tipe</option>
-                        <option value="pemasukan"
-                            {{ request('tipe') == 'pemasukan' ? 'selected' : '' }}>
-                            Pemasukan
-                        </option>
-                        <option value="pengeluaran"
-                            {{ request('tipe') == 'pengeluaran' ? 'selected' : '' }}>
-                            Pengeluaran
-                        </option>
+                        <option value="">— Semua Tipe —</option>
+                        <option value="pemasukan"   {{ request('tipe') == 'pemasukan'   ? 'selected' : '' }}>💚 Pemasukan</option>
+                        <option value="pengeluaran" {{ request('tipe') == 'pengeluaran' ? 'selected' : '' }}>🔴 Pengeluaran</option>
                     </select>
                 </div>
 
                 <div class="f-group">
-                    <label>&nbsp;</label>
-                    <button type="submit" class="btn-filter">
-                        <i class="fa-solid fa-magnifying-glass"></i> Filter
-                    </button>
+                    <label class="f-label" style="visibility:hidden;">Aksi</label>
+                    <div class="filter-actions">
+                        <button type="submit" class="btn-filter">
+                            <i class="fa-solid fa-magnifying-glass"></i> Filter
+                        </button>
+                        @if(request()->anyFilled(['tanggal_awal','tanggal_akhir','kategori','tipe']))
+                        <a href="{{ route('pengguna.laporan.index') }}" class="btn-reset">
+                            <i class="fa-solid fa-xmark"></i> Reset
+                        </a>
+                        @endif
+                    </div>
                 </div>
 
             </div>
         </form>
+
+        {{-- Active filter tags --}}
+        @if(request()->anyFilled(['tanggal_awal','tanggal_akhir','kategori','tipe']))
+        <div class="filter-tags">
+            @if(request('tanggal_awal'))
+                <span class="filter-tag"><i class="fa-solid fa-calendar-days"></i> Dari: {{ request('tanggal_awal') }}</span>
+            @endif
+            @if(request('tanggal_akhir'))
+                <span class="filter-tag"><i class="fa-solid fa-calendar-check"></i> Sampai: {{ request('tanggal_akhir') }}</span>
+            @endif
+            @if(request('kategori'))
+                @php $activeCat = $categories->firstWhere('id', request('kategori')); @endphp
+                <span class="filter-tag"><i class="fa-solid fa-tag"></i> {{ $activeCat->nama ?? 'Kategori' }}</span>
+            @endif
+            @if(request('tipe'))
+                <span class="filter-tag"><i class="fa-solid fa-circle-dot"></i> {{ ucfirst(request('tipe')) }}</span>
+            @endif
+        </div>
+        @endif
     </div>
 
     {{-- ══ TABLE ══ --}}
@@ -413,13 +442,11 @@
         const start   = (currentPage - 1) * perPage;
         const end     = Math.min(start + perPage, total);
 
-        // show/hide rows
         allRows.forEach(r => r.style.display = 'none');
         filtered.forEach((r, i) => {
             r.style.display = (i >= start && i < end) ? '' : 'none';
         });
 
-        // renumber visible rows
         filtered.slice(start, end).forEach((r, i) => {
             const numCell = r.querySelector('td:first-child');
             if (numCell) numCell.textContent = start + i + 1;
@@ -430,7 +457,6 @@
             ? `Menampilkan ${start + 1}–${end} dari ${total} data`
             : 'Tidak ada data';
 
-        // build pagination buttons
         pagBtns.innerHTML = '';
 
         function makeBtn(label, page, disabled, active) {
@@ -445,7 +471,6 @@
         pagBtns.appendChild(makeBtn('<i class="fa-solid fa-angles-left"></i>', 1, currentPage === 1, false));
         pagBtns.appendChild(makeBtn('<i class="fa-solid fa-angle-left"></i>', currentPage - 1, currentPage === 1, false));
 
-        // window of pages
         let rangeStart = Math.max(1, currentPage - 2);
         let rangeEnd   = Math.min(pages, rangeStart + 4);
         if (rangeEnd - rangeStart < 4) rangeStart = Math.max(1, rangeEnd - 4);
@@ -461,7 +486,6 @@
     searchEl.addEventListener('input', update);
     perPageEl.addEventListener('change', () => { perPage = parseInt(perPageEl.value); currentPage = 1; render(); });
 
-    // init
     if (allRows.length) render();
     else {
         rowCount.textContent = '0 data';

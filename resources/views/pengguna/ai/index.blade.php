@@ -421,16 +421,17 @@
     </div>
   </div>
 
-  {{-- GREETING — tersembunyi, data-name dipakai JS saat clearChat --}}
-  <div id="ai-greeting" data-name="{{ Auth::user()->name }}" style="display:none"></div>
+    {{-- GREETING — tersembunyi, data-name dipakai JS saat clearChat --}}
+    <div id="ai-greeting" data-name="{{ $user->name }}" style="display:none"></div>
 
-  {{-- CHAT BODY --}}
-  <div id="chat-box">
-    <div id="empty-state">
-      <div class="es-greeting">
-        <div class="g-icon"><i class="fa-solid fa-hand-point-right"></i></div>
-        <div>Halo, <strong>{{ Auth::user()->name }}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
-      </div>
+    {{-- CHAT BODY --}}
+    <div id="chat-box">
+      <div id="empty-state">
+        <div class="es-greeting">
+          <div class="g-icon"><i class="fa-solid fa-hand-point-right"></i></div>
+          <div>Halo, <strong>{{ $user->name }}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
+        </div>
+
       <div class="empty-icon"><i class="fa-solid fa-robot"></i></div>
       <h4>Mulai percakapan</h4>
       <p>Tanyakan apa saja tentang keuangan atau cara menggunakan NexFi.</p>
