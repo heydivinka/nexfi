@@ -217,44 +217,71 @@
         {{-- ══ CARD 1: FOTO — full width ══ --}}
         <div class="ep-card">
             <div class="ep-sec">
-                <div class="ep-sec-ico"><i class="fa-solid fa-camera"></i></div>
+                <div class="ep-sec-ico">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
                 <span class="ep-sec-title">Foto Profile</span>
             </div>
+
             <div class="ep-foto-body">
+
                 <div class="ep-avatar-preview">
-                    {{-- Foto: tampil jika ada, fallback inisial --}}
+
+                    {{-- FOTO --}}
                     <img id="avatarPreview"
-                         class="ep-avatar-img"
-                         src="{{ $user->photo ? asset('profile/' . $user->photo) . '?v=' . time() : '' }}"
-                         alt="Foto Profile"
-                         style="{{ $user->photo ? '' : 'display:none;' }}"
-                         onerror="this.style.display='none';document.getElementById('avatarPlaceholder').style.display='flex';">
-                    <div class="ep-avatar-ph" id="avatarPlaceholder"
-                         style="{{ $user->photo ? 'display:none;' : '' }}">
+                        class="ep-avatar-img"
+                        src="{{ $user->photo ? asset('profile/' . $user->photo) : asset('default.png') }}"
+                        alt="Foto Profile"
+                        onerror="this.src='{{ asset('default.png') }}'">
+
+                    {{-- PLACEHOLDER --}}
+                    <div class="ep-avatar-ph"
+                        id="avatarPlaceholder"
+                        style="{{ $user->photo ? 'display:none;' : '' }}">
+
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+
                     </div>
-                    <div class="ep-avatar-badge" onclick="document.getElementById('photoInput').click()">
+
+                    {{-- BUTTON EDIT --}}
+                    <div class="ep-avatar-badge"
+                        onclick="document.getElementById('photoInput').click()">
                         <i class="fa-solid fa-pen"></i>
                     </div>
+                    
                 </div>
+
                 <div class="ep-foto-info">
+
                     <div class="ep-foto-info-title">
                         {{ $user->photo ? 'Ganti Foto Profile' : 'Upload Foto Profile' }}
                     </div>
+
                     <div class="ep-foto-info-hint">
-                        Format JPG, PNG, atau GIF. Ukuran maks. 2MB.<br>
+                        Format JPG, PNG, atau GIF. Ukuran maks. 2MB.
                     </div>
+
                     <div class="ep-foto-actions">
+
                         <label class="ep-file-label" for="photoInput">
                             <i class="fa-solid fa-upload"></i>
                             {{ $user->photo ? 'Ganti Foto' : 'Pilih Foto' }}
                         </label>
-                        <input class="ep-file-input" type="file" id="photoInput" name="photo" accept="image/*">
+
+                        <input class="ep-file-input"
+                            type="file"
+                            id="photoInput"
+                            name="photo"
+                            accept="image/*">
+
                         <span class="ep-file-name" id="fileName">
                             {{ $user->photo ? basename($user->photo) : 'Belum ada file dipilih' }}
                         </span>
+
                     </div>
+
                 </div>
+
             </div>
         </div>
 

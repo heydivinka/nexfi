@@ -345,4 +345,32 @@ exit
 
 ---
 
+# 🧹 Command Penting Yang Wajib Dijalankan Untuk NEXFI
+
+# Install DBAL (dibutuhkan untuk operasi migrasi database)
+composer require doctrine/dbal
+
+# Install package untuk generate QR Code
+composer require simplesoftwareio/simple-qrcode
+
+# Install package untuk export PDF
+composer require barryvdh/laravel-dompdf
+
+# Install package untuk export/import Excel
+composer require maatwebsite/excel
+
+# Install HTTP client untuk request API
+composer require guzzlehttp/guzzle
+
+# Mengatur permission folder assets agar bisa diakses server
+chmod -R 755 public/assets_public
+
+# Membuat symbolic link dari storage ke public
+php artisan storage:link
+
+# ❗ Opsional: Clear semua cache Laravel supaya fresh
+php artisan optimize:clear
+
+---
+
 *Dibuat dengan ❤️ menggunakan kekompakan team nexfi*

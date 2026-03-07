@@ -207,11 +207,12 @@
                 <div class="banner"></div>
 
                 <div class="hero">
-                    <div class="avatar-wrap">
-                        <img class="avatar"
-                             src="{{ $user->photo ? asset('profile/'.$user->photo) : asset('default.png') }}"
-                             alt="{{ $user->name }}">
-                    </div>
+                   <div class="avatar-wrap">
+                    <img class="avatar"
+                        src="{{ asset('profile/' . $user->photo) }}"
+                        alt="{{ $user->name }}"
+                        onerror="this.src='{{ asset('default.png') }}'">
+                </div>
                     <div class="hero-name">{{ $user->name }}</div>
                     <div class="hero-uname">{{ $user->username }}</div>
                     <div class="hero-email">{{ $user->email }}</div>

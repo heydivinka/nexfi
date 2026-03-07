@@ -15,8 +15,10 @@ use App\Http\Controllers\Pengguna\AiController;
 
 // AI
 Route::get('/pengguna/ai', [AiController::class,'index'])->name('pengguna.ai.index');
-Route::post('/ai-nexfi', [AiController::class,'chat'])->name('pengguna.ai.chat');
-
+Route::post('/ai-nexfi', [AiController::class,'chat'])
+    ->middleware('throttle:10,1')
+    ->name('ai.nexfi');
+    
 // Route submit testi dari publik
 Route::post('/testimonial/submit', [\App\Http\Controllers\TestimonialSubmitController::class, 'store'])->name('testimonial.store');
 
