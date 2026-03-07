@@ -345,7 +345,7 @@ exit
 
 ---
 
-# 🧹 Command Penting Yang Wajib Dijalankan Untuk NEXFI
+## 🧹 Command Penting Untuk NEXFI
 
 # Install DBAL (dibutuhkan untuk operasi migrasi database)
 composer require doctrine/dbal
@@ -370,6 +370,10 @@ php artisan storage:link
 
 # ❗ Opsional: Clear semua cache Laravel supaya fresh
 php artisan optimize:clear
+php artisan config:clear
+php artisan view:clear
+php artisan cache:clear
+php artisan route:clear
 
 ---
 
