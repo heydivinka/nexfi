@@ -347,6 +347,7 @@ exit
 
 ## 🧹 Command Penting Untuk NEXFI
 
+```bash
 # Install DBAL (dibutuhkan untuk operasi migrasi database)
 composer require doctrine/dbal
 
@@ -374,7 +375,7 @@ php artisan config:clear
 php artisan view:clear
 php artisan cache:clear
 php artisan route:clear
-
+```
 ---
 
 *Dibuat dengan ❤️ menggunakan kekompakan team nexfi*
