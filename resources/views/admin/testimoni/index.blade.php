@@ -514,7 +514,7 @@
       <h2><i class="fa-solid fa-comments" style="color:#2563eb;margin-right:8px;"></i>Manajemen Testimoni</h2>
       <p>Review dan kelola testimoni yang masuk dari pengguna</p>
     </div>
-    <a href="/" class="ta-btn-view" target="_blank">
+    <a href="{{ route('preview.landing') }}" class="ta-btn-view" target="_blank">
       <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Landing Page
     </a>
   </div>

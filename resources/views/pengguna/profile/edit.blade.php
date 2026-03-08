@@ -163,6 +163,7 @@
             </div>
 
             {{-- Keamanan --}}
+            {{-- Keamanan --}}
             <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden flex flex-col">
                 <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
                     <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
@@ -170,7 +171,16 @@
                     </div>
                     <span class="text-[11px] font-bold uppercase tracking-widest text-white/35">Keamanan & Password</span>
                 </div>
+
                 <div class="p-5 flex flex-col gap-3.5 flex-1">
+
+                    {{-- Notif sukses --}}
+                    @if (session('success'))
+                        <div class="text-[12px] text-green-400 flex items-center gap-1.5 bg-green-400/10 px-3.5 py-2.5 rounded-[10px]">
+                            <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
+                        </div>
+                    @endif
+
                     <p class="text-[12px] text-white/22 leading-relaxed">Kosongkan jika tidak ingin mengubah password.</p>
 
                     {{-- Password Baru --}}
@@ -179,15 +189,20 @@
                             <i class="fa-solid fa-key text-acc/60 text-[10px]"></i> Password Baru
                         </label>
                         <div class="relative">
-                            <input class="w-full px-3.5 py-[11px] pr-[42px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('password') ? 'err' : '' }}"
-                                   type="password" id="password" name="password"
-                                   placeholder="Min. 8 karakter" autocomplete="new-password">
-                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
+                            <input class="w-full px-3.5 py-[11px] pr-[42px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06] {{ $errors->has('password') ? 'border-red-400/60 bg-red-400/[0.04]' : '' }}"
+                                type="password" id="password" name="password"
+                                placeholder="Min. 8 karakter" autocomplete="new-password">
+                            <button type="button"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
                                     onclick="togglePw('password','eye1')">
                                 <i class="fa-solid fa-eye" id="eye1"></i>
                             </button>
                         </div>
-                        @error('password')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
+                        @error('password')
+                            <span class="text-[11px] text-red-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i> {{ $message }}
+                            </span>
+                        @enderror
                     </div>
 
                     {{-- Konfirmasi Password --}}
@@ -197,9 +212,10 @@
                         </label>
                         <div class="relative">
                             <input class="w-full px-3.5 py-[11px] pr-[42px] rounded-[11px] border border-acc/15 bg-white/[0.03] text-white/90 text-[13.5px] outline-none transition-all focus:border-acc/50 focus:bg-acc/[0.06]"
-                                   type="password" id="password_confirmation" name="password_confirmation"
-                                   placeholder="Ulangi password baru" autocomplete="new-password">
-                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
+                                type="password" id="password_confirmation" name="password_confirmation"
+                                placeholder="Ulangi password baru" autocomplete="new-password">
+                            <button type="button"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-white/25 text-[13px] p-1 transition-colors hover:text-white/55"
                                     onclick="togglePw('password_confirmation','eye2')">
                                 <i class="fa-solid fa-eye" id="eye2"></i>
                             </button>
@@ -210,7 +226,7 @@
                 {{-- Footer --}}
                 <div class="px-5 pt-3.5 pb-[18px] border-t border-acc/[0.08] flex items-center justify-end gap-2.5 flex-wrap mt-auto">
                     <a href="{{ route('pengguna.profile') }}"
-                       class="flex items-center gap-1.5 px-5 py-[11px] rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-white/40 text-[13px] font-bold no-underline transition-all hover:bg-white/[0.08] hover:text-white/70 hover:border-white/15">
+                    class="flex items-center gap-1.5 px-5 py-[11px] rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-white/40 text-[13px] font-bold no-underline transition-all hover:bg-white/[0.08] hover:text-white/70 hover:border-white/15">
                         <i class="fa-solid fa-xmark"></i> Batal
                     </a>
                     <button type="submit"
@@ -226,7 +242,19 @@
     </form>
 </div>
 
+@push('scripts')
 <script>
+function togglePw(inputId, eyeId) {
+    const input = document.getElementById(inputId);
+    const eye   = document.getElementById(eyeId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        eye.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        input.type = 'password';
+        eye.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
 document.getElementById('photoInput').addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
@@ -256,5 +284,6 @@ function togglePw(inputId, iconId) {
     }
 }
 </script>
+@endpush
 
 @endsection

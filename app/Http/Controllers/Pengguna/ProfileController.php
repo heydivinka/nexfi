@@ -32,17 +32,17 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => ['required','string','max:255', Rule::unique('users')->ignore($user->id)],
-            'email' => ['required','email','max:255', Rule::unique('users')->ignore($user->id)],
-            'no_telp' => 'nullable|string|max:20',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'password' => 'nullable|string|min:6|confirmed',
+            'name'     => 'required|string|max:255',
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email'    => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'no_telp'  => 'nullable|string|max:20',
+            'photo'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        // update foto
+        // Update foto
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
+            $photo     = $request->file('photo');
             $photoName = time() . '_' . $photo->getClientOriginalName();
             $photo->move(public_path('assets_public'), $photoName);
 
@@ -53,13 +53,14 @@ class ProfileController extends Controller
             $user->photo = $photoName;
         }
 
-        // update data lain
-        $user->name = $request->name;
+        // Update data profil
+        $user->name     = $request->name;
         $user->username = $request->username;
-        $user->email = $request->email;
-        $user->no_telp = $request->no_telp;
+        $user->email    = $request->email;
+        $user->no_telp  = $request->no_telp;
 
-        if ($request->password) {
+        // Update password hanya jika diisi
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
@@ -78,15 +79,9 @@ class ProfileController extends Controller
             ->take(10)
             ->get();
 
-        $saldo = $user->saldo ?? 0;
-
-        $pemasukan = Transaction::where('user_id', $user->id)
-            ->where('tipe', 'pemasukan')
-            ->sum('nominal');
-
-        $pengeluaran = Transaction::where('user_id', $user->id)
-            ->where('tipe', 'pengeluaran')
-            ->sum('nominal');
+        $saldo       = $user->saldo ?? 0;
+        $pemasukan   = Transaction::where('user_id', $user->id)->where('tipe', 'pemasukan')->sum('nominal');
+        $pengeluaran = Transaction::where('user_id', $user->id)->where('tipe', 'pengeluaran')->sum('nominal');
 
         return view('public.profile', compact(
             'user',

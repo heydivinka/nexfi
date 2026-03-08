@@ -18,34 +18,50 @@ use App\Http\Controllers\KebijakanController;
 Route::get('/kebijakan-privasi', [KebijakanController::class, 'index'])->name('kebijakan.index');
 
 // AI
-Route::get('/pengguna/ai', [AiController::class,'index'])->name('pengguna.ai.index');
-Route::post('/ai-nexfi', [AiController::class,'chat'])
+Route::get('/pengguna/ai', [AiController::class, 'index'])->name('pengguna.ai.index');
+Route::post('/ai-nexfi', [AiController::class, 'chat'])
     ->middleware('throttle:10,1')
     ->name('ai.nexfi');
-    
-// Route submit testi dari publik
-Route::post('/testimonial/submit', [\App\Http\Controllers\TestimonialSubmitController::class, 'store'])->name('testimonial.store');
 
-// Route Admin
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/testimoni', [TestimonialController::class, 'index'])->name('testimoni.index');
-    Route::patch('/testimoni/{testimonial}/publish', [TestimonialController::class, 'publish'])->name('testimoni.publish');
-    Route::patch('/testimoni/{testimonial}/reject', [TestimonialController::class, 'reject'])->name('testimoni.reject');
-    Route::delete('/testimoni/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimoni.destroy');
-});
+// Testimonial — hanya user yang sudah login
+Route::post('/testimonial/submit', [\App\Http\Controllers\TestimonialSubmitController::class, 'store'])
+    ->name('testimonial.store')
+    ->middleware('auth');
 
-// Submit form frontend user
-Route::post('/kontak', [ContactController::class,'store'])->name('kontak.store');
+// Kontak — hanya user yang sudah login
+Route::post('/kontak', [ContactController::class, 'store'])
+    ->name('kontak.store')
+    ->middleware('auth');
 
-// Admin messages
-Route::prefix('admin')->name('admin.')->group(function(){
-    Route::get('messages', [MessageController::class,'index'])->name('messages.index');
-    Route::get('messages/{message}/reply', [MessageController::class,'replyForm'])->name('messages.replyForm');
-    Route::post('messages/{message}/send', [MessageController::class,'sendReply'])->name('messages.sendReply');
-    Route::get('messages/{message}', [MessageController::class,'show'])->name('messages.show');
-    Route::delete('messages/{message}', [MessageController::class, 'destroy'])
-    ->name('messages.destroy');
-});
+// Public Profile
+Route::get('/user/{username}', [ProfileController::class, 'show'])->name('profile.public');
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+
+        // Testimonial
+        Route::get('/testimoni', [TestimonialController::class, 'index'])->name('testimoni.index');
+        Route::patch('/testimoni/{testimonial}/publish', [TestimonialController::class, 'publish'])->name('testimoni.publish');
+        Route::patch('/testimoni/{testimonial}/reject', [TestimonialController::class, 'reject'])->name('testimoni.reject');
+        Route::delete('/testimoni/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimoni.destroy');
+
+        // Messages
+        Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
+        Route::get('messages/{message}/reply', [MessageController::class, 'replyForm'])->name('messages.replyForm');
+        Route::post('messages/{message}/send', [MessageController::class, 'sendReply'])->name('messages.sendReply');
+        Route::get('messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+        Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -67,37 +83,14 @@ Route::get('/preview-landing', function () {
 
 /*
 |--------------------------------------------------------------------------
-| SMART DASHBOARD REDIRECT (BASED ON ROLE)
+| SMART DASHBOARD REDIRECT
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->get('/dashboard', function () {
-
-    if (auth()->user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-    }
-
-    return redirect()->route('pengguna.dashboard');
-
+    return auth()->user()->role === 'admin'
+        ? redirect()->route('admin.dashboard')
+        : redirect()->route('pengguna.dashboard');
 })->name('dashboard');
-
-
-/*
-|--------------------------------------------------------------------------
-| ADMIN ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth', 'role:admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])
-            ->name('dashboard');
-
-        // tambahkan route admin lainnya di sini
-
-    });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -109,93 +102,36 @@ Route::middleware(['auth', 'role:pengguna'])
     ->name('pengguna.')
     ->group(function () {
 
-        /*
-        ================= DASHBOARD
-        */
-        Route::get('/dashboard', [PenggunaDashboard::class, 'index'])
-            ->name('dashboard');
+        // Dashboard
+        Route::get('/dashboard', [PenggunaDashboard::class, 'index'])->name('dashboard');
 
+        // Keuangan
+        Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan.index');
+        Route::post('/keuangan', [KeuanganController::class, 'store'])->name('keuangan.store');
+        Route::post('/keuangan/saldo', [KeuanganController::class, 'updateSaldo'])->name('keuangan.saldo');
+        Route::get('/keuangan/{id}/edit', [KeuanganController::class, 'edit'])->name('keuangan.edit');
+        Route::put('/keuangan/{id}', [KeuanganController::class, 'update'])->name('keuangan.update');
 
-        /*
-        ================= KEUANGAN
-        */
-        Route::get('/keuangan', [KeuanganController::class, 'index'])
-            ->name('keuangan.index');
+        // Riwayat
+        Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
+        Route::delete('/riwayat/{id}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
 
-        Route::post('/keuangan', [KeuanganController::class, 'store'])
-            ->name('keuangan.store');
+        // Kategori
+        Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
+        Route::post('/kategori', [CategoryController::class, 'store'])->name('kategori.store');
+        Route::put('/kategori/{id}', [CategoryController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])->name('kategori.destroy');
 
-        Route::post('/keuangan/saldo', [KeuanganController::class, 'updateSaldo'])
-            ->name('keuangan.saldo');
+        // Laporan
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])->name('laporan.pdf');
+        Route::get('/laporan/excel', [LaporanController::class, 'exportExcel'])->name('laporan.excel');
 
-        Route::get('/keuangan/{id}/edit', [KeuanganController::class, 'edit'])
-            ->name('keuangan.edit');
-
-        Route::put('/keuangan/{id}', [KeuanganController::class, 'update'])
-            ->name('keuangan.update');
-
-
-        /*
-        ================= RIWAYAT
-        */
-        Route::get('/riwayat', [RiwayatController::class, 'index'])
-            ->name('riwayat.index');
-
-        Route::delete('/riwayat/{id}', [RiwayatController::class, 'destroy'])
-            ->name('riwayat.destroy');
-
-
-        /*
-        ================= KATEGORI
-        */
-        Route::get('/kategori', [CategoryController::class, 'index'])
-            ->name('kategori.index');
-
-        Route::post('/kategori', [CategoryController::class, 'store'])
-            ->name('kategori.store');
-
-        Route::put('/kategori/{id}', [CategoryController::class, 'update'])
-            ->name('kategori.update');
-
-        Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])
-            ->name('kategori.destroy');
-
-
-        /*
-        ================= LAPORAN
-        */
-        Route::get('/laporan', [LaporanController::class, 'index'])
-            ->name('laporan.index');
-
-        Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])
-            ->name('laporan.pdf');
-
-        Route::get('/laporan/excel', [LaporanController::class, 'exportExcel'])
-            ->name('laporan.excel');
-
-
-        /*
-        ================= PROFILE
-        */
-        Route::get('/profile', [ProfileController::class, 'index'])
-            ->name('profile');
-
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])
-            ->name('profile.edit');
-
-        Route::put('/profile/update', [ProfileController::class, 'update'])
-            ->name('profile.update');
+        // Profile
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
     });
 
-
-/*
-|--------------------------------------------------------------------------
-| PUBLIC PROFILE
-|--------------------------------------------------------------------------
-*/
-Route::get('/u/{username}', [ProfileController::class, 'show'])
-    ->name('profile.public');
-
-
-require __DIR__.'/auth.php'; // ← TETAP ADA, jangan dihapus
+require __DIR__.'/auth.php';

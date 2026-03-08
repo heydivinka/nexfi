@@ -9,9 +9,10 @@ class TestimonialSubmitController extends Controller
 {
     public function store(Request $request)
     {
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
         $request->validate([
-            'nama'   => 'required|string|max:100',
-            'email'  => 'required|email|max:150',
             'rating' => 'required|integer|min:1|max:5',
             'isi'    => 'required|string|max:1000',
             'foto'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -23,8 +24,8 @@ class TestimonialSubmitController extends Controller
         }
 
         Testimonial::create([
-            'nama'   => $request->nama,
-            'email'  => $request->email,
+            'nama'   => $user->name,   // dari akun login, bukan input form
+            'email'  => $user->email,  // dari akun login, tidak bisa dimanipulasi
             'rating' => $request->rating,
             'isi'    => $request->isi,
             'foto'   => $fotoPath,

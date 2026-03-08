@@ -9,16 +9,21 @@ class ContactController extends Controller
 {
     public function store(Request $request)
     {
-        // Validasi input
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
 
-        // Simpan ke DB
-        Message::create($validated);
+        // Gabungkan data dari akun login + input form
+        Message::create([
+            'name'    => $user->name,   // dari akun login
+            'email'   => $user->email,  // dari akun login
+            'subject' => $validated['subject'],
+            'message' => $validated['message'],
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Pesan berhasil dikirim']);
     }

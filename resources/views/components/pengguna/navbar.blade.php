@@ -4,7 +4,7 @@
         style="position:sticky;top:0;z-index:30;flex-shrink:0;background:#10132a;border-bottom:1px solid rgba(108,99,255,0.15);padding:0 14px;height:54px;display:flex;align-items:center;justify-content:space-between;font-family:'Plus Jakarta Sans',sans-serif;">
     <div style="display:flex;align-items:center;gap:10px;min-width:0;">
 
-        {{-- Hamburger: hanya mobile, built-in di navbar --}}
+        {{-- Hamburger: hanya mobile --}}
         <button id="sb-hamburger" onclick="toggleSidebar()"
                 style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(108,99,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
             <svg id="ico-open" width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="2">
@@ -27,6 +27,17 @@
 
     <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
 
+        {{-- ✨ BUTTON HOME / LANDING --}}
+        <a href="{{ route('preview.landing') }}" id="btn-home"
+           style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9px;background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.65);font-size:12px;font-weight:600;text-decoration:none;transition:all 0.2s ease;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;"
+           onmouseover="this.style.background='rgba(108,99,255,0.18)';this.style.borderColor='rgba(108,99,255,0.45)';this.style.color='white';this.style.boxShadow='0 0 16px rgba(108,99,255,0.25)';"
+           onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.65)';this.style.boxShadow='none';">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2" style="flex-shrink:0;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            <span class="btn-home-label">Beranda</span>
+        </a>
+
         {{-- User chip --}}
         <div style="position:relative;">
             <button id="user-trigger" onclick="toggleDropdown()"
@@ -47,12 +58,8 @@
                 @endauth
 
                 @guest
-                    <div style="width:24px;height:24px;border-radius:50%;background:#444;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;">
-                        ?
-                    </div>
-                    <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);">
-                        Guest
-                    </span>
+                    <div style="width:24px;height:24px;border-radius:50%;background:#444;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;">?</div>
+                    <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);">Guest</span>
                 @endguest
 
                 <svg id="dd-chevron" width="10" height="10" fill="none" stroke="rgba(255,255,255,0.3)" viewBox="0 0 24 24" stroke-width="2.5" style="transition:transform 0.15s;flex-shrink:0;">
@@ -64,10 +71,8 @@
             <div id="user-dropdown"
                  style="display:none;position:absolute;top:calc(100% + 8px);right:0;width:205px;background:#10132a;border:1px solid rgba(108,99,255,0.15);border-radius:13px;overflow:hidden;z-index:100;">
 
-                {{-- Dropdown header: foto / inisial --}}
                 <div style="padding:11px 13px;border-bottom:1px solid rgba(108,99,255,0.1);">
                     <div style="display:flex;align-items:center;gap:8px;">
-
                         @auth
                             @if(auth()->user()->photo)
                                 <img src="{{ asset('assets_public/' . auth()->user()->photo) }}"
@@ -78,7 +83,6 @@
                                 </div>
                             @endif
                         @endauth
-
                         <div style="min-width:0;">
                             <p style="font-size:12px;font-weight:600;color:white;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ auth()->user()->name ?? 'Pengguna' }}</p>
                             <p style="font-size:10px;color:rgba(255,255,255,0.28);margin:1px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ auth()->user()->email ?? '' }}</p>
@@ -110,15 +114,20 @@
         #sb-hamburger { display:none !important; }
         #nexfi-navbar { border-radius:14px; border-bottom:1px solid rgba(108,99,255,0.15) !important; margin:12px 12px 0; }
     }
+    /* Sembunyikan label teks di layar sangat kecil, sisakan icon saja */
+    @media(max-width:400px){
+        .btn-home-label { display:none; }
+        #btn-home { padding:6px 8px; }
+    }
     @media(max-width:360px){ #nav-uname { display:none; } }
     @media(max-width:480px){ #nav-date { display:none; } }
 </style>
 
 <script>
-    const ddEl  = document.getElementById('user-dropdown');
-    const ddOvEl= document.getElementById('dd-overlay');
-    const chev  = document.getElementById('dd-chevron');
-    let ddOpen  = false;
+    const ddEl   = document.getElementById('user-dropdown');
+    const ddOvEl = document.getElementById('dd-overlay');
+    const chev   = document.getElementById('dd-chevron');
+    let ddOpen   = false;
     function openDropdown() { ddOpen=true; ddEl.style.display='block'; ddOvEl.style.display='block'; chev.style.transform='rotate(180deg)'; }
     function closeDropdown(){ ddOpen=false; ddEl.style.display='none';  ddOvEl.style.display='none';  chev.style.transform='rotate(0deg)'; }
     function toggleDropdown(){ ddOpen ? closeDropdown() : openDropdown(); }

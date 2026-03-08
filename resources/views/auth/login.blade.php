@@ -6,6 +6,8 @@
     <title>NexFi – Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
     <style>
         * { font-family: 'Inter', sans-serif; }
         
