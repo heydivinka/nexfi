@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kebijakan Privasi | {{ $appName }}</title>
+    <title>Kebijakan Privasi & Syarat Ketentuan | {{ $appName }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('assets_public/nex.png') }}">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,7 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.7;
@@ -95,10 +95,10 @@
             font-size: 26px;
         }
         .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(22px, 5vw, 32px);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 5vw, 34px);
             font-weight: 800; color: #fff;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
             margin-bottom: 10px;
         }
         .hero p {
@@ -114,6 +114,33 @@
             font-size: 11px; font-weight: 700;
             color: #a78bfa;
         }
+
+        /* ── TAB SWITCHER ── */
+        .tab-bar {
+            display: flex; gap: 8px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+        }
+        .tab-btn {
+            flex: 1; padding: 10px 16px; border-radius: 10px;
+            background: transparent; border: none; cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700;
+            color: rgba(255,255,255,0.35);
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(108,99,255,0.25), rgba(155,89,245,0.15));
+            border: 1px solid rgba(108,99,255,0.3);
+            color: #a78bfa;
+        }
+        .tab-btn:hover:not(.active) { color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.03); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
 
         /* ── TOC ── */
         .toc-card {
@@ -178,7 +205,8 @@
             margin-bottom: 2px;
         }
         .section-title {
-            font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.88);
+            font-family: 'Playfair Display', serif;
+            font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.88);
             transition: color 0.15s;
         }
         .section-chevron {
@@ -251,6 +279,11 @@
             border-color: rgba(239,68,68,0.18);
             color: rgba(248,113,113,0.8);
         }
+        .highlight-box.yellow {
+            background: rgba(234,179,8,0.06);
+            border-color: rgba(234,179,8,0.18);
+            color: rgba(250,204,21,0.8);
+        }
         .highlight-box i { margin-right: 6px; }
 
         /* ── CONTACT CARD ── */
@@ -269,7 +302,10 @@
             background: radial-gradient(ellipse at center top, rgba(108,99,255,0.08) 0%, transparent 60%);
             pointer-events: none;
         }
-        .contact-card h3 { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .contact-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;
+        }
         .contact-card p  { font-size: 12.5px; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
         .contact-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -296,6 +332,18 @@
             background: linear-gradient(90deg, #6c63ff, #9b59f5);
             width: 0%; transition: width 0.1s linear;
         }
+
+        /* ── PANEL HEADER ── */
+        .panel-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(18px, 4vw, 26px);
+            font-weight: 800; color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .panel-heading i { color: #a78bfa; font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -315,10 +363,10 @@
     {{-- Hero --}}
     <div class="hero">
         <div class="hero-icon">🔐</div>
-        <h1>Kebijakan Privasi</h1>
+        <h1>Kebijakan & Ketentuan</h1>
         <p>
-            Kami berkomitmen menjaga kepercayaan Anda. Pelajari bagaimana kami mengumpulkan,
-            menggunakan, dan melindungi data pribadi Anda di {{ $appName }}.
+            Kami berkomitmen menjaga kepercayaan Anda. Pelajari kebijakan privasi
+            dan syarat penggunaan layanan {{ $appName }}.
         </p>
         <div class="hero-badge">
             <i class="fa-solid fa-clock" style="font-size:10px;"></i>
@@ -326,272 +374,599 @@
         </div>
     </div>
 
-    {{-- Table of Contents --}}
-    <div class="toc-card">
-        <div class="toc-title"><i class="fa-solid fa-list"></i> Daftar Isi</div>
-        <div class="toc-list">
-            @php
-            $toc = [
-                ['anchor' => 'sec-1', 'label' => 'Informasi yang Kami Kumpulkan'],
-                ['anchor' => 'sec-2', 'label' => 'Cara Kami Menggunakan Data'],
-                ['anchor' => 'sec-3', 'label' => 'Penyimpanan & Keamanan Data'],
-                ['anchor' => 'sec-4', 'label' => 'Berbagi Data dengan Pihak Ketiga'],
-                ['anchor' => 'sec-5', 'label' => 'Hak-Hak Pengguna'],
-                ['anchor' => 'sec-6', 'label' => 'Cookie & Teknologi Pelacak'],
-                ['anchor' => 'sec-7', 'label' => 'Kebijakan Anak-Anak'],
-                ['anchor' => 'sec-8', 'label' => 'Perubahan Kebijakan'],
-                ['anchor' => 'sec-9', 'label' => 'Hubungi Kami'],
-            ];
-            @endphp
-            @foreach($toc as $i => $item)
-            <a href="#{{ $item['anchor'] }}" class="toc-item">
-                <div class="toc-num">{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</div>
-                {{ $item['label'] }}
-            </a>
-            @endforeach
-        </div>
+    {{-- Tab Bar --}}
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('privacy', this)">
+            <i class="fa-solid fa-shield-halved" style="margin-right:6px;font-size:11px;"></i> Kebijakan Privasi
+        </button>
+        <button class="tab-btn" onclick="switchTab('terms', this)">
+            <i class="fa-solid fa-file-contract" style="margin-right:6px;font-size:11px;"></i> Syarat & Ketentuan
+        </button>
     </div>
 
-    {{-- SECTION 1 --}}
-    <div class="section open" id="sec-1">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-database"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 01</div>
-                <div class="section-title">Informasi yang Kami Kumpulkan</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>Untuk memberikan layanan keuangan terbaik, {{ $appName }} mengumpulkan beberapa jenis informasi berikut:</p>
-            <ul>
-                <li><strong style="color:rgba(255,255,255,0.8);">Data Identitas</strong> — Nama lengkap, username, alamat email, dan nomor telepon yang Anda daftarkan.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Data Keuangan</strong> — Catatan transaksi pemasukan dan pengeluaran, saldo, serta kategori keuangan yang Anda buat.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Data Teknis</strong> — Alamat IP, jenis perangkat, browser, dan waktu akses untuk keperluan keamanan.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Data Foto</strong> — Foto profil dan bukti transaksi yang Anda unggah secara sukarela.</li>
-            </ul>
-            <div class="highlight-box green">
-                <i class="fa-solid fa-circle-check"></i>
-                Kami hanya mengumpulkan data yang benar-benar diperlukan untuk menjalankan layanan. Kami tidak meminta data yang tidak relevan.
-            </div>
-        </div>
-    </div>
+    {{-- ═══════════════ PRIVACY POLICY PANEL ═══════════════ --}}
+    <div class="tab-panel active" id="panel-privacy">
 
-    {{-- SECTION 2 --}}
-    <div class="section" id="sec-2">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-gear"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 02</div>
-                <div class="section-title">Cara Kami Menggunakan Data</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>Data yang kami kumpulkan digunakan semata-mata untuk tujuan berikut:</p>
-            <ol>
-                <li>Menyediakan, mengoperasikan, dan meningkatkan layanan pencatatan keuangan {{ $appName }}.</li>
-                <li>Memverifikasi identitas dan menjaga keamanan akun Anda.</li>
-                <li>Mengirimkan notifikasi penting terkait akun, seperti perubahan keamanan.</li>
-                <li>Menganalisis tren penggunaan secara anonim untuk meningkatkan performa aplikasi.</li>
-                <li>Memenuhi kewajiban hukum yang berlaku di Indonesia.</li>
-            </ol>
-            <div class="highlight-box red">
-                <i class="fa-solid fa-ban"></i>
-                Kami tidak menggunakan data Anda untuk keperluan iklan, profiling komersial, atau menjualnya kepada pihak manapun.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 3 --}}
-    <div class="section" id="sec-3">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 03</div>
-                <div class="section-title">Penyimpanan & Keamanan Data</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>Keamanan data Anda adalah prioritas utama kami. Berikut langkah-langkah yang kami terapkan:</p>
-            <ul>
-                <li>Kata sandi disimpan menggunakan enkripsi <strong style="color:rgba(255,255,255,0.8);">bcrypt</strong> — tidak dapat dibaca bahkan oleh tim kami.</li>
-                <li>Seluruh komunikasi antara aplikasi dan server menggunakan protokol <strong style="color:rgba(255,255,255,0.8);">HTTPS/TLS</strong>.</li>
-                <li>Data disimpan di server yang berlokasi di wilayah dengan standar keamanan tinggi.</li>
-                <li>Akses ke database dibatasi hanya untuk personel teknis yang berwenang.</li>
-                <li>Pemantauan keamanan dilakukan secara berkala untuk mendeteksi ancaman.</li>
-            </ul>
-            <div class="highlight-box">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                Data akun aktif disimpan selama akun Anda masih aktif. Jika akun dihapus, data akan dihapus permanen dalam waktu 30 hari.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 4 --}}
-    <div class="section" id="sec-4">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-share-nodes"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 04</div>
-                <div class="section-title">Berbagi Data dengan Pihak Ketiga</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>{{ $appName }} berkomitmen untuk tidak menjual atau menyewakan data pribadi Anda. Data Anda hanya dapat dibagikan dalam kondisi terbatas berikut:</p>
-            <ul>
-                <li><strong style="color:rgba(255,255,255,0.8);">Penyedia Layanan</strong> — Mitra teknis seperti penyedia server dan layanan email yang membantu operasional, terikat perjanjian kerahasiaan.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Kewajiban Hukum</strong> — Jika diwajibkan oleh peraturan perundang-undangan Indonesia atau perintah pengadilan yang sah.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Persetujuan Anda</strong> — Jika Anda secara eksplisit memberikan izin untuk berbagi data tertentu.</li>
-            </ul>
-            <div class="highlight-box red">
-                <i class="fa-solid fa-ban"></i>
-                Data Anda tidak pernah dan tidak akan pernah dijual kepada pengiklan, broker data, atau pihak ketiga manapun untuk kepentingan komersial.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 5 --}}
-    <div class="section" id="sec-5">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-user-shield"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 05</div>
-                <div class="section-title">Hak-Hak Pengguna</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>Sesuai dengan prinsip perlindungan data, Anda memiliki hak-hak berikut terhadap data pribadi Anda:</p>
-            <ul>
-                <li><strong style="color:rgba(255,255,255,0.8);">Hak Akses</strong> — Melihat seluruh data pribadi yang kami simpan tentang Anda melalui halaman profil.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Hak Koreksi</strong> — Memperbarui atau memperbaiki data yang tidak akurat kapan saja melalui pengaturan akun.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Hak Penghapusan</strong> — Meminta penghapusan akun dan seluruh data terkait secara permanen.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Hak Portabilitas</strong> — Mengekspor data transaksi Anda dalam format yang dapat dibaca (PDF/Excel).</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Hak Keberatan</strong> — Mengajukan keberatan atas pemrosesan data tertentu.</li>
-            </ul>
-            <div class="highlight-box green">
-                <i class="fa-solid fa-circle-check"></i>
-                Untuk menggunakan hak-hak di atas, hubungi kami di <strong>{{ $appEmail }}</strong>. Kami akan merespons dalam 7 hari kerja.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 6 --}}
-    <div class="section" id="sec-6">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-cookie-bite"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 06</div>
-                <div class="section-title">Cookie & Teknologi Pelacak</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>{{ $appName }} menggunakan cookie dan teknologi serupa yang bersifat fungsional:</p>
-            <ul>
-                <li><strong style="color:rgba(255,255,255,0.8);">Cookie Sesi</strong> — Menjaga status login Anda agar tidak perlu masuk ulang setiap saat. Dihapus otomatis saat browser ditutup.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Cookie CSRF</strong> — Melindungi akun Anda dari serangan Cross-Site Request Forgery.</li>
-                <li><strong style="color:rgba(255,255,255,0.8);">Cookie Preferensi</strong> — Menyimpan pengaturan tampilan atau pilihan bahasa Anda.</li>
-            </ul>
-            <div class="highlight-box">
-                <i class="fa-solid fa-info-circle"></i>
-                Kami tidak menggunakan cookie pelacak pihak ketiga atau cookie iklan. Anda dapat mengatur cookie melalui pengaturan browser Anda.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 7 --}}
-    <div class="section" id="sec-7">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-child"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 07</div>
-                <div class="section-title">Kebijakan Anak-Anak</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>
-                Layanan {{ $appName }} ditujukan untuk pengguna berusia <strong style="color:rgba(255,255,255,0.8);">17 tahun ke atas</strong>.
-                Kami tidak secara sadar mengumpulkan data pribadi dari anak-anak di bawah usia tersebut.
-            </p>
-            <p>
-                Jika Anda adalah orang tua atau wali dan mengetahui bahwa anak Anda telah memberikan data pribadi
-                kepada kami tanpa izin Anda, segera hubungi kami di <strong style="color:#a78bfa;">{{ $appEmail }}</strong>.
-                Kami akan segera menghapus data tersebut.
-            </p>
-        </div>
-    </div>
-
-    {{-- SECTION 8 --}}
-    <div class="section" id="sec-8">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-rotate"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 08</div>
-                <div class="section-title">Perubahan Kebijakan</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>
-                Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu untuk mencerminkan perubahan
-                layanan atau peraturan yang berlaku. Setiap perubahan yang signifikan akan kami komunikasikan
-                melalui:
-            </p>
-            <ul>
-                <li>Notifikasi di dalam aplikasi saat Anda login berikutnya.</li>
-                <li>Email ke alamat yang terdaftar di akun Anda.</li>
-                <li>Pembaruan tanggal "Terakhir diperbarui" di bagian atas halaman ini.</li>
-            </ul>
-            <div class="highlight-box">
-                <i class="fa-solid fa-info-circle"></i>
-                Dengan terus menggunakan {{ $appName }} setelah perubahan diberlakukan, Anda dianggap menyetujui kebijakan yang diperbarui.
-            </div>
-        </div>
-    </div>
-
-    {{-- SECTION 9: Hubungi Kami --}}
-    <div class="section" id="sec-9">
-        <div class="section-header" onclick="toggleSection(this)">
-            <div class="section-ico"><i class="fa-solid fa-envelope"></i></div>
-            <div class="section-meta">
-                <div class="section-num">Bagian 09</div>
-                <div class="section-title">Hubungi Kami</div>
-            </div>
-            <i class="fa-solid fa-chevron-down section-chevron"></i>
-        </div>
-        <div class="section-body">
-            <p>
-                Jika Anda memiliki pertanyaan, kekhawatiran, atau permintaan terkait Kebijakan Privasi ini
-                atau data pribadi Anda, jangan ragu untuk menghubungi tim kami:
-            </p>
-            <div class="contact-card">
-                <h3>Tim Privasi {{ $appName }}</h3>
-                <p>Kami siap membantu dan akan merespons dalam 1–7 hari kerja</p>
-                <a href="mailto:{{ $appEmail }}" class="contact-btn">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    {{ $appEmail }}
+        {{-- Table of Contents --}}
+        <div class="toc-card">
+            <div class="toc-title"><i class="fa-solid fa-list"></i> Daftar Isi — Kebijakan Privasi</div>
+            <div class="toc-list">
+                @php
+                $tocPrivacy = [
+                    ['anchor' => 'p1', 'label' => 'Pendahuluan'],
+                    ['anchor' => 'p2', 'label' => 'Definisi'],
+                    ['anchor' => 'p3', 'label' => 'Ruang Lingkup'],
+                    ['anchor' => 'p4', 'label' => 'Informasi yang Dikumpulkan'],
+                    ['anchor' => 'p5', 'label' => 'Cara Penggunaan Data'],
+                    ['anchor' => 'p6', 'label' => 'Penyimpanan dan Keamanan Data'],
+                    ['anchor' => 'p7', 'label' => 'Pengungkapan kepada Pihak Ketiga'],
+                    ['anchor' => 'p8', 'label' => 'Cookies dan Teknologi Serupa'],
+                    ['anchor' => 'p9', 'label' => 'Hak Pengguna'],
+                    ['anchor' => 'p10', 'label' => 'Retensi Data'],
+                    ['anchor' => 'p11', 'label' => 'Perubahan Kebijakan'],
+                    ['anchor' => 'p12', 'label' => 'Kontak'],
+                ];
+                @endphp
+                @foreach($tocPrivacy as $i => $item)
+                <a href="#{{ $item['anchor'] }}" class="toc-item" onclick="openSection('{{ $item['anchor'] }}')">
+                    <div class="toc-num">{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</div>
+                    {{ $item['label'] }}
                 </a>
+                @endforeach
             </div>
         </div>
-    </div>
+
+        {{-- P1: Pendahuluan --}}
+        <div class="section open" id="p1">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-house"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 01</div>
+                    <div class="section-title">Pendahuluan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    {{ $appName }} ("Kami") berkomitmen untuk melindungi dan menjaga kerahasiaan data pribadi pengguna ("Anda").
+                    Dengan menggunakan layanan {{ $appName }}, Anda dianggap telah membaca, memahami, dan menyetujui Kebijakan Privasi ini.
+                </p>
+                <div class="highlight-box green">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Privasi Anda adalah prioritas kami. Kami hanya menggunakan data untuk meningkatkan layanan kepada Anda.
+                </div>
+            </div>
+        </div>
+
+        {{-- P2: Definisi --}}
+        <div class="section" id="p2">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-book"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 02</div>
+                    <div class="section-title">Definisi</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Layanan</strong> — Website {{ $appName }} beserta seluruh fitur di dalamnya.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Data Pribadi</strong> — Informasi yang dapat mengidentifikasi individu secara langsung atau tidak langsung.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Pengguna</strong> — Individu yang mengakses atau menggunakan {{ $appName }}.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Data Penggunaan</strong> — Data yang dikumpulkan secara otomatis saat menggunakan layanan.</li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- P3: Ruang Lingkup --}}
+        <div class="section" id="p3">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-globe"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 03</div>
+                    <div class="section-title">Ruang Lingkup</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    Kebijakan ini berlaku untuk seluruh layanan {{ $appName }}, baik melalui website maupun fitur berbasis AI yang disediakan oleh platform kami.
+                </p>
+            </div>
+        </div>
+
+        {{-- P4: Informasi yang Dikumpulkan --}}
+        <div class="section" id="p4">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-database"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 04</div>
+                    <div class="section-title">Informasi yang Dikumpulkan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Kami dapat mengumpulkan jenis informasi berikut:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Informasi Akun</strong> — Nama lengkap dan alamat email yang Anda daftarkan.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Data Keuangan</strong> — Catatan pemasukan, pengeluaran, dan catatan finansial yang Anda input.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Data Interaksi AI</strong> — Riwayat percakapan dengan fitur AI untuk meningkatkan akurasi layanan.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Data Teknis</strong> — Alamat IP, jenis perangkat, dan log aktivitas untuk keperluan keamanan.</li>
+                </ul>
+                <div class="highlight-box green">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Kami hanya mengumpulkan data yang benar-benar diperlukan. Tidak ada data yang dikumpulkan tanpa tujuan yang jelas.
+                </div>
+            </div>
+        </div>
+
+        {{-- P5: Cara Penggunaan Data --}}
+        <div class="section" id="p5">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-gear"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 05</div>
+                    <div class="section-title">Cara Penggunaan Data</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Data yang kami kumpulkan digunakan untuk:</p>
+                <ol>
+                    <li>Menyediakan layanan {{ $appName }} secara optimal.</li>
+                    <li>Memberikan analisis dan prediksi keuangan yang akurat.</li>
+                    <li>Meningkatkan performa dan kecerdasan fitur AI.</li>
+                    <li>Menjaga keamanan akun dan mencegah penyalahgunaan layanan.</li>
+                    <li>Memenuhi kewajiban hukum yang berlaku di Indonesia.</li>
+                </ol>
+                <div class="highlight-box red">
+                    <i class="fa-solid fa-ban"></i>
+                    Kami tidak menggunakan data Anda untuk keperluan iklan, profiling komersial, atau menjualnya kepada pihak manapun.
+                </div>
+            </div>
+        </div>
+
+        {{-- P6: Penyimpanan & Keamanan --}}
+        <div class="section" id="p6">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 06</div>
+                    <div class="section-title">Penyimpanan dan Keamanan Data</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Kami menerapkan langkah-langkah keamanan industri untuk melindungi data Anda:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Enkripsi Data</strong> — Kata sandi dienkripsi dengan bcrypt dan komunikasi menggunakan HTTPS/TLS.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Pembatasan Akses</strong> — Hanya personel teknis berwenang yang dapat mengakses sistem database.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Sistem Keamanan Terkini</strong> — Pemantauan dan audit keamanan dilakukan secara berkala.</li>
+                </ul>
+                <div class="highlight-box yellow">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Tidak ada sistem yang 100% aman. Pengguna juga bertanggung jawab menjaga keamanan akun masing-masing, termasuk kerahasiaan kata sandi.
+                </div>
+            </div>
+        </div>
+
+        {{-- P7: Pihak Ketiga --}}
+        <div class="section" id="p7">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-share-nodes"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 07</div>
+                    <div class="section-title">Pengungkapan kepada Pihak Ketiga</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Kami tidak menjual data pengguna. Namun, data dapat dibagikan dalam kondisi berikut:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Kewajiban Hukum</strong> — Jika diwajibkan oleh peraturan perundang-undangan Indonesia atau perintah pengadilan yang sah.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Mitra Layanan</strong> — Penyedia hosting dan analytics yang membantu operasional, terikat perjanjian kerahasiaan.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Persetujuan Pengguna</strong> — Jika Anda secara eksplisit memberikan izin untuk berbagi data tertentu.</li>
+                </ul>
+                <div class="highlight-box red">
+                    <i class="fa-solid fa-ban"></i>
+                    Data Anda tidak pernah dan tidak akan pernah dijual kepada pengiklan, broker data, atau pihak ketiga manapun.
+                </div>
+            </div>
+        </div>
+
+        {{-- P8: Cookies --}}
+        <div class="section" id="p8">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-cookie-bite"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 08</div>
+                    <div class="section-title">Cookies dan Teknologi Serupa</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>{{ $appName }} menggunakan cookies untuk keperluan berikut:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Preferensi Pengguna</strong> — Menyimpan pengaturan tampilan dan pilihan bahasa Anda.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Pengalaman Pengguna</strong> — Menjaga sesi login agar tidak perlu masuk ulang setiap saat.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Analisis Penggunaan</strong> — Memahami cara pengguna berinteraksi dengan layanan untuk terus kami tingkatkan.</li>
+                </ul>
+                <div class="highlight-box">
+                    <i class="fa-solid fa-info-circle"></i>
+                    Kami tidak menggunakan cookie pelacak pihak ketiga atau cookie iklan. Anda dapat mengatur cookie melalui pengaturan browser Anda.
+                </div>
+            </div>
+        </div>
+
+        {{-- P9: Hak Pengguna --}}
+        <div class="section" id="p9">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 09</div>
+                    <div class="section-title">Hak Pengguna</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Anda memiliki hak-hak berikut terhadap data pribadi Anda:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Hak Akses</strong> — Mengakses dan melihat seluruh data pribadi yang kami simpan.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Hak Koreksi</strong> — Memperbaiki atau memperbarui data yang tidak akurat.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Hak Penghapusan</strong> — Meminta penghapusan akun dan seluruh data terkait secara permanen.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Hak Penarikan Persetujuan</strong> — Menarik izin penggunaan data kapan saja.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Hak Keluhan</strong> — Mengajukan keluhan terkait privasi kepada kami.</li>
+                </ul>
+                <div class="highlight-box green">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Untuk menggunakan hak-hak di atas, hubungi kami di <strong>{{ $appEmail }}</strong>. Kami akan merespons dalam 7 hari kerja.
+                </div>
+            </div>
+        </div>
+
+        {{-- P10: Retensi Data --}}
+        <div class="section" id="p10">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 10</div>
+                    <div class="section-title">Retensi Data</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Data Anda akan disimpan selama:</p>
+                <ul>
+                    <li>Akun Anda masih dalam status aktif.</li>
+                    <li>Data masih dibutuhkan untuk tujuan operasional layanan.</li>
+                    <li>Diwajibkan sesuai ketentuan hukum yang berlaku di Indonesia.</li>
+                </ul>
+                <div class="highlight-box">
+                    <i class="fa-solid fa-info-circle"></i>
+                    Jika akun dihapus, seluruh data akan dihapus secara permanen dalam waktu 30 hari.
+                </div>
+            </div>
+        </div>
+
+        {{-- P11: Perubahan Kebijakan --}}
+        <div class="section" id="p11">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-rotate"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 11</div>
+                    <div class="section-title">Perubahan Kebijakan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Kami dapat memperbarui Kebijakan Privasi ini sewaktu-waktu. Perubahan akan diinformasikan melalui:</p>
+                <ul>
+                    <li>Notifikasi di dalam platform {{ $appName }}.</li>
+                    <li>Email ke alamat yang terdaftar di akun Anda (untuk perubahan signifikan).</li>
+                    <li>Pembaruan tanggal "Terakhir diperbarui" di bagian atas halaman ini.</li>
+                </ul>
+                <div class="highlight-box">
+                    <i class="fa-solid fa-info-circle"></i>
+                    Dengan terus menggunakan {{ $appName }} setelah perubahan diberlakukan, Anda dianggap menyetujui kebijakan yang diperbarui.
+                </div>
+            </div>
+        </div>
+
+        {{-- P12: Kontak --}}
+        <div class="section" id="p12">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-envelope"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 12</div>
+                    <div class="section-title">Kontak</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Jika Anda memiliki pertanyaan atau permintaan terkait Kebijakan Privasi ini, hubungi kami:</p>
+                <div class="contact-card">
+                    <h3>Tim Privasi {{ $appName }}</h3>
+                    <p>Kami siap membantu dan akan merespons dalam 1–7 hari kerja</p>
+                    <a href="mailto:{{ $appEmail }}" class="contact-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        {{ $appEmail }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>{{-- end privacy panel --}}
+
+
+    {{-- ═══════════════ TERMS & CONDITIONS PANEL ═══════════════ --}}
+    <div class="tab-panel" id="panel-terms">
+
+        {{-- TOC --}}
+        <div class="toc-card">
+            <div class="toc-title"><i class="fa-solid fa-list"></i> Daftar Isi — Syarat & Ketentuan</div>
+            <div class="toc-list">
+                @php
+                $tocTerms = [
+                    ['anchor' => 't1',  'label' => 'Ketentuan Umum'],
+                    ['anchor' => 't2',  'label' => 'Penggunaan Layanan'],
+                    ['anchor' => 't3',  'label' => 'Akun Pengguna'],
+                    ['anchor' => 't4',  'label' => 'Hak dan Kewajiban'],
+                    ['anchor' => 't5',  'label' => 'Batasan Tanggung Jawab'],
+                    ['anchor' => 't6',  'label' => 'Larangan Penggunaan'],
+                    ['anchor' => 't7',  'label' => 'Hak Kekayaan Intelektual'],
+                    ['anchor' => 't8',  'label' => 'Penghentian Layanan'],
+                    ['anchor' => 't9',  'label' => 'Perubahan Ketentuan'],
+                    ['anchor' => 't10', 'label' => 'Hukum yang Berlaku'],
+                ];
+                @endphp
+                @foreach($tocTerms as $i => $item)
+                <a href="#{{ $item['anchor'] }}" class="toc-item" onclick="openSection('{{ $item['anchor'] }}')">
+                    <div class="toc-num">{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</div>
+                    {{ $item['label'] }}
+                </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- T1: Ketentuan Umum --}}
+        <div class="section open" id="t1">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-file-contract"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 01</div>
+                    <div class="section-title">Ketentuan Umum</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    Dengan menggunakan layanan {{ $appName }}, Anda setuju untuk terikat dengan syarat dan ketentuan ini.
+                    Harap baca seluruh ketentuan dengan seksama sebelum menggunakan layanan kami.
+                </p>
+            </div>
+        </div>
+
+        {{-- T2: Penggunaan Layanan --}}
+        <div class="section" id="t2">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-laptop"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 02</div>
+                    <div class="section-title">Penggunaan Layanan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    {{ $appName }} menyediakan layanan berbasis AI untuk membantu pengelolaan keuangan pengguna,
+                    termasuk pencatatan transaksi, analisis pengeluaran, dan rekomendasi finansial.
+                </p>
+                <div class="highlight-box">
+                    <i class="fa-solid fa-info-circle"></i>
+                    Layanan ini bersifat informatif dan tidak menggantikan nasihat keuangan profesional.
+                </div>
+            </div>
+        </div>
+
+        {{-- T3: Akun Pengguna --}}
+        <div class="section" id="t3">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-user-lock"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 03</div>
+                    <div class="section-title">Akun Pengguna</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Pengguna sepenuhnya bertanggung jawab atas:</p>
+                <ul>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Keamanan Akun</strong> — Menjaga agar akun tidak diakses pihak yang tidak berwenang.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Kerahasiaan Data Login</strong> — Tidak membagikan kata sandi kepada siapapun.</li>
+                    <li><strong style="color:rgba(255,255,255,0.8);">Semua Aktivitas</strong> — Seluruh aktivitas yang terjadi dalam akun Anda menjadi tanggung jawab Anda.</li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- T4: Hak dan Kewajiban --}}
+        <div class="section" id="t4">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 04</div>
+                    <div class="section-title">Hak dan Kewajiban</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Pengguna wajib:</p>
+                <ul>
+                    <li>Memberikan data dan informasi yang akurat saat mendaftar dan menggunakan layanan.</li>
+                    <li>Tidak menyalahgunakan layanan untuk tujuan yang melanggar hukum atau merugikan pihak lain.</li>
+                    <li>Mematuhi seluruh ketentuan yang berlaku dalam dokumen ini.</li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- T5: Batasan Tanggung Jawab --}}
+        <div class="section" id="t5">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 05</div>
+                    <div class="section-title">Batasan Tanggung Jawab</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>{{ $appName }}:</p>
+                <ul>
+                    <li>Tidak menjamin hasil prediksi atau analisis keuangan 100% akurat.</li>
+                    <li>Tidak bertanggung jawab atas kerugian finansial yang timbul dari keputusan pengguna berdasarkan layanan ini.</li>
+                    <li>Tidak menggantikan nasihat dari konsultan atau perencana keuangan profesional.</li>
+                </ul>
+                <div class="highlight-box yellow">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Gunakan fitur AI sebagai alat bantu, bukan sebagai satu-satunya dasar keputusan keuangan Anda.
+                </div>
+            </div>
+        </div>
+
+        {{-- T6: Larangan --}}
+        <div class="section" id="t6">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-ban"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 06</div>
+                    <div class="section-title">Larangan Penggunaan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>Pengguna dilarang melakukan hal-hal berikut:</p>
+                <ul>
+                    <li>Melakukan aktivitas ilegal atau yang melanggar peraturan perundang-undangan Indonesia.</li>
+                    <li>Mengganggu, merusak, atau melakukan serangan siber terhadap sistem {{ $appName }}.</li>
+                    <li>Mengakses data milik pengguna lain tanpa izin yang sah.</li>
+                    <li>Menyebarkan konten berbahaya, penipuan, atau menyesatkan melalui platform.</li>
+                </ul>
+                <div class="highlight-box red">
+                    <i class="fa-solid fa-ban"></i>
+                    Pelanggaran terhadap larangan ini dapat mengakibatkan penangguhan atau penghapusan akun secara permanen.
+                </div>
+            </div>
+        </div>
+
+        {{-- T7: HKI --}}
+        <div class="section" id="t7">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-trademark"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 07</div>
+                    <div class="section-title">Hak Kekayaan Intelektual</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    Seluruh konten, sistem, teknologi, nama merek, logo, dan desain yang terdapat dalam {{ $appName }}
+                    merupakan milik eksklusif {{ $appName }} dan dilindungi oleh hukum kekayaan intelektual yang berlaku.
+                </p>
+                <p>
+                    Pengguna tidak diizinkan untuk menyalin, mendistribusikan, atau menggunakan aset tersebut
+                    tanpa izin tertulis dari {{ $appName }}.
+                </p>
+            </div>
+        </div>
+
+        {{-- T8: Penghentian Layanan --}}
+        <div class="section" id="t8">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-power-off"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 08</div>
+                    <div class="section-title">Penghentian Layanan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>{{ $appName }} berhak untuk:</p>
+                <ul>
+                    <li>Menangguhkan atau menghapus akun pengguna yang melanggar ketentuan ini.</li>
+                    <li>Menghentikan atau mengubah layanan kapan saja tanpa pemberitahuan sebelumnya.</li>
+                    <li>Membatasi akses ke fitur tertentu jika dianggap perlu demi keamanan platform.</li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- T9: Perubahan Ketentuan --}}
+        <div class="section" id="t9">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-rotate"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 09</div>
+                    <div class="section-title">Perubahan Ketentuan</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    Ketentuan ini dapat diperbarui sewaktu-waktu. Perubahan akan diinformasikan melalui platform {{ $appName }}.
+                    Dengan terus menggunakan layanan setelah perubahan diberlakukan, Anda dianggap menyetujui ketentuan yang diperbarui.
+                </p>
+            </div>
+        </div>
+
+        {{-- T10: Hukum Berlaku --}}
+        <div class="section" id="t10">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-ico"><i class="fa-solid fa-gavel"></i></div>
+                <div class="section-meta">
+                    <div class="section-num">Bagian 10</div>
+                    <div class="section-title">Hukum yang Berlaku</div>
+                </div>
+                <i class="fa-solid fa-chevron-down section-chevron"></i>
+            </div>
+            <div class="section-body">
+                <p>
+                    Ketentuan ini tunduk pada dan diatur oleh hukum Republik Indonesia.
+                    Setiap sengketa yang timbul akan diselesaikan melalui musyawarah mufakat,
+                    dan apabila tidak tercapai kesepakatan, akan diselesaikan melalui pengadilan yang berwenang di Indonesia.
+                </p>
+            </div>
+        </div>
+
+    </div>{{-- end terms panel --}}
 
     {{-- Footer --}}
     <div class="page-footer">
-        &copy; {{ date('Y') }} <span>{{ $appName }}</span> &mdash; Semua hak dilindungi. Platform Keuangan #1 Indonesia.
+        &copy; {{ date('Y') }} <span>{{ $appName }}</span> &mdash; Semua hak dilindungi.
     </div>
 
 </div>
 
 <script>
+// Tab switcher
+function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Accordion toggle
 function toggleSection(header) {
     const section = header.closest('.section');
     section.classList.toggle('open');
+}
+
+// Open section by id
+function openSection(id) {
+    const el = document.getElementById(id);
+    if (el && !el.classList.contains('open')) {
+        el.classList.add('open');
+    }
 }
 
 // Reading progress bar
@@ -609,7 +984,6 @@ document.querySelectorAll('.toc-item').forEach(link => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (!target) return;
-        // Open the section if closed
         if (!target.classList.contains('open')) {
             target.classList.add('open');
         }

@@ -211,10 +211,10 @@
     <img src="{{ asset('assets_public/logo.png') }}" alt="NexFi" style="height:52px;width:auto;object-fit:contain;">
   </a>
   <ul id="navLinks">
-    <li><a href="#home"         style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-house"></i> Home</a></li>
-    <li><a href="#aboutSection" style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-circle-info"></i> About</a></li>
-    <li><a href="#testi"        style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-star"></i> Testi</a></li>
-    <li><a href="#kontak"       style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
+    <li><a href="#home"         style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-house"></i> Beranda</a></li>
+    <li><a href="#aboutSection" style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-circle-info"></i> Tentang</a></li>
+    <li><a href="#testi"        style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-star"></i> Testimoni</a></li>
+    <li><a href="#kontak"       style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.875rem;color:var(--muted2);text-decoration:none;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><i class="fa-solid fa-envelope"></i> Nara Hubung</a></li>
   </ul>
   <div id="navAuthDesktop">
     @auth
@@ -236,10 +236,10 @@
 
 <!-- MOBILE MENU -->
 <div id="mobileMenu">
-  <a href="#home"         style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-house"></i> Home</a>
-  <a href="#aboutSection" style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-circle-info"></i> About</a>
-  <a href="#testi"        style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-star"></i> Testi</a>
-  <a href="#kontak"       style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-envelope"></i> Kontak</a>
+  <a href="#home"         style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-house"></i> Berada</a>
+  <a href="#aboutSection" style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-circle-info"></i> Tentang</a>
+  <a href="#testi"        style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-star"></i> Testimoni</a>
+  <a href="#kontak"       style="display:flex;align-items:center;gap:8px;font-weight:600;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);text-decoration:none;"><i class="fa-solid fa-envelope"></i> Nara Hubung</a>
   @auth
   <a href="{{ route('pengguna.dashboard') }}" class="btn-login-nav" style="display:flex;justify-content:center;align-items:center;gap:8px;color:#fff;font-weight:700;padding:10px 20px;border-radius:9999px;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-top:4px;">
     <i class="fa-solid fa-gauge"></i> Dashboard
@@ -253,27 +253,43 @@
 
 <!-- HERO -->
 <section id="home" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding:100px 5% 64px;position:relative;overflow:hidden;z-index:1;text-align:center;">
+  
+  <!-- Background -->
   <div style="position:absolute;top:-180px;right:-180px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.1) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(155,89,245,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+
   <div style="max-width:700px;width:100%;position:relative;z-index:2;">
+    
+    <!-- Badge -->
     <div style="display:inline-flex;align-items:center;gap:6px;border-radius:9999px;padding:6px 16px;font-size:0.8rem;font-weight:700;margin-bottom:24px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);color:var(--accent);">
-      <i class="fa-solid fa-bolt"></i> Platform Keuangan #1 Indonesia
+      <i class="fa-solid fa-bolt"></i> Platform Keuangan Digital
     </div>
+
+    <!-- Headline -->
     <h1 style="font-size:clamp(2rem,7vw,3.6rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;color:#fff;margin:0 0 16px;">
-      Your <span class="gradient-text">Next Future</span><br>in Finance<br>Starts Here
+      Atur Keuanganmu, <span class="gradient-text">Kuasai Masa Depanmu</span>
     </h1>
-    <p style="font-size:1rem;line-height:1.7;color:var(--muted2);margin:0 auto 32px;max-width:520px;">Kelola keuanganmu dengan fitur pintar, cepat, dan aman bersama NexFi.</p>
+
+    <!-- Subheadline -->
+    <p style="font-size:1rem;line-height:1.7;color:var(--muted2);margin:0 auto 32px;max-width:520px;">
+      Solusi cerdas untuk mengelola keuangan secara mudah dan aman.
+    </p>
+
+    <!-- Buttons -->
     <div class="hero-btns">
       <a href="{{ route('login') }}"
         style="display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;padding:12px 24px;min-width:180px;border-radius:9999px;border:none;cursor:pointer;font-size:0.875rem;font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 25px var(--glow);text-decoration:none;">
-        <i class="fa-solid fa-rocket"></i> Get Started
+        <i class="fa-solid fa-rocket"></i> Mulai Sekarang
       </a>
+
       <a href="{{ route('kebijakan.index') }}"
         style="display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;padding:12px 24px;min-width:180px;border-radius:9999px;border:2px solid rgba(108,99,255,0.4);cursor:pointer;font-size:0.875rem;font-family:'Inter',sans-serif;background:transparent;color:var(--accent);text-decoration:none;"
-        onmouseover="this.style.background='rgba(108,99,255,0.15)'" onmouseout="this.style.background='transparent'">
+        onmouseover="this.style.background='rgba(108,99,255,0.15)'" 
+        onmouseout="this.style.background='transparent'">
         <i class="fa-solid fa-shield-halved"></i> Kebijakan Privasi
       </a>
     </div>
+
   </div>
 </section>
 
@@ -563,34 +579,67 @@
 <!-- FOOTER -->
 <footer style="padding:48px 6% 24px;background:#04050c;border-top:1px solid rgba(108,99,255,0.2);position:relative;z-index:1;">
   <div style="max-width:1200px;margin:0 auto;">
+    
     <div class="footer-grid">
+      
+      <!-- Brand -->
       <div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
           <img src="{{ asset('assets_public/logo.png') }}" alt="NexFi" style="height:52px;width:auto;object-fit:contain;">
         </div>
-        <p style="font-size:0.83rem;color:var(--muted);max-width:220px;margin:0;">Your Next Future in Finance. Kelola keuanganmu lebih cerdas.</p>
+        <p style="font-size:0.83rem;color:var(--muted);max-width:220px;margin:0;">
+          Atur keuanganmu dengan lebih cerdas bersama NexFi.
+        </p>
       </div>
+
+      <!-- Sosial -->
       <div>
-        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">Ikuti Kami</div>
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">
+          Ikuti Kami
+        </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-instagram" style="font-size:0.875rem;"></i></a>
-          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-tiktok" style="font-size:0.875rem;"></i></a>
-          <a href="#" target="_blank" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='#dc2626';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-youtube" style="font-size:0.875rem;"></i></a>
-          <a href="#" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.background='rgba(108,99,255,0.5)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-twitter" style="font-size:0.875rem;"></i></a>
+          <a href="https://youtu.be/p8Ho0LaeNuo?si=GHu4zQvr9mlXiG3W" target="_blank"
+            style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);text-decoration:none;"
+            onmouseover="this.style.background='#dc2626';this.style.color='#fff'"
+            onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.4)'">
+            <i class="fa-brands fa-youtube" style="font-size:0.875rem;"></i>
+          </a>
         </div>
       </div>
+
+      <!-- Kontak -->
       <div>
-        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">Kontak</div>
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:12px;">
+          Kontak
+        </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <a href="mailto:support@nexfi.id" style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'"><i class="fa-solid fa-envelope" style="font-size:0.75rem;"></i> support@nexfi.id</a>
-          <a href="https://wa.me/62895404171275" target="_blank" style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'"><i class="fa-brands fa-whatsapp" style="font-size:0.75rem;"></i> +62 812-3456-7890</a>
-          <span style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);"><i class="fa-solid fa-location-dot" style="font-size:0.75rem;"></i> Jakarta, Indonesia</span>
+          
+          <a href="mailto:support@nexfi.id"
+            style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;"
+            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+            <i class="fa-solid fa-envelope" style="font-size:0.75rem;"></i> support@nexfi.id
+          </a>
+
+          <a href="https://wa.me/62895404171275" target="_blank"
+            style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);text-decoration:none;"
+            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+            <i class="fa-brands fa-whatsapp" style="font-size:0.75rem;"></i> +62 895-4041-7275
+          </a>
+
+          <span style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.4);">
+            <i class="fa-solid fa-location-dot" style="font-size:0.75rem;"></i> Indonesia
+          </span>
+
         </div>
       </div>
+
     </div>
+
+    <!-- Copyright -->
     <div style="padding-top:20px;text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.2);">
-      &copy; 2026 <strong style="color:rgba(255,255,255,0.35);">NexFi</strong>. All rights reserved.
+      &copy; 2026 <strong style="color:rgba(255,255,255,0.35);">NexFi</strong>. Seluruh hak dilindungi.
     </div>
+
   </div>
 </footer>
 

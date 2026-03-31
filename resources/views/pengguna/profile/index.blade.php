@@ -239,7 +239,7 @@
             </div>
             <div class="qr-body">
                 <div class="qr-frame">
-                    {!! QrCode::size(150)->color(16,1,42)->backgroundColor(255,255,255)->generate(url('/user/'.$user->username)) !!}
+                    {!! QrCode::size(200)->generate(url('/user/'.$user->username)) !!}
                 </div>
                 <p class="qr-hint"><i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>Scan untuk membuka profile publik</p>
             </div>
