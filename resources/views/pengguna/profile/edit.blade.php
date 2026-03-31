@@ -39,7 +39,6 @@
 
         {{-- ══ CARD 1: FOTO ══ --}}
         <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden">
-            {{-- Section header --}}
             <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
                 <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
                     <i class="fa-solid fa-camera"></i>
@@ -47,10 +46,7 @@
                 <span class="text-[11px] font-bold uppercase tracking-widest text-white/35">Foto Profile</span>
             </div>
 
-            {{-- Body --}}
             <div class="px-7 py-6 flex items-center gap-7 flex-wrap">
-
-                {{-- Avatar --}}
                 <div class="relative flex-shrink-0">
                     @if($user->photo)
                         <img id="avatarPreview"
@@ -72,15 +68,12 @@
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>
                     @endif
-
-                    {{-- Badge edit --}}
                     <div class="badge-grad absolute bottom-[3px] right-[3px] w-[26px] h-[26px] rounded-full border-2 border-bg3 flex items-center justify-center text-[10px] text-white cursor-pointer"
                          onclick="document.getElementById('photoInput').click()">
                         <i class="fa-solid fa-pen"></i>
                     </div>
                 </div>
 
-                {{-- Info & upload --}}
                 <div class="flex-1 min-w-0">
                     <div class="text-[14px] font-extrabold text-white/90 mb-1">
                         {{ $user->photo ? 'Ganti Foto Profile' : 'Upload Foto Profile' }}
@@ -115,7 +108,6 @@
                 </div>
                 <div class="p-5 flex flex-col gap-3.5 flex-1">
 
-                    {{-- Nama --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="name">
                             <i class="fa-solid fa-id-card text-acc/60 text-[10px]"></i> Nama Lengkap
@@ -126,7 +118,6 @@
                         @error('name')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
 
-                    {{-- Username --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="username">
                             <i class="fa-solid fa-at text-acc/60 text-[10px]"></i> Username
@@ -137,7 +128,6 @@
                         @error('username')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
 
-                    {{-- Email --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="email">
                             <i class="fa-solid fa-envelope text-acc/60 text-[10px]"></i> Email
@@ -148,7 +138,6 @@
                         @error('email')<span class="text-[11px] text-red-400 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>@enderror
                     </div>
 
-                    {{-- No. Telepon --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="no_telp">
                             <i class="fa-solid fa-phone text-acc/60 text-[10px]"></i> No. Telepon
@@ -163,7 +152,6 @@
             </div>
 
             {{-- Keamanan --}}
-            {{-- Keamanan --}}
             <div class="bg-bg3 border border-acc/[0.14] rounded-[18px] overflow-hidden flex flex-col">
                 <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-acc/[0.08]">
                     <div class="w-8 h-8 rounded-[9px] flex items-center justify-center text-[12px] text-purple-400 flex-shrink-0" style="background:rgba(108,99,255,0.12)">
@@ -174,7 +162,6 @@
 
                 <div class="p-5 flex flex-col gap-3.5 flex-1">
 
-                    {{-- Notif sukses --}}
                     @if (session('success'))
                         <div class="text-[12px] text-green-400 flex items-center gap-1.5 bg-green-400/10 px-3.5 py-2.5 rounded-[10px]">
                             <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
@@ -183,7 +170,6 @@
 
                     <p class="text-[12px] text-white/22 leading-relaxed">Kosongkan jika tidak ingin mengubah password.</p>
 
-                    {{-- Password Baru --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="password">
                             <i class="fa-solid fa-key text-acc/60 text-[10px]"></i> Password Baru
@@ -205,7 +191,6 @@
                         @enderror
                     </div>
 
-                    {{-- Konfirmasi Password --}}
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[10.5px] font-bold uppercase tracking-widest text-white/30 flex items-center gap-1.5" for="password_confirmation">
                             <i class="fa-solid fa-shield-halved text-acc/60 text-[10px]"></i> Konfirmasi Password
@@ -223,10 +208,41 @@
                     </div>
                 </div>
 
-                {{-- Footer --}}
+                {{-- ══ TOGGLE LEADERBOARD ══ --}}
+                <div class="mx-5 mb-4 p-4 rounded-[14px] border border-acc/20 bg-acc/[0.03]">
+                    <div class="flex items-start gap-3">
+                        {{-- Toggle switch --}}
+                        <label class="relative inline-flex items-center cursor-pointer mt-0.5 flex-shrink-0">
+                            <input type="hidden" name="show_on_leaderboard" value="0">
+                            <input type="checkbox" name="show_on_leaderboard" value="1" id="leaderboardToggle"
+                                   class="sr-only peer"
+                                   {{ old('show_on_leaderboard', $user->show_on_leaderboard ?? true) ? 'checked' : '' }}>
+                            <div class="w-10 h-5 rounded-full bg-white/10 relative transition-colors peer-checked:bg-acc
+                                        after:content-[''] after:absolute after:top-0.5 after:left-0.5
+                                        after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all
+                                        peer-checked:after:translate-x-5"></div>
+                        </label>
+                        {{-- Label --}}
+                        <div class="flex-1">
+                            <label for="leaderboardToggle" class="text-[13px] font-semibold text-white/80 cursor-pointer">
+                                Tampilkan di Leaderboard
+                            </label>
+                            <p class="text-[11.5px] text-white/30 mt-1 leading-relaxed">
+                                Aktifkan agar kamu muncul di ranking publik berdasarkan skor konsistensi.
+                                Nominal & saldo kamu <span class="font-bold text-acc/60">tidak akan ditampilkan</span>.
+                            </p>
+                            <div class="mt-1.5 flex items-center gap-1.5 text-[10.5px] text-white/20">
+                                <i class="fa-solid fa-shield-halved text-acc/40"></i>
+                                Hanya streak, level, dan kebiasaan yang terlihat
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Footer tombol --}}
                 <div class="px-5 pt-3.5 pb-[18px] border-t border-acc/[0.08] flex items-center justify-end gap-2.5 flex-wrap mt-auto">
                     <a href="{{ route('pengguna.profile') }}"
-                    class="flex items-center gap-1.5 px-5 py-[11px] rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-white/40 text-[13px] font-bold no-underline transition-all hover:bg-white/[0.08] hover:text-white/70 hover:border-white/15">
+                       class="flex items-center gap-1.5 px-5 py-[11px] rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-white/40 text-[13px] font-bold no-underline transition-all hover:bg-white/[0.08] hover:text-white/70 hover:border-white/15">
                         <i class="fa-solid fa-xmark"></i> Batal
                     </a>
                     <button type="submit"
@@ -244,34 +260,6 @@
 
 @push('scripts')
 <script>
-function togglePw(inputId, eyeId) {
-    const input = document.getElementById(inputId);
-    const eye   = document.getElementById(eyeId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        eye.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = 'password';
-        eye.classList.replace('fa-eye-slash', 'fa-eye');
-    }
-}
-document.getElementById('photoInput').addEventListener('change', function () {
-    const file = this.files[0];
-    if (!file) return;
-
-    document.getElementById('fileName').textContent = file.name;
-
-    const reader = new FileReader();
-    reader.onload = e => {
-        const preview     = document.getElementById('avatarPreview');
-        const placeholder = document.getElementById('avatarPlaceholder');
-        preview.src           = e.target.result;
-        preview.style.display = 'block';
-        placeholder.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-});
-
 function togglePw(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon  = document.getElementById(iconId);
@@ -283,6 +271,20 @@ function togglePw(inputId, iconId) {
         icon.classList.replace('fa-eye-slash', 'fa-eye');
     }
 }
+document.getElementById('photoInput').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    document.getElementById('fileName').textContent = file.name;
+    const reader = new FileReader();
+    reader.onload = e => {
+        const preview     = document.getElementById('avatarPreview');
+        const placeholder = document.getElementById('avatarPlaceholder');
+        preview.src = e.target.result;
+        preview.style.display    = 'block';
+        placeholder.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+});
 </script>
 @endpush
 

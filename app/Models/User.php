@@ -18,7 +18,8 @@ class User extends Authenticatable
         'password',
         'role',
         'saldo',
-        'photo' // wajib biar foto bisa disimpan
+        'photo',
+        'show_on_leaderboard', // ← baru
     ];
 
     protected $hidden = [
@@ -29,8 +30,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at'    => 'datetime',
+            'password'             => 'hashed',
+            'show_on_leaderboard'  => 'boolean', // ← baru
         ];
     }
 

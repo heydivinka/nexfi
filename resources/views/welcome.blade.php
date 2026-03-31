@@ -328,32 +328,40 @@
         </button>
       </div>
 
-      <!-- YouTube — centered via wrapper, max-width on mobile -->
-      <div id="ytCardWrap">
-        <div id="youtubeCard">
-          <div class="yt-thumb" id="openVideo">
-            <img src="https://img.youtube.com/vi/WPRsOxVs0z0/hqdefault.jpg" alt="Demo NexFi">
-            <div class="yt-play">
-              <div><i class="fa-solid fa-play" style="margin-left:4px;"></i></div>
-            </div>
-          </div>
-          <div class="yt-body">
-            <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
-            <button class="yt-btn" id="openVideoBtn">
-              <i class="fa-brands fa-youtube"></i> Tonton Video Demo
-            </button>
-          </div>
-        </div>
+      <!-- PDF Card -->
+<div id="ytCardWrap">
+  <div id="youtubeCard">
+    <div class="yt-thumb" id="openVideo">
+      <img 
+        src="https://drive.google.com/thumbnail?id=1tkIY1Y_NwjYn5eFM_idOaP_M9RJtSIYD&sz=w800" 
+        alt="Guidebook NexFi"
+      >
+      <div class="yt-play">
+        <div><i class="fa-solid fa-book-open" style="margin-left:2px;"></i></div>
       </div>
+    </div>
+    <div class="yt-body">
+      <p>Lihat langsung bagaimana NexFi membantu kamu mengelola keuangan dengan lebih cerdas dan efisien.</p>
+      <button class="yt-btn" id="openVideoBtn">
+        <i class="fa-solid fa-file-pdf"></i> Buka Guidebook PDF
+      </button>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </section>
 
-<!-- VIDEO MODAL — flexbox centered, always middle of viewport -->
+<!-- PDF MODAL -->
 <div id="videoModal" class="vmodal">
   <div class="vmodal-inner">
     <button class="vmodal-close" id="closeModal">&times;</button>
-    <iframe id="youtubeFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe 
+      id="youtubeFrame" 
+      src="" 
+      allow="autoplay" 
+      allowfullscreen
+    ></iframe>
   </div>
 </div>
 
@@ -581,7 +589,7 @@
       </div>
     </div>
     <div style="padding-top:20px;text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.2);">
-      &copy; 2025 <strong style="color:rgba(255,255,255,0.35);">NexFi</strong>. All rights reserved.
+      &copy; 2026 <strong style="color:rgba(255,255,255,0.35);">NexFi</strong>. All rights reserved.
     </div>
   </div>
 </footer>
@@ -798,13 +806,15 @@ function handleSubmitKoran(btn) {
   buildDots();
 })();
 
-/* ===== YOUTUBE MODAL ===== */
+/* ===== PDF MODAL ===== */
 var vmodal = document.getElementById('videoModal');
 var vframe = document.getElementById('youtubeFrame');
 
+var PDF_EMBED_URL = 'https://drive.google.com/file/d/1tkIY1Y_NwjYn5eFM_idOaP_M9RJtSIYD/preview';
+
 function openVideo() {
   vmodal.classList.add('open');
-  vframe.src = 'https://www.youtube.com/embed/WPRsOxVs0z0?autoplay=1';
+  vframe.src = PDF_EMBED_URL;
   document.body.style.overflow = 'hidden';
 }
 function closeVideo() {

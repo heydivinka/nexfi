@@ -13,6 +13,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Pengguna\AiController;
 use App\Http\Controllers\KebijakanController;
+use App\Http\Controllers\LeaderboardController; // ← baru
 
 // Kebijakan & Privasi
 Route::get('/kebijakan-privasi', [KebijakanController::class, 'index'])->name('kebijakan.index');
@@ -35,6 +36,10 @@ Route::post('/kontak', [ContactController::class, 'store'])
 
 // Public Profile
 Route::get('/user/{username}', [ProfileController::class, 'show'])->name('profile.public');
+
+// ── Leaderboard Publik ── (baru)
+Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
+
 
 /*
 |--------------------------------------------------------------------------
