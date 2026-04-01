@@ -11,39 +11,31 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Validation rules
-     */
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string'],
+            'login'    => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
 
-    /**
-     * Attempt login (username OR email)
-     */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
         $login = $this->input('login');
 
-        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // ✅ FIX: Ganti FILTER_VALIDATE_EMAIL yang terlalu strict
+        $field = str_contains($login, '@') ? 'email' : 'username';
 
         if (! Auth::attempt([
-            $field => $login,
-            'password' => $this->input('password')
+            $field    => $login,
+            'password' => $this->input('password'),
         ], $this->boolean('remember'))) {
 
             RateLimiter::hit($this->throttleKey());
@@ -55,13 +47,9 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        // Flash notif selamat datang setelah login berhasil
         session()->flash('notif_welcome', 'Selamat datang kembali, ' . Auth::user()->name . '! 👋');
     }
 
-    /**
-     * Rate limit protection
-     */
     public function ensureIsNotRateLimited(): void
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
@@ -80,9 +68,6 @@ class LoginRequest extends FormRequest
         ]);
     }
 
-    /**
-     * Key untuk limiter
-     */
     public function throttleKey(): string
     {
         return Str::transliterate(
