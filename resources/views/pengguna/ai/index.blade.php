@@ -6,9 +6,7 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-{{-- ✅ FIX: Font Awesome CDN wajib ada agar icon muncul --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-{{-- ✅ FIX: Google Font yang lebih bagus --}}
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -31,7 +29,6 @@
   #ai-wrap {
     display: flex;
     flex-direction: column;
-    /* ✅ FIX: lebih tinggi, mengisi hampir seluruh layar */
     height: calc(100vh - 80px);
     max-width: 960px;
     margin: 0 auto;
@@ -115,7 +112,6 @@
     border-color: rgba(239,68,68,0.25);
   }
 
-  /* ── GREETING — disembunyikan, sudah diintegrasikan ke dalam empty state ── */
   #ai-greeting { display: none !important; }
 
   /* ── CHAT BOX ── */
@@ -130,25 +126,18 @@
     flex-direction: column;
     gap: 10px;
     scroll-behavior: smooth;
-    /* ✅ FIX: GPU compositing untuk scroll mulus */
     will-change: scroll-position;
     -webkit-overflow-scrolling: touch;
   }
   #chat-box::-webkit-scrollbar { width: 4px; }
   #chat-box::-webkit-scrollbar-track { background: transparent; }
-  #chat-box::-webkit-scrollbar-thumb {
-    background: rgba(108,99,255,0.2);
-    border-radius: 4px;
-  }
-  #chat-box::-webkit-scrollbar-thumb:hover {
-    background: rgba(108,99,255,0.4);
-  }
+  #chat-box::-webkit-scrollbar-thumb { background: rgba(108,99,255,0.2); border-radius: 4px; }
+  #chat-box::-webkit-scrollbar-thumb:hover { background: rgba(108,99,255,0.4); }
 
   /* ── MESSAGES ── */
   .msg-row {
     display: flex; gap: 9px; align-items: flex-end;
     animation: msgIn .22s cubic-bezier(.34,1.56,.64,1);
-    /* ✅ FIX: containment untuk performa render */
     contain: layout style;
   }
   @keyframes msgIn {
@@ -162,7 +151,6 @@
     border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; font-size: 0.73rem;
-    /* ✅ FIX: icon tidak menyusut saat bubble panjang */
     align-self: flex-end;
   }
   .msg-icon.ai-ic {
@@ -178,15 +166,12 @@
 
   .msg-col {
     display: flex; flex-direction: column;
-    /* ✅ FIX: bubble panjang mengisi ruang, bukan dibatasi kaku */
-    flex: 1;
-    min-width: 0;
+    flex: 1; min-width: 0;
   }
   .msg-row.user .msg-col { align-items: flex-end; }
   .msg-row.ai  .msg-col { align-items: flex-start; }
 
   .msg-bubble {
-    /* ✅ FIX: max-width lebih lebar, menyesuaikan konten */
     max-width: min(88%, 720px);
     width: fit-content;
     padding: 11px 15px;
@@ -194,7 +179,7 @@
     font-size: 0.86rem;
     line-height: 1.7;
     word-break: break-word;
-    white-space: pre-wrap; /* ✅ FIX: newline ditampilkan dengan benar */
+    white-space: pre-wrap;
   }
   .msg-row.ai .msg-bubble {
     background: #0e1028;
@@ -209,25 +194,21 @@
     border-bottom-right-radius: 4px;
     box-shadow: 0 4px 16px rgba(108,99,255,0.25);
   }
-  .msg-time {
-    font-size: 0.63rem; color: var(--muted);
-    margin-top: 4px; padding: 0 3px;
-  }
+  .msg-time { font-size: 0.63rem; color: var(--muted); margin-top: 4px; padding: 0 3px; }
 
   /* ── DATE SEP ── */
   .date-sep {
     display: flex; align-items: center; gap: 10px;
     font-size: 0.65rem; color: var(--muted);
     text-transform: uppercase; letter-spacing: 0.08em;
-    margin: 4px 0;
-    user-select: none;
+    margin: 4px 0; user-select: none;
   }
   .date-sep::before, .date-sep::after {
     content:''; flex:1; height:1px;
     background: rgba(255,255,255,0.05);
   }
 
-  /* ── TYPING INDICATOR ── */
+  /* ── TYPING ── */
   .typing-row {
     display: flex; gap: 9px; align-items: flex-end;
     animation: msgIn .22s ease;
@@ -259,8 +240,6 @@
     gap: 0; padding: 20px 20px 30px;
     pointer-events: none;
   }
-
-  /* Greeting card di dalam empty state */
   .es-greeting {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 18px; margin-bottom: 28px;
@@ -296,11 +275,7 @@
   #empty-state h4 { margin:0 0 6px; font-size:.97rem; font-weight:700; color:rgba(255,255,255,0.75); }
   #empty-state p  { margin:0 0 18px; font-size:.8rem; color:var(--muted2); max-width:280px; line-height:1.65; }
 
-  .chips {
-    display: flex; flex-wrap: wrap; gap: 7px;
-    justify-content: center;
-    pointer-events: all;
-  }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; pointer-events: all; }
   .chip {
     display: flex; align-items: center; gap: 6px;
     padding: 7px 14px; border-radius: 9999px;
@@ -321,7 +296,7 @@
   .chip:active { transform: translateY(0); }
   .chip i { font-size: 0.67rem; color: #9580ff; }
 
-  /* ── INPUT AREA ── */
+  /* ── INPUT ── */
   #ai-input-wrap {
     background: #0c0d1d;
     border: 1px solid var(--border);
@@ -342,11 +317,8 @@
     color: #fff; font-size: 0.855rem;
     font-family: var(--font);
     outline: none; resize: none;
-    /* ✅ FIX: batas tinggi lebih besar agar teks panjang tidak terpotong */
-    max-height: 180px;
-    min-height: 42px;
-    overflow-y: auto;
-    line-height: 1.6;
+    max-height: 180px; min-height: 42px;
+    overflow-y: auto; line-height: 1.6;
     transition: border-color .2s, background .2s, box-shadow .2s;
   }
   #pesan::placeholder { color: rgba(255,255,255,0.18); }
@@ -379,7 +351,6 @@
   #send-btn:active { transform:translateY(0); box-shadow: 0 2px 8px rgba(108,99,255,0.2); }
   #send-btn:disabled { opacity:.28; cursor:not-allowed; transform:none; box-shadow:none; }
 
-  /* ── DISCLAIMER ── */
   #ai-disclaimer {
     padding: 7px 16px 10px;
     text-align: center;
@@ -388,6 +359,79 @@
     line-height: 1.55;
   }
   #ai-disclaimer i { font-size: 0.6rem; margin-right: 3px; opacity: .65; }
+
+  /* ── CUSTOM MODAL ALERT ── */
+  #modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  #modal-overlay.show { display: flex; }
+
+  #modal-box {
+    background: #10132a;
+    border: 1px solid rgba(108,99,255,0.25);
+    border-radius: 18px;
+    padding: 28px 24px 22px;
+    width: 90%; max-width: 320px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 10px;
+    animation: modalIn .2s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(108,99,255,0.1);
+  }
+  @keyframes modalIn {
+    from { opacity:0; transform:scale(0.88) translateY(12px); }
+    to   { opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  .modal-icon-wrap {
+    width: 52px; height: 52px; border-radius: 15px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .modal-icon-wrap i { font-size: 1.3rem; color: #f87171; }
+
+  #modal-title {
+    font-size: 0.97rem; font-weight: 800;
+    color: rgba(255,255,255,0.9);
+    margin: 0; text-align: center;
+  }
+  #modal-desc {
+    font-size: 0.78rem; color: rgba(255,255,255,0.4);
+    text-align: center; margin: 0; line-height: 1.6;
+  }
+
+  .modal-actions {
+    display: flex; gap: 8px; width: 100%; margin-top: 6px;
+  }
+  .modal-btn {
+    flex: 1; padding: 10px;
+    border-radius: 11px; border: none;
+    font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; font-family: var(--font);
+    transition: all 0.17s;
+  }
+  .modal-btn.cancel {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.5);
+  }
+  .modal-btn.cancel:hover {
+    background: rgba(255,255,255,0.09);
+    color: rgba(255,255,255,0.8);
+  }
+  .modal-btn.confirm {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(239,68,68,0.25);
+  }
+  .modal-btn.confirm:hover { opacity: 0.88; transform: translateY(-1px); }
+  .modal-btn.confirm:active { transform: translateY(0); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
@@ -399,6 +443,21 @@
     #pesan { font-size: 0.82rem; }
   }
 </style>
+
+{{-- CUSTOM MODAL --}}
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div class="modal-icon-wrap">
+      <i class="fa-solid fa-trash-can"></i>
+    </div>
+    <p id="modal-title">Hapus Riwayat Chat?</p>
+    <p id="modal-desc">Semua percakapan akan dihapus permanen dan tidak bisa dikembalikan.</p>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" onclick="closeModal()">Batal</button>
+      <button class="modal-btn confirm" onclick="confirmClear()">Hapus</button>
+    </div>
+  </div>
+</div>
 
 <div id="ai-wrap">
 
@@ -421,17 +480,15 @@
     </div>
   </div>
 
-    {{-- GREETING — tersembunyi, data-name dipakai JS saat clearChat --}}
-    <div id="ai-greeting" data-name="{{ $user->name }}" style="display:none"></div>
+  <div id="ai-greeting" data-name="{{ $user->name }}" style="display:none"></div>
 
-    {{-- CHAT BODY --}}
-    <div id="chat-box">
-      <div id="empty-state">
-        <div class="es-greeting">
-          <div class="g-icon"><i class="fa-solid fa-hand-point-right"></i></div>
-          <div>Halo, <strong>{{ $user->name }}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
-        </div>
-
+  {{-- CHAT BODY --}}
+  <div id="chat-box">
+    <div id="empty-state">
+      <div class="es-greeting">
+        <div class="g-icon"><i class="fa-solid fa-hand-point-right"></i></div>
+        <div>Halo, <strong>{{ $user->name }}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
+      </div>
       <div class="empty-icon"><i class="fa-solid fa-robot"></i></div>
       <h4>Mulai percakapan</h4>
       <p>Tanyakan apa saja tentang keuangan atau cara menggunakan NexFi.</p>
@@ -496,6 +553,25 @@ function saveHistory(msgs) {
 let chatMsgs  = loadHistory();
 let isLoading = false;
 
+/* ===== MODAL ===== */
+function clearChat() {
+  if (chatMsgs.length === 0) return;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+function confirmClear() {
+  closeModal();
+  chatMsgs = [];
+  localStorage.removeItem(STORAGE_KEY);
+  renderAll();
+}
+// Klik di luar modal = tutup
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
 /* ===== GREETING ===== */
 function updateGreeting() {
   const el = document.getElementById('ai-greeting');
@@ -517,7 +593,6 @@ function fmtDate(ts) {
 /* ===== RENDER BUBBLE ===== */
 function renderBubble(role, text, ts) {
   const isUser = role === 'user';
-  /* ✅ FIX: escHtml lalu replace newline → <br> untuk tampilan yang benar */
   const safe   = escHtml(text).replace(/\n/g,'<br>');
   const icon   = isUser
     ? `<div class="msg-icon user-ic"><i class="fa-solid fa-user"></i></div>`
@@ -535,13 +610,12 @@ function renderBubble(role, text, ts) {
 
 /* ===== EMPTY HTML ===== */
 function emptyHtml() {
-  // Ambil nama dari greeting yang sudah di-render server (atau fallback kosong)
   const namaEl = document.querySelector('#ai-greeting[data-name]');
   const nama   = namaEl ? namaEl.dataset.name : '';
   const greetHtml = nama
     ? `<div class="es-greeting">
         <div class="g-icon"><i class="fa-solid fa-hand-point-right"></i></div>
-        <div>Halo, <strong>${nama}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
+        <div>Halo, <strong>${escHtml(nama)}</strong>! Tanya apa saja seputar keuangan dan Nexfi.</div>
        </div>`
     : '';
   return `
@@ -605,18 +679,9 @@ function showTyping() {
 }
 function hideTyping() { const t=document.getElementById('typing-row'); if(t) t.remove(); }
 
-/* ✅ FIX: requestAnimationFrame untuk scroll yang lebih smooth */
 function scrollBottom() {
   const b = document.getElementById('chat-box');
   requestAnimationFrame(function() { b.scrollTop = b.scrollHeight; });
-}
-
-/* ===== CLEAR ===== */
-function clearChat() {
-  if (!confirm('Hapus semua riwayat chat?')) return;
-  chatMsgs = [];
-  localStorage.removeItem(STORAGE_KEY);
-  renderAll();
 }
 
 /* ===== CHIP ===== */
