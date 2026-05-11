@@ -354,7 +354,7 @@
                         </span>
                     </div>
                     <div class="uname">{{ $user->name }}</div>
-                    <div class="uhandle">@{{ $user->username }}</div>
+                    <div class="uhandle">{{ '@' . $user->username }}</div>
 
                     @if($user->show_on_leaderboard && $rankPosition)
                         <div class="rank-pill gold">

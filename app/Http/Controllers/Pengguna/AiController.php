@@ -74,7 +74,7 @@ class AiController extends Controller
         {$dataUser}
         ";
 
-        $response = Http::withHeaders([
+        $response = Http::withoutVerifying()->withHeaders([
             "Authorization" => "Bearer " . env('OPENROUTER_API_KEY'),
             "HTTP-Referer"  => "https://nexfi.pplgsmkn1ciomas.my.id",
             "X-Title"       => "NEXFI"
